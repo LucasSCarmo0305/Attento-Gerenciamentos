@@ -51,7 +51,7 @@
                     <div class="admin">
                         <div class="avatar">AD</div>
                         <div class="admin-text" style="margin-right: 15px;">
-                            <strong>Administrador</strong>
+                            <strong>Perfil</strong>
                             <span>Gestor</span>
                         </div>
                         <a href="login.html" class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">Sair</a>
@@ -75,7 +75,7 @@
                     <div class="summary-card faturado">
                      
                         <div>
-                            <div class="value" id="dash-faturamento">R$ 0,00</div>
+                            <div class="value" id="dash-faturamento"></div>
                             <div class="label">Faturamento Diário</div>
                             <div class="sub">Total de entradas hoje</div>
                         </div>
@@ -124,62 +124,7 @@
         </div>
     </div>
 
-    <script>
-      
-        const darkToggle = document.getElementById('darkToggle');
-        darkToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-preview');
-            darkToggle.textContent = document.body.classList.contains('dark-preview') ? '☀️' : '🌙';
-        });
 
-      
-        function carregarDados() {
-            
-            const reservas = JSON.parse(localStorage.getItem('attento_reservas')) || [];
-            const faturamento = parseFloat(localStorage.getItem('attento_faturamento')) || 0;
-            const itens = parseInt(localStorage.getItem('attento_itens')) || 0;
-
-         
-            document.getElementById('dash-salas').textContent = reservas.length;
-            document.getElementById('dash-faturamento').textContent = `R$ ${faturamento.toFixed(2).replace('.', ',')}`;
-            document.getElementById('dash-itens').textContent = itens;
-
-        
-            const tbody = document.getElementById('tabela-reservas');
-            tbody.innerHTML = ''; 
-            if (reservas.length === 0) {
-       
-                tbody.innerHTML = `<tr class="empty-row"><td colspan="5">Nenhuma reserva encontrada para hoje. Vá em "Salas" para adicionar.</td></tr>`;
-                return;
-            }
-
-            reservas.forEach(res => {
-                const tr = document.createElement('tr');
-                
-                
-                const statusClasse = res.status ? res.status.toLowerCase() : 'pendente';
-
-                tr.innerHTML = `
-                    <td>
-                        <div class="prof-cell">
-                            <div class="prof-avatar" style="background: var(--blue-600);">${res.iniciais || '👤'}</div>
-                            <div>
-                                <div class="prof-name">${res.nome || 'Profissional'}</div>
-                                <div class="prof-spec">${res.especialidade || '-'}</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td><span class="badge locacao">${res.sala || '-'}</span></td>
-                    <td class="desc">${res.horario || '-'}</td>
-                    <td><span class="status ${statusClasse}">${res.status || 'Pendente'}</span></td>
-                    <td class="valor">R$ ${parseFloat(res.valor || 0).toFixed(2).replace('.', ',')}</td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-       
-        document.addEventListener('DOMContentLoaded', carregarDados);
-    </script>
+    <script src="/Assets/Javascrypt/Financeiro.js"></script>
 </body>
 </html>

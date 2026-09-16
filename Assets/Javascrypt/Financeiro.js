@@ -4,13 +4,11 @@ let accounts = JSON.parse(localStorage.getItem('financeiro_data')) || [];
 
 const currency = v => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-
 function getInitials(name) {
   const parts = name.trim().split(' ');
   if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
   return (parts[0][0] + (parts[0][1] || '')).toUpperCase();
 }
-
 
 function colorFor(initials) {
   let h = 0;
@@ -18,7 +16,7 @@ function colorFor(initials) {
   return colors[h % colors.length];
 }
 
-// Atualiza cards de totalizador
+
 function updateSummary() {
   const total = accounts.reduce((acc, curr) => acc + Number(curr.valor), 0);
   const recebido = accounts.filter(a => a.status === 'pago').reduce((acc, curr) => acc + Number(curr.valor), 0);
@@ -62,7 +60,7 @@ function renderTable(filter) {
   }).join('');
 }
 
-// Excluir registro
+
 window.deleteAccount = function(index) {
   if (confirm("Tem certeza que deseja excluir este registro?")) {
     accounts.splice(index, 1);
