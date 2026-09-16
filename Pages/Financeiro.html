@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attento · Financeiro</title>
+
+  <link rel="stylesheet" href="/Assets/Css/Financeiro.css">
+  <link rel="stylesheet" href="/Assets/Css/index.css">
+  <link rel="stylesheet" href="/Assets/Css/sidebar.css">
+  
+</head>
+<body>
+<div class="app">
+
+       <aside class="sidebar">
+            <div class="brand">
+             
+                <div class="brand-text">
+                    <h1>Attento</h1>
+                    <p>SAÚDE INTEGRAL</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <nav class="sidebar-nav">
+
+  <a href="index.html" class="nav-item"><span class="ic">▦</span>Início</a>
+  
+  <a href="salas.html" class="nav-item"><span class="ic">🗓</span>Salas</a>
+  
+
+  <a href="financeiro.html" class="nav-item"><span class="ic">$</span>Financeiro</a>
+  
+  <a href="conveniencias.html" class="nav-item"><span class="ic">🛡</span>Conveniências</a>
+</nav>
+            </nav>
+        </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div>
+        <h2>Financeiro</h2>
+        <p>Contas, recebimentos e relatórios</p>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" title="Modo escuro" id="darkToggle">🌙</button>
+        <div class="admin">
+          <div class="avatar">AD</div>
+          <div class="admin-text" style="margin-right: 15px;">
+            <strong>Administrador</strong>
+            <span>Gestor</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="cards-row">
+        <div class="summary-card faturado">
+          <div>
+            <div class="value" id="totalFaturado">R$ 0,00</div>
+            <div class="label">Total faturado</div>
+          </div>
+        </div>
+        <div class="summary-card recebido">
+          <div>
+            <div class="value" id="totalRecebido">R$ 0,00</div>
+            <div class="label">Recebido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <div class="actions">
+          <button class="btn btn-outline" id="exportBtn">⬇ Exportar CSV</button>
+          <button class="btn btn-primary" id="addBtn">+ Adicionar conta</button>
+        </div>
+      </div>
+
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-filter="todos">Todos</button>
+        <button class="tab" data-filter="pendente">Pendentes</button>
+        <button class="tab" data-filter="vencido">Vencidos</button>
+        <button class="tab" data-filter="pago">Pagos</button>
+      </div>
+
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Profissional</th>
+              <th>Descrição</th>
+              <th>Categoria</th>
+              <th>Valor</th>
+              <th>Status</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="addModal" class="modal-overlay">
+  <div class="modal-content">
+    <h3>Nova Conta</h3>
+    <form id="addForm">
+      <input type="text" id="nomeProfissional" placeholder="Nome do Profissional" required>
+      <input type="text" id="especialidade" placeholder="Especialidade (ex: Psicologia)" required>
+      <input type="text" id="descricao" placeholder="Descrição" required>
+      <select id="categoria" required>
+        <option value="locacao">Locação</option>
+        <option value="convenio">Convênio</option>
+      </select>
+      <input type="number" id="valor" placeholder="Valor (R$)" step="0.01" required>
+      <select id="status" required>
+        <option value="pendente">Pendente</option>
+        <option value="pago">Pago</option>
+        <option value="vencido">Vencido</option>
+      </select>
+      <div class="modal-actions">
+        <button type="button" id="closeModal" class="btn btn-outline">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/Assets/Javascrypt/Financeiro.js"></script>
+</body>
+</html>

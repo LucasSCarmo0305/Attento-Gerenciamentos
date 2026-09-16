@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attento · Grade de Salas</title>
+<link rel="stylesheet" href="/Assets/Css/salas.css">
+<link rel="stylesheet" href="/Assets/Css/sidebar.css">
+<link rel="stylesheet" href="/Assets/Css/index.css">
+</head>
+<body>
+<div class="app">
+
+  <div class="app">
+ 
+  <aside class="sidebar">
+    <div class="brand">
+   
+      <div class="brand-text">
+        <h1>Attento</h1>
+        <p>SAÚDE INTEGRAL</p>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+<nav class="sidebar-nav">
+ 
+  <a href="index.html" class="nav-item"><span class="ic">▦</span>Início</a>
+  
+  <a href="salas.html" class="nav-item"><span class="ic">🗓</span>Salas</a>
+  
+  <a href="financeiro.html" class="nav-item"><span class="ic">$</span>Financeiro</a>
+  
+  <a href="conveniencias.html" class="nav-item"><span class="ic">🛡</span>Conveniências</a>
+</nav>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div>
+        <h2>Grade de Salas</h2>
+        <p>Disponibilidade e alocação por turno</p>
+      </div>
+      <div class="topbar-right">
+        
+        <button class="icon-btn" title="Modo escuro" id="darkToggle">🌙</button>
+        <div class="admin">
+                        <div class="avatar">AD</div>
+                        <div class="admin-text" style="margin-right: 15px;">
+                            <strong>Administrador</strong>
+                            <span>Gestor</span>
+                        </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <div class="controls-row">
+        <div class="unit-tabs" id="unitTabs">
+          <button class="unit-tab active" data-unit="europa">Attento Europa</button>
+          <button class="unit-tab" data-unit="horizonte">Attento Horizonte</button>
+        </div>
+
+        <div class="month-select">
+          <select id="monthSelect">
+            <option>Setembro 2026</option>
+            <option>Agosto 2026</option>
+            <option>Julho 2026</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="counters-row">
+        <div class="counter-pill ocupado">
+          <span class="dot-ind"></span>
+          <span id="countOcupados">0</span> Ocupados
+        </div>
+        <div class="counter-pill disponivel">
+          <span class="dot-ind"></span>
+          <span id="countDisponiveis">0</span> Disponíveis
+        </div>
+        <div class="counter-pill pendente">
+          <span class="dot-ind"></span>
+          <span id="countPendentes">0</span> Pendentes
+        </div>
+      </div>
+
+     
+      <div class="table-card">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-sala">Sala</th>
+                <th>Seg</th>
+                <th>Ter</th>
+                <th>Qua</th>
+                <th>Qui</th>
+                <th>Sex</th>
+                <th>Sáb</th>
+              </tr>
+            </thead>
+            <tbody id="gridBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="legend-row">
+        <div class="legend-item"><span class="swatch ocupado"></span>Ocupado</div>
+        <div class="legend-item"><span class="swatch pendente"></span>Pendente confirmação</div>
+        <div class="legend-item"><span class="swatch disponivel"></span>Disponível</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Horário</h3>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+
+    <div class="modal-info" id="modalInfo"></div>
+
+    <form id="allocateForm" class="hidden">
+      <div class="field">
+        <label for="f-prof">Profissional</label>
+        <select id="f-prof" required>
+          <option value="" disabled selected>Selecione um profissional</option>
+        </select>
+      </div>
+
+      <label class="checkbox-field">
+        <input type="checkbox" id="f-pendente">
+        Aguardar confirmação do profissional (marcar como pendente)
+      </label>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" id="cancelAllocate">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Confirmar alocação</button>
+      </div>
+    </form>
+    <div class="modal-footer" id="modalActions"></div>
+  </div>
+</div>
+<script src="/Assets/Javascrypt/salas.js"></script>
+</body>
+</html>

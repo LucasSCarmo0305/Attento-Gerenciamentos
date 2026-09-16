@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Attento</title>
+    <link rel="stylesheet" href="../assets/css/Cadastro.css">  
+    </style>
+</head>
+<body>
+
+    <main>
+        <div class="tabela-cadastro">
+            <h1>Criar Conta</h1>
+            <form id="registerForm">
+                <div class="form-Usuario">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" autocomplete="email" placeholder="seu@email.com" required>
+                </div>
+
+                <div class="form-Password">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" autocomplete="new-password" placeholder="••••••••" required>
+                </div>
+
+                <div class="form-Password">
+                    <label for="confirmPassword">Confirmar Senha</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit">Cadastrar</button>
+            </form>
+
+            <div class="login-link">
+                <p>Já possui uma conta? <a href="login.html">Faça login</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Attento. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="/Assets/Javascrypt/Cadastro.js"></script>
+    <script>
+        
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            cadastrar();
+        });
+    </script>
+</body>
+</html>
