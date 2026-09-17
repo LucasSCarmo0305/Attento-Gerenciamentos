@@ -1,152 +1,193 @@
-const colors = ['#7c8ff0', '#f2a65a', '#3fbf8f', '#e8707d', '#a68cf0', '#f06d9a', '#4fc3d9', '#f0a94f'];
+const CORES = ['#7c8ff0', '#f2a65a', '#3fbf8f', '#e8707d', '#a68cf0', '#f06d9a', '#4fc3d9', '#f0a94f'];
 
-let accounts = JSON.parse(localStorage.getItem('financeiro_data')) || [];
+let contas = JSON.parse(localStorage.getItem('financeiro_data')) || [];
 
-const currency = v => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const formatarMoeda = (valor) => 
+  Number(valor || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-function getInitials(name) {
-  const parts = name.trim().split(' ');
-  if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-  return (parts[0][0] + (parts[0][1] || '')).toUpperCase();
+function obterIniciais(nome) {
+  if (!nome) return '';
+  const partes = nome.trim().split(' ');
+  if (partes.length >= 2) {
+    return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
+  }
+  return (partes[0][0] + (partes[0][1] || '')).toUpperCase();
 }
 
-function colorFor(initials) {
-  let h = 0;
-  for (const c of initials) h += c.charCodeAt(0);
-  return colors[h % colors.length];
+function obterCorPorIniciais(iniciais) {
+  if (!iniciais) return CORES[0];
+  let codigo = 0;
+  for (const caractere of iniciais) {
+    codigo += caractere.charCodeAt(0);
+  }
+  return CORES[codigo % CORES.length];
 }
 
+function atualizarSumario() {
+  const total = contas.reduce((acc, c) => acc + Number(c.valor || 0), 0);
+  const recebido = contas
+    .filter((c) => c.status === 'pago')
+    .reduce((acc, c) => acc + Number(c.valor || 0), 0);
 
-function updateSummary() {
-  const total = accounts.reduce((acc, curr) => acc + Number(curr.valor), 0);
-  const recebido = accounts.filter(a => a.status === 'pago').reduce((acc, curr) => acc + Number(curr.valor), 0);
+  const elTotal = document.getElementById('totalFaturado');
+  const elRecebido = document.getElementById('totalRecebido');
 
-  document.getElementById('totalFaturado').innerText = currency(total);
-  document.getElementById('totalRecebido').innerText = currency(recebido);
+  if (elTotal) elTotal.innerText = formatarMoeda(total);
+  if (elRecebido) elRecebido.innerText = formatarMoeda(recebido);
 }
 
-// Renderiza a tabela de acordo com o filtro ativo
-function renderTable(filter) {
-  const body = document.getElementById('tableBody');
-  const rows = accounts.filter(a => filter === 'todos' || a.status === filter);
+function carregarTabela(filtro = 'todos') {
+  const corpoTabela = document.getElementById('corpoTabela');
+  if (!corpoTabela) return;
 
-  if (!rows.length) {
-    body.innerHTML = `<tr class="empty-row"><td colspan="6" style="text-align: center; padding: 20px;">Nenhuma conta encontrada.</td></tr>`;
+  const contasFiltradas = contas.filter((c) => filtro === 'todos' || c.status === filtro);
+
+  if (!contasFiltradas.length) {
+    corpoTabela.innerHTML = `<tr class="empty-row"><td colspan="6">Nenhuma conta encontrada.</td></tr>`;
     return;
   }
 
-  body.innerHTML = rows.map((a) => {
-
-    const realIndex = accounts.indexOf(a);
+  // Filtras as contas (Parte feito por IA) e mapeia para o HTML da tabela
+  corpoTabela.innerHTML = contasFiltradas.map((c) => {
+    const indiceReal = contas.indexOf(c);
+    const nome = c.nome || c.name || '';
+    const iniciais = c.iniciais || c.initials || obterIniciais(nome);
+    const especialidade = c.especialidade || c.spec || '';
+    const descricao = c.descricao || c.desc || '';
+    const categoria = c.categoria || c.cat || '';
+    const status = c.status || 'pendente';
+    const valor = c.valor || 0;
 
     return `
       <tr>
         <td>
-          <div class="prof-cell" style="display:flex; align-items:center; gap:10px;">
-            <div class="prof-avatar" style="background:${colorFor(a.initials)}; width:35px; height:35px; display:flex; align-items:center; justify-content:center; border-radius:50%; color:white; font-weight:bold;">${a.initials}</div>
+          <div class="prof-cell">
+            <div class="prof-avatar" style="background:${obterCorPorIniciais(iniciais)};">${iniciais}</div>
             <div>
-              <div class="prof-name" style="font-weight:bold;">${a.name}</div>
-              <div class="prof-spec" style="font-size:12px; color:#888;">${a.spec}</div>
+              <div class="prof-name">${nome}</div>
+              <div class="prof-spec">${especialidade}</div>
             </div>
           </div>
         </td>
-        <td class="desc">${a.desc}</td>
-        <td><span class="badge ${a.cat}" style="padding:4px 8px; border-radius:4px; background:#eee; font-size:12px;">${a.cat === 'locacao' ? 'Locação' : 'Convênio'}</span></td>
-        <td class="valor">${currency(a.valor)}</td>
-        <td><span class="status ${a.status}" style="padding:4px 8px; border-radius:4px; font-size:12px; font-weight:bold; ${a.status === 'pago' ? 'color:green;' : a.status === 'pendente' ? 'color:orange;' : 'color:red;'}">${a.status.charAt(0).toUpperCase() + a.status.slice(1)}</span></td>
-        <td><button onclick="deleteAccount(${realIndex})" style="background:transparent; border:none; color:red; cursor:pointer;" title="Excluir">🗑️</button></td>
+        <td class="desc">${descricao}</td>
+        <td>
+          <span class="badge ${categoria}">
+            ${categoria === 'locacao' ? 'Locação' : 'Convênio'}
+          </span>
+        </td>
+        <td class="valor">${formatarMoeda(valor)}</td>
+        <td>
+          <span class="status ${status}">
+            ${status.charAt(0).toUpperCase() + status.slice(1)}
+          </span>
+        </td>
+        <td>
+          <button onclick="excluirConta(${indiceReal})" style="background:transparent; border:none; cursor:pointer;" title="Excluir">🗑️</button>
+        </td>
       </tr>
     `;
   }).join('');
 }
 
-
-window.deleteAccount = function(index) {
-  if (confirm("Tem certeza que deseja excluir este registro?")) {
-    accounts.splice(index, 1);
-    saveAndRender();
+window.excluirConta = function (indice) {
+  if (confirm('Tem certeza que deseja excluir este registro?')) {
+    contas.splice(indice, 1);
+    salvarEAtualizarVisual();
   }
 };
 
-// Salva e atualiza visual
-function saveAndRender() {
-  localStorage.setItem('financeiro_data', JSON.stringify(accounts));
-  updateSummary();
-  const activeTab = document.querySelector('.tab.active');
-  const activeFilter = activeTab ? activeTab.dataset.filter : 'todos';
-  renderTable(activeFilter);
+function salvarEAtualizarVisual() {
+  localStorage.setItem('financeiro_data', JSON.stringify(contas));
+  atualizarSumario();
+  const abaAtiva = document.querySelector('.tab.active');
+  const filtroAtivo = abaAtiva ? abaAtiva.dataset.filter : 'todos';
+  carregarTabela(filtroAtivo);
 }
 
-// Filtro pelas abas 
-document.getElementById('tabs').addEventListener('click', e => {
-  const btn = e.target.closest('.tab');
-  if (!btn) return;
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  renderTable(btn.dataset.filter);
+document.addEventListener('DOMContentLoaded', () => {
+  const abasFiltro = document.getElementById('abasFiltro');
+  if (abasFiltro) {
+    abasFiltro.addEventListener('click', (evento) => {
+      const botaoAba = evento.target.closest('.tab');
+      if (!botaoAba) return;
+      document.querySelectorAll('.tab').forEach((tab) => tab.classList.remove('active'));
+      botaoAba.classList.add('active');
+      carregarTabela(botaoAba.dataset.filter);
+    });
+  }
+
+  const botaoExportar = document.getElementById('botaoExportar');
+  if (botaoExportar) {
+    botaoExportar.addEventListener('click', () => {
+      if (!contas.length) return alert('Nenhum dado para exportar.');
+      const cabecalho = 'Profissional,Especialidade,Descrição,Categoria,Valor,Status\n';
+      const linhas = contas.map((c) => {
+        const nome = c.nome || c.name || '';
+        const especialidade = c.especialidade || c.spec || '';
+        const descricao = c.descricao || c.desc || '';
+        const categoria = c.categoria || c.cat || '';
+        return `"${nome}","${especialidade}","${descricao}","${categoria === 'locacao' ? 'Locação' : 'Convênio'}",${c.valor},"${c.status}"`;
+      }).join('\n');
+
+      const arquivoBlob = new Blob([cabecalho + linhas], { type: 'text/csv;charset=utf-8;' });
+      const urlLink = URL.createObjectURL(arquivoBlob);
+      const elementoLink = document.createElement('a');
+      elementoLink.href = urlLink;
+      elementoLink.download = 'financeiro.csv';
+      elementoLink.click();
+      URL.revokeObjectURL(urlLink);
+    });
+  }
+
+  const modalAdicionar = document.getElementById('modalAdicionar');
+  const formularioAdicionar = document.getElementById('formularioAdicionar');
+  const botaoAdicionar = document.getElementById('botaoAdicionar');
+  const botaoFecharModal = document.getElementById('botaoFecharModal');
+
+  if (botaoAdicionar && modalAdicionar) {
+    botaoAdicionar.addEventListener('click', () => {
+      modalAdicionar.style.display = 'flex';
+    });
+  }
+
+  if (botaoFecharModal && modalAdicionar && formularioAdicionar) {
+    botaoFecharModal.addEventListener('click', () => {
+      modalAdicionar.style.display = 'none';
+      formularioAdicionar.reset();
+    });
+  }
+
+  if (formularioAdicionar) {
+    formularioAdicionar.addEventListener('submit', (evento) => {
+      evento.preventDefault();
+      const nomeProfissional = document.getElementById('nomeProfissional').value;
+
+      const novaConta = {
+        iniciais: obterIniciais(nomeProfissional),
+        nome: nomeProfissional,
+        especialidade: document.getElementById('especialidade').value,
+        descricao: document.getElementById('descricao').value,
+        categoria: document.getElementById('categoria').value,
+        valor: parseFloat(document.getElementById('valor').value),
+        status: document.getElementById('status').value
+      };
+
+      contas.push(novaConta);
+      salvarEAtualizarVisual();
+
+      modalAdicionar.style.display = 'none';
+      formularioAdicionar.reset();
+    });
+  }
+
+  const alternarModoEscuro = document.getElementById('alternarModoEscuro');
+  if (alternarModoEscuro) {
+    alternarModoEscuro.addEventListener('click', () => {
+      document.body.classList.toggle('dark-preview');
+      alternarModoEscuro.textContent = document.body.classList.contains('dark-preview') ? '☀️' : '🌙';
+    });
+  }
+
+  atualizarSumario();
+  carregarTabela('todos');
 });
-
-// Exportar CSV
-document.getElementById('exportBtn').addEventListener('click', () => {
-  if (!accounts.length) return alert('Nenhum dado para exportar.');
-  
-  const header = 'Profissional,Especialidade,Descrição,Categoria,Valor,Status\n';
-  const rows = accounts.map(a =>
-    `"${a.name}","${a.spec}","${a.desc}","${a.cat === 'locacao' ? 'Locação' : 'Convênio'}",${a.valor},"${a.status}"`
-  ).join('\n');
-
-  const blob = new Blob([header + rows], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'financeiro.csv';
-  link.click();
-  URL.revokeObjectURL(url);
-});
-
-
-const addModal = document.getElementById('addModal');
-const addForm = document.getElementById('addForm');
-
-document.getElementById('addBtn').addEventListener('click', () => {
-  addModal.style.display = 'flex';
-});
-
-document.getElementById('closeModal').addEventListener('click', () => {
-  addModal.style.display = 'none';
-  addForm.reset();
-});
-
-
-addForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  const nome = document.getElementById('nomeProfissional').value;
-
-  const novaConta = {
-    initials: getInitials(nome),
-    name: nome,
-    spec: document.getElementById('especialidade').value,
-    desc: document.getElementById('descricao').value,
-    cat: document.getElementById('categoria').value,
-    valor: parseFloat(document.getElementById('valor').value),
-    status: document.getElementById('status').value
-  };
-
-  accounts.push(novaConta);
-  saveAndRender();
-
-  addModal.style.display = 'none';
-  addForm.reset();
-});
-
-
-const darkToggle = document.getElementById('darkToggle');
-darkToggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark-preview');
-  darkToggle.textContent = document.body.classList.contains('dark-preview') ? '☀️' : '🌙';
-});
-
-
-updateSummary();
-renderTable('todos');

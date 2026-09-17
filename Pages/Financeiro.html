@@ -8,11 +8,10 @@
   <link rel="stylesheet" href="/Assets/Css/Financeiro.css">
   <link rel="stylesheet" href="/Assets/Css/index.css">
   <link rel="stylesheet" href="/Assets/Css/sidebar.css">
-  
 </head>
 <body>
-<div class="app">
 
+<div class="app">
        <aside class="sidebar">
             <div class="brand">
              
@@ -43,14 +42,12 @@
         <p>Contas, recebimentos e relatórios</p>
       </div>
       <div class="topbar-right">
-        <button class="icon-btn" title="Modo escuro" id="darkToggle">🌙</button>
-        <div class="admin">
-         
-        </div>
+        <button class="icon-btn" title="Modo escuro" id="alternarModoEscuro">🌙</button>
       </div>
     </header>
 
     <div class="content">
+
       <div class="cards-row">
         <div class="summary-card faturado">
           <div>
@@ -68,12 +65,12 @@
 
       <div class="controls-row">
         <div class="actions">
-          <button class="btn btn-outline" id="exportBtn">⬇ Exportar CSV</button>
-          <button class="btn btn-primary" id="addBtn">+ Adicionar conta</button>
+          <button class="btn btn-outline" id="botaoExportar">⬇ Exportar CSV</button>
+          <button class="btn btn-primary" id="botaoAdicionar">+ Adicionar conta</button>
         </div>
       </div>
 
-      <div class="tabs" id="tabs">
+      <div class="tabs" id="abasFiltro">
         <button class="tab active" data-filter="todos">Todos</button>
         <button class="tab" data-filter="pendente">Pendentes</button>
         <button class="tab" data-filter="vencido">Vencidos</button>
@@ -92,32 +89,36 @@
               <th>Ação</th>
             </tr>
           </thead>
-          <tbody id="tableBody"></tbody>
+          <tbody id="corpoTabela"></tbody>
         </table>
       </div>
     </div>
   </div>
 </div>
 
-<div id="addModal" class="modal-overlay">
+<div id="modalAdicionar" class="modal-overlay">
   <div class="modal-content">
     <h3>Nova Conta</h3>
-    <form id="addForm">
+    <form id="formularioAdicionar">
       <input type="text" id="nomeProfissional" placeholder="Nome do Profissional" required>
       <input type="text" id="especialidade" placeholder="Especialidade (ex: Psicologia)" required>
       <input type="text" id="descricao" placeholder="Descrição" required>
+      
       <select id="categoria" required>
         <option value="locacao">Locação</option>
         <option value="convenio">Convênio</option>
       </select>
-      <input type="number" id="valor" placeholder="Valor (R$)" step="0.01" required>
+      
+      <input type="number" id="valor" placeholder="Valor (R$)" step="0.01" min="0" required>
+      
       <select id="status" required>
         <option value="pendente">Pendente</option>
         <option value="pago">Pago</option>
         <option value="vencido">Vencido</option>
       </select>
+      
       <div class="modal-actions">
-        <button type="button" id="closeModal" class="btn btn-outline">Cancelar</button>
+        <button type="button" id="botaoFecharModal" class="btn btn-outline">Cancelar</button>
         <button type="submit" class="btn btn-primary">Salvar</button>
       </div>
     </form>
