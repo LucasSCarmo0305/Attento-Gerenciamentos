@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attento · Conveniências</title>
+<link rel="stylesheet" href="/Assets/Css/conveniencias.css">
+<link rel="stylesheet" href="/Assets/Css/index.css">
+<link rel="stylesheet" href="/Assets/Css/sidebar.css">
+
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-text">
+        <h1>Attento</h1>
+        <p>SAÚDE INTEGRAL</p>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+                <nav class="sidebar-nav">
+
+    <a href="index.html" class="nav-item"><span class="ic">▦</span>Início</a>
+  
+    <a href="salas.html" class="nav-item"><span class="ic">🗓</span>Salas</a>
+  
+
+    <a href="financeiro.html" class="nav-item"><span class="ic">$</span>Financeiro</a>
+  
+    <a href="conveniencias.html" class="nav-item"><span class="ic">🛡</span>Conveniências</a>
+</nav>
+  </aside>
+
+  <div class="main">
+
+    <header class="topbar">
+      <div>
+        <h2>Conveniências</h2>
+        <p>Café, água, impressão e consumíveis</p>
+      </div>
+      <div class="topbar-right">
+        
+        <button class="icon-btn" title="Modo escuro" id="alternarModoEscuro">🌙</button>
+      </div>
+    </header>
+
+    <div class="content">
+
+
+      <div class="cards-row">
+        <div class="summary-card total">
+          <div class="icon">📋</div>
+          <div>
+            <div class="value" id="sumTotal">R$ 0,00</div>
+            <div class="label">Total consumido</div>
+            <div class="sub">Setembro</div>
+          </div>
+        </div>
+        <div class="summary-card quitado">
+          <div class="icon">✅</div>
+          <div>
+            <div class="value" id="sumQuitado">R$ 0,00</div>
+            <div class="label">Quitado</div>
+            <div class="sub">Pagamentos confirmados</div>
+          </div>
+        </div>
+        <div class="summary-card aquitar">
+          <div class="icon">⏳</div>
+          <div>
+            <div class="value" id="sumAquitar">R$ 0,00</div>
+            <div class="label">A quitar</div>
+            <div class="sub">Pendente de pagamento</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters-row">
+        <div class="select-wrap">
+          <select id="fMonth">
+            <option>Setembro 2026</option>
+  
+          </select>
+        </div>
+        <div class="select-wrap">
+          <select id="fCategoria">
+            <option value="todas">Todas categorias</option>
+          </select>
+        </div>
+        <div class="select-wrap">
+          <select id="fProfissional">
+            <option value="todos">Todos profissionais</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="board" id="board"></div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal: adicionar consumo -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Adicionar consumo</h3>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+
+    <form id="addForm">
+      <div class="field">
+        <label for="f-prof">Profissional</label>
+        <select id="f-prof" required></select>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-qtd">Quantidade</label>
+          <input type="number" id="f-qtd" min="1" value="1" required>
+        </div>
+        <div class="field">
+          <label for="f-data">Data</label>
+          <input type="date" id="f-data" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f-valor">Valor (R$)</label>
+        <input type="number" id="f-valor" step="0.01" min="0" required>
+        <div class="field-hint" id="f-valor-hint"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" id="cancelAdd">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/Assets/Javascrypt/conveniencias.js"></script>
+</body>
+</html>

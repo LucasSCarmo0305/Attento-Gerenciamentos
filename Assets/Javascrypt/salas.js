@@ -1,10 +1,12 @@
-// ---------- Configuração ----------
+
 const days = ['SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
 const dayLabels = { SEG:'Segunda-feira', TER:'Terça-feira', QUA:'Quarta-feira', QUI:'Quinta-feira', SEX:'Sexta-feira', SAB:'Sábado' };
 const turnos = ['M', 'T', 'N'];
 const turnoLabels = { M:'Manhã', T:'Tarde', N:'Noite' };
+const turnoHorarios = { M:'08-13h', T:'14-17h', N:'18-21h' };
 
-const professionals = [
+
+const profissionais = [
   'Dra. Camila Ferreira',
   'Dr. Rafael Souza',
   'Dra. Luana Martins',
@@ -25,46 +27,46 @@ const unitsData = {
     label: 'Attento Europa',
     rooms: [
       {
-        id:'onda', name:'Sala Onda', code:'Sala 01', size:'18m²', price:280,
+        id:'onda', name:'Sala Onda', code:'Sala 01', size:'18m²', prices:{ M:300, T:330, N:300 },
         slots:{
-          SEG:{ M:slot('ocupado','Dra. Camila Ferreira'), T:livre(), N:livre() },
-          TER:{ M:slot('ocupado','Dra. Camila Ferreira'), T:livre(), N:livre() },
-          QUA:{ M:slot('ocupado','Dra. Camila Ferreira'), T:livre(), N:slot('pendente','Dr. Bruno Mendes') },
-          QUI:{ M:livre(), T:slot('ocupado','Dr. Rafael Souza'), N:livre() },
-          SEX:{ M:slot('ocupado','Dra. Camila Ferreira'), T:livre(), N:livre() },
-          SAB:{ M:livre(), T:livre(), N:livre() },
-        }
-      },
-      {
-        id:'areia', name:'Sala Areia', code:'Sala 02', size:'20m²', price:310,
-        slots:{
-          SEG:{ M:slot('ocupado','Dr. Henrique Costa'), T:slot('ocupado','Dr. Henrique Costa'), N:livre() },
-          TER:{ M:slot('ocupado','Dr. Bruno Mendes'), T:livre(), N:slot('ocupado','Dr. Bruno Mendes') },
-          QUA:{ M:slot('pendente','Dr. Henrique Costa'), T:slot('ocupado','Dr. Henrique Costa'), N:livre() },
-          QUI:{ M:slot('ocupado','Dr. Henrique Costa'), T:livre(), N:livre() },
-          SEX:{ M:slot('ocupado','Dr. Bruno Mendes'), T:livre(), N:livre() },
-          SAB:{ M:livre(), T:livre(), N:livre() },
-        }
-      },
-      {
-        id:'brisa', name:'Sala Brisa', code:'Sala 03', size:'22m²', price:330,
-        slots:{
-          SEG:{ M:slot('ocupado','Dr. Rafael Souza'), T:livre(), N:livre() },
-          TER:{ M:livre(), T:slot('ocupado','Dr. Rafael Souza'), N:livre() },
-          QUA:{ M:livre(), T:slot('ocupado','Dr. Rafael Souza'), N:slot('ocupado','Dr. Rafael Souza') },
-          QUI:{ M:livre(), T:slot('ocupado','Dr. Rafael Souza'), N:livre() },
+          SEG:{ M:livre(), T:livre(), N:livre() },
+          TER:{ M:livre(), T:livre(), N:livre() },
+          QUA:{ M:livre(), T:livre(), N:livre() },
+          QUI:{ M:livre(), T:livre(), N:livre() },
           SEX:{ M:livre(), T:livre(), N:livre() },
           SAB:{ M:livre(), T:livre(), N:livre() },
         }
       },
       {
-        id:'mar', name:'Sala Mar', code:'Sala 04', size:'25m²', price:380,
+        id:'areia', name:'Sala Areia', code:'Sala 02', size:'20m²', prices:{ M:300, T:330, N:300 },
         slots:{
-          SEG:{ M:slot('ocupado','Dr. Bruno Mendes'), T:slot('ocupado','Dr. Bruno Mendes'), N:slot('ocupado','Dr. Bruno Mendes') },
-          TER:{ M:livre(), T:livre(), N:slot('pendente','Dr. Henrique Costa') },
-          QUA:{ M:slot('ocupado','Dr. Bruno Mendes'), T:livre(), N:livre() },
+          SEG:{ M:livre(), T:livre(), N:livre() },
+          TER:{ M:livre(), T:livre(), N:livre() },
+          QUA:{ M:livre(), T:livre(), N:livre() },
           QUI:{ M:livre(), T:livre(), N:livre() },
-          SEX:{ M:slot('ocupado','Dr. Bruno Mendes'), T:slot('ocupado','Dr. Henrique Costa'), N:livre() },
+          SEX:{ M:livre(), T:livre(), N:livre() },
+          SAB:{ M:livre(), T:livre(), N:livre() },
+        }
+      },
+      {
+        id:'brisa', name:'Sala Brisa', code:'Sala 03', size:'22m²', prices:{ M:300, T:330, N:300 },
+        slots:{
+          SEG:{ M:livre(), T:livre(), N:livre() },
+          TER:{ M:livre(), T:livre(), N:livre() },
+          QUA:{ M:livre(), T:livre(), N:livre() },
+          QUI:{ M:livre(), T:livre(), N:livre() },
+          SEX:{ M:livre(), T:livre(), N:livre() },
+          SAB:{ M:livre(), T:livre(), N:livre() },
+        }
+      },
+      {
+        id:'mar', name:'Sala Mar', code:'Sala 04', size:'25m²', prices:{ M:300, T:330, N:300 },
+        slots:{
+          SEG:{ M:livre(), T:livre(), N:livre() },
+          TER:{ M:livre(), T:livre(), N:livre() },
+          QUA:{ M:livre(), T:livre(), N:livre() },
+          QUI:{ M:livre(), T:livre(), N:livre() },
+          SEX:{ M:livre(), T:livre(), N:livre() },
           SAB:{ M:livre(), T:livre(), N:livre() },
         }
       },
@@ -75,33 +77,44 @@ const unitsData = {
     label: 'Attento Horizonte',
     rooms: [
       {
-        id:'vento', name:'Sala Vento', code:'Sala 01', size:'16m²', price:260,
+        id:'vento', name:'Sala Vento', code:'Sala 01', size:'16m²', prices:{ M:300, T:330, N:300 },
         slots:{
-          SEG:{ M:slot('ocupado','Dra. Luana Martins'), T:livre(), N:livre() },
+          SEG:{ M:livre(), T:livre(), N:livre() },
           TER:{ M:livre(), T:livre(), N:livre() },
-          QUA:{ M:slot('pendente','Dra. Patrícia Alves'), T:livre(), N:livre() },
-          QUI:{ M:livre(), T:slot('ocupado','Dra. Luana Martins'), N:livre() },
+          QUA:{ M:livre(), T:livre(), N:livre() },
+          QUI:{ M:livre(), T:livre(), N:livre() },
           SEX:{ M:livre(), T:livre(), N:livre() },
           SAB:{ M:livre(), T:livre(), N:livre() },
         }
       },
       {
-        id:'terra', name:'Sala Terra', code:'Sala 02', size:'19m²', price:290,
+        id:'terra', name:'Sala Terra', code:'Sala 02', size:'19m²', prices:{ M:300, T:330, N:300 },
         slots:{
-          SEG:{ M:livre(), T:slot('ocupado','Dr. Lucas Oliveira'), N:livre() },
-          TER:{ M:slot('ocupado','Dr. Lucas Oliveira'), T:livre(), N:livre() },
+          SEG:{ M:livre(), T:livre(), N:livre() },
+          TER:{ M:livre(), T:livre(), N:livre() },
           QUA:{ M:livre(), T:livre(), N:livre() },
-          QUI:{ M:livre(), T:livre(), N:slot('pendente','Dra. Amanda Rocha') },
-          SEX:{ M:slot('ocupado','Dra. Amanda Rocha'), T:livre(), N:livre() },
+          QUI:{ M:livre(), T:livre(), N:livre() },
+          SEX:{ M:livre(), T:livre(), N:livre() },
           SAB:{ M:livre(), T:livre(), N:livre() },
         }
       },
       {
-        id:'lua', name:'Sala Lua', code:'Sala 03', size:'21m²', price:300,
+        id:'lua', name:'Sala Lua', code:'Sala 03', size:'21m²', prices:{ M:300, T:330, N:300 },
         slots:{
           SEG:{ M:livre(), T:livre(), N:livre() },
           TER:{ M:livre(), T:livre(), N:livre() },
-          QUA:{ M:livre(), T:slot('ocupado','Dra. Patrícia Alves'), N:livre() },
+          QUA:{ M:livre(), T:livre(), N:livre() },
+          QUI:{ M:livre(), T:livre(), N:livre() },
+          SEX:{ M:livre(), T:livre(), N:livre() },
+          SAB:{ M:livre(), T:livre(), N:livre() },
+        }
+      },
+      {
+        id:'costa', name:'Sala Costa', code:'Sala 04', size:'21m²', prices:{ M:300, T:330, N:300 },
+        slots:{
+          SEG:{ M:livre(), T:livre(), N:livre() },
+          TER:{ M:livre(), T:livre(), N:livre() },
+          QUA:{ M:livre(), T:livre(), N:livre() },
           QUI:{ M:livre(), T:livre(), N:livre() },
           SEX:{ M:livre(), T:livre(), N:livre() },
           SAB:{ M:livre(), T:livre(), N:livre() },
@@ -117,6 +130,15 @@ let selectedSlotRef = null;
 const currency = v => v.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
 
 
+function renderPriceTags(room){
+  return turnos.map(t => `
+    <div class="price-tag ${t.toLowerCase()}">
+      <span class="price-turno">${turnoLabels[t].toUpperCase()}</span>
+      <span class="price-value">${currency(room.prices[t])}</span>
+    </div>
+  `).join('');
+}
+
 function renderGrid(){
   const unit = unitsData[currentUnit];
   const body = document.getElementById('gridBody');
@@ -127,7 +149,7 @@ function renderGrid(){
         <div class="room-info">
           <div class="room-name">${room.name}</div>
           <div class="room-meta">${room.code} · ${room.size}</div>
-          <div class="room-price">${currency(room.price)}/turno</div>
+          <div class="room-prices">${renderPriceTags(room)}</div>
         </div>
       </td>
       ${days.map(day => `
@@ -150,7 +172,7 @@ function renderSlot(roomId, day, turno){
   if (s.status === 'livre'){
     return `
       <div class="slot livre" data-room="${roomId}" data-day="${day}" data-turno="${turno}">
-        <span class="turno-label">${turno}</span>
+        <span class="turno-label">${turno} · ${turnoHorarios[turno]}</span>
         <span class="slot-name">Livre</span>
       </div>
     `;
@@ -158,7 +180,7 @@ function renderSlot(roomId, day, turno){
 
   return `
     <div class="slot ${s.status}" data-room="${roomId}" data-day="${day}" data-turno="${turno}">
-      <span class="turno-label">${turno}</span>
+      <span class="turno-label">${turno} · ${turnoHorarios[turno]}</span>
       <span class="slot-name">${s.prof}</span>
       ${s.status === 'pendente' ? '<span class="slot-sub">Pendente</span>' : ''}
     </div>
@@ -204,7 +226,7 @@ const allocateForm = document.getElementById('allocateForm');
 const profSelect = document.getElementById('f-prof');
 const pendenteCheckbox = document.getElementById('f-pendente');
 
-professionals.forEach(p => {
+profissionais.forEach(p => {
   const opt = document.createElement('option');
   opt.value = p;
   opt.textContent = p;

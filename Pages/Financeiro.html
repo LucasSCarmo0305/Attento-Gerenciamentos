@@ -61,6 +61,12 @@
             <div class="label">Recebido</div>
           </div>
         </div>
+        <div class="summary-card despesas">
+          <div>
+            <div class="value" id="totalDespesas">R$ 0,00</div>
+            <div class="label">Despesas</div>
+          </div>
+        </div>
       </div>
 
       <div class="controls-row">
@@ -81,10 +87,10 @@
         <table>
           <thead>
             <tr>
-              <th>Profissional</th>
               <th>Descrição</th>
               <th>Categoria</th>
               <th>Valor</th>
+              <th>Vencimento</th>
               <th>Status</th>
               <th>Ação</th>
             </tr>
@@ -100,16 +106,17 @@
   <div class="modal-content">
     <h3>Nova Conta</h3>
     <form id="formularioAdicionar">
-      <input type="text" id="nomeProfissional" placeholder="Nome do Profissional" required>
-      <input type="text" id="especialidade" placeholder="Especialidade (ex: Psicologia)" required>
       <input type="text" id="descricao" placeholder="Descrição" required>
       
       <select id="categoria" required>
         <option value="locacao">Locação</option>
-        <option value="convenio">Convênio</option>
+        <option value="convenio">Recebíveis</option>
+        <option value="outros">Despesa</option>
       </select>
       
       <input type="number" id="valor" placeholder="Valor (R$)" step="0.01" min="0" required>
+
+      <input type="date" id="vencimento" required>
       
       <select id="status" required>
         <option value="pendente">Pendente</option>

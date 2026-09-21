@@ -23,17 +23,30 @@ function obterCorPorIniciais(iniciais) {
   return CORES[codigo % CORES.length];
 }
 
+function formatarData(data) {
+  if (!data) return '-';
+  const [ano, mes, dia] = data.split('-');
+  return dia && mes && ano ? `${dia}/${mes}/${ano}` : data;
+}
+
 function atualizarSumario() {
   const total = contas.reduce((acc, c) => acc + Number(c.valor || 0), 0);
+  const despesas = contas
+    .filter((c) => (c.categoria || c.cat) === 'outros')
+    .reduce((acc, c) => acc + Number(c.valor || 0), 0);
   const recebido = contas
-    .filter((c) => c.status === 'pago')
+    .filter((c) => c.status === 'pago' && (c.categoria || c.cat) !== 'outros')
+    .reduce((acc, c) => acc + Number(c.valor || 0), 0) - contas
+    .filter((c) => c.status === 'pago' && (c.categoria || c.cat) === 'outros')
     .reduce((acc, c) => acc + Number(c.valor || 0), 0);
 
   const elTotal = document.getElementById('totalFaturado');
   const elRecebido = document.getElementById('totalRecebido');
+  const elDespesas = document.getElementById('totalDespesas');
 
   if (elTotal) elTotal.innerText = formatarMoeda(total);
   if (elRecebido) elRecebido.innerText = formatarMoeda(recebido);
+  if (elDespesas) elDespesas.innerText = formatarMoeda(despesas);
 }
 
 function carregarTabela(filtro = 'todos') {
@@ -47,47 +60,45 @@ function carregarTabela(filtro = 'todos') {
     return;
   }
 
-  // Filtras as contas (Parte feito por IA) e mapeia para o HTML da tabela
+  // Filtras as contas e mapeia para o HTML da tabela
   corpoTabela.innerHTML = contasFiltradas.map((c) => {
     const indiceReal = contas.indexOf(c);
-    const nome = c.nome || c.name || '';
-    const iniciais = c.iniciais || c.initials || obterIniciais(nome);
-    const especialidade = c.especialidade || c.spec || '';
     const descricao = c.descricao || c.desc || '';
     const categoria = c.categoria || c.cat || '';
     const status = c.status || 'pendente';
     const valor = c.valor || 0;
+    const vencimento = c.vencimento || '';
 
     return `
       <tr>
-        <td>
-          <div class="prof-cell">
-            <div class="prof-avatar" style="background:${obterCorPorIniciais(iniciais)};">${iniciais}</div>
-            <div>
-              <div class="prof-name">${nome}</div>
-              <div class="prof-spec">${especialidade}</div>
-            </div>
-          </div>
-        </td>
         <td class="desc">${descricao}</td>
         <td>
           <span class="badge ${categoria}">
-            ${categoria === 'locacao' ? 'Locação' : 'Convênio'}
+            ${categoria === 'locacao' ? 'Locação' : categoria === 'convenio' ? 'Convênio' : 'Despesa'}
           </span>
         </td>
         <td class="valor">${formatarMoeda(valor)}</td>
+        <td>${formatarData(vencimento)}</td>
         <td>
           <span class="status ${status}">
             ${status.charAt(0).toUpperCase() + status.slice(1)}
           </span>
         </td>
         <td>
+          ${status === 'pendente' ? `<button onclick="confirmarConta(${indiceReal})" style="background:transparent; border:none; cursor:pointer;" title="Confirmar pagamento">✅</button>` : ''}
           <button onclick="excluirConta(${indiceReal})" style="background:transparent; border:none; cursor:pointer;" title="Excluir">🗑️</button>
         </td>
       </tr>
     `;
   }).join('');
 }
+
+window.confirmarConta = function (indice) {
+  if (confirm('Confirmar o pagamento desta conta?')) {
+    contas[indice].status = 'pago';
+    salvarEAtualizarVisual();
+  }
+};
 
 window.excluirConta = function (indice) {
   if (confirm('Tem certeza que deseja excluir este registro?')) {
@@ -116,29 +127,67 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const botaoExportar = document.getElementById('botaoExportar');
+const botaoExportar = document.getElementById('botaoExportar');
   if (botaoExportar) {
     botaoExportar.addEventListener('click', () => {
       if (!contas.length) return alert('Nenhum dado para exportar.');
-      const cabecalho = 'Profissional,Especialidade,Descrição,Categoria,Valor,Status\n';
+
+      // 1. Instrução de separador do Excel
+      let csvContent = 'sep=;\n';
+
+      // 2. Cabeçalho das Colunas
+      csvContent += 'Descrição;Categoria;Valor (R$);Vencimento;Status\n';
+
+      // 3. Linhas de Dados
       const linhas = contas.map((c) => {
-        const nome = c.nome || c.name || '';
-        const especialidade = c.especialidade || c.spec || '';
-        const descricao = c.descricao || c.desc || '';
+        const descricao = (c.descricao || c.desc || '').replace(/"/g, '""');
         const categoria = c.categoria || c.cat || '';
-        return `"${nome}","${especialidade}","${descricao}","${categoria === 'locacao' ? 'Locação' : 'Convênio'}",${c.valor},"${c.status}"`;
+        const nomeCategoria = categoria === 'locacao' ? 'Locação' : categoria === 'convenio' ? 'Convênio' : 'Despesa';
+        
+        const valorFormatado = Number(c.valor || 0).toFixed(2).replace('.', ',');
+        const vencimento = formatarData(c.vencimento || '');
+        const status = c.status ? c.status.charAt(0).toUpperCase() + c.status.slice(1) : 'Pendente';
+
+        return `"${descricao}";"${nomeCategoria}";${valorFormatado};"${vencimento}";"${status}"`;
       }).join('\n');
 
-      const arquivoBlob = new Blob([cabecalho + linhas], { type: 'text/csv;charset=utf-8;' });
+      csvContent += linhas + '\n\n';
+
+      // 4. Totais e Resumo Financeiro
+      const totalFaturado = contas.reduce((acc, c) => acc + Number(c.valor || 0), 0);
+      const despesas = contas
+        .filter((c) => (c.categoria || c.cat) === 'outros')
+        .reduce((acc, c) => acc + Number(c.valor || 0), 0);
+      const recebido = contas
+        .filter((c) => c.status === 'pago' && (c.categoria || c.cat) !== 'outros')
+        .reduce((acc, c) => acc + Number(c.valor || 0), 0) - contas
+        .filter((c) => c.status === 'pago' && (c.categoria || c.cat) === 'outros')
+        .reduce((acc, c) => acc + Number(c.valor || 0), 0);
+
+      csvContent += `"-- RESUMO FINANCEIRO --";"";"";"";""\n`;
+      csvContent += `"Total Faturado";"";${totalFaturado.toFixed(2).replace('.', ',')};"";""\n`;
+      csvContent += `"Total Recebido";"";${recebido.toFixed(2).replace('.', ',')};"";""\n`;
+      csvContent += `"Total Despesas";"";${despesas.toFixed(2).replace('.', ',')};"";""\n`;
+
+      // 5.  Converte o texto para codificação ISO-8859-1 (Latin1/ANSI)
+      const buffer = new Uint8Array(csvContent.length);
+      for (let i = 0; i < csvContent.length; i++) {
+        buffer[i] = csvContent.charCodeAt(i) & 0xff;
+      }
+
+      const arquivoBlob = new Blob([buffer], { type: 'text/csv;charset=iso-8859-1;' });
+      
       const urlLink = URL.createObjectURL(arquivoBlob);
       const elementoLink = document.createElement('a');
+      
+      const dataAtual = new Date().toISOString().slice(0, 10);
       elementoLink.href = urlLink;
-      elementoLink.download = 'financeiro.csv';
+      elementoLink.download = `relatorio_financeiro_attento_${dataAtual}.csv`;
+      
       elementoLink.click();
       URL.revokeObjectURL(urlLink);
     });
   }
-
   const modalAdicionar = document.getElementById('modalAdicionar');
   const formularioAdicionar = document.getElementById('formularioAdicionar');
   const botaoAdicionar = document.getElementById('botaoAdicionar');
@@ -160,15 +209,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (formularioAdicionar) {
     formularioAdicionar.addEventListener('submit', (evento) => {
       evento.preventDefault();
-      const nomeProfissional = document.getElementById('nomeProfissional').value;
 
       const novaConta = {
-        iniciais: obterIniciais(nomeProfissional),
-        nome: nomeProfissional,
-        especialidade: document.getElementById('especialidade').value,
         descricao: document.getElementById('descricao').value,
         categoria: document.getElementById('categoria').value,
         valor: parseFloat(document.getElementById('valor').value),
+        vencimento: document.getElementById('vencimento').value,
         status: document.getElementById('status').value
       };
 
