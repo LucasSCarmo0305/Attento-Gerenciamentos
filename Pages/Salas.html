@@ -10,30 +10,26 @@
 </head>
 <body>
 <div class="app">
-
-  <div class="app">
  
-  <aside class="sidebar">
+   <aside class="sidebar">
     <div class="brand">
    
-      <div class="brand-text">
-        <h1>Attento</h1>
-        <p>SAÚDE INTEGRAL</p>
-      </div>
+        <div class="brand-logo-container">
+            <img src="/Assets/imagens/Attento Logo.png" alt="Attento Logo" class="brand-logo">
+        </div>
+
+        <div class="brand-text">
+            <h1>Attento</h1>
+            <p>SAÚDE INTEGRAL</p>
+        </div>
     </div>
     <nav class="sidebar-nav">
-<nav class="sidebar-nav">
- 
-  <a href="index.html" class="nav-item"><span class="ic">▦</span>Início</a>
-  
-  <a href="salas.html" class="nav-item"><span class="ic">🗓</span>Salas</a>
-  
-  <a href="financeiro.html" class="nav-item"><span class="ic">$</span>Financeiro</a>
-  
-  <a href="conveniencias.html" class="nav-item"><span class="ic">🛡</span>Conveniências</a>
-</nav>
+        <a href="index.html" class="nav-item"><span class="ic">▦</span>Início</a>
+        <a href="salas.html" class="nav-item"><span class="ic">🗓</span>Salas</a>
+        <a href="financeiro.html" class="nav-item"><span class="ic">$</span>Financeiro</a>
+        <a href="conveniencias.html" class="nav-item"><span class="ic">🛡</span>Conveniências</a>
     </nav>
-  </aside>
+</aside>
 
   <div class="main">
     <header class="topbar">
@@ -43,7 +39,10 @@
       </div>
       <div class="topbar-right">
         
-        <button class="icon-btn" title="Modo escuro" id="darkToggle">🌙</button>
+         <button class="btn-modo-escuro" id="alternarModoEscuro">
+                    <span class="indicador-tema"></span>
+                    <span id="textoModoEscuro">Modo Escuro</span>
+                    </button>
         <div class="admin">
                     
         </div>
@@ -54,8 +53,28 @@
 
       <div class="controls-row">
         <div class="unit-tabs" id="unitTabs">
-          <button class="unit-tab active" data-unit="europa">Attento Europa</button>
-          <button class="unit-tab" data-unit="horizonte">Attento Horizonte</button>
+        
+          <div class="controls-row">
+  <div class="control-group" style="display: flex; gap: 10px; flex-wrap: wrap;">
+   
+    <div class="unit-tabs" id="unitTabs">
+      <button class="unit-tab active" data-unit="europa">Attento Europa</button>
+      <button class="unit-tab" data-unit="horizonte">Attento Horizonte</button>
+    </div>
+
+
+    <div class="unit-tabs mode-tabs" id="modeTabs">
+      <button class="mode-tab active" data-mode="turno">Por Turno</button>
+      <button class="mode-tab" data-mode="hora">Por Hora (Hora Extra)</button>
+    </div>
+  </div>
+
+  <div class="month-select">
+    <select id="monthSelect">
+      <option>Setembro 2026</option>
+    </select>
+  </div>
+</div>
         </div>
 
         <div class="month-select">

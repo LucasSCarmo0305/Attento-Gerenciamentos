@@ -47,7 +47,7 @@ body {
   min-height: 100vh;
 }
 
-/* ---------- Conteúdo Principal ---------- */
+
 .main {
   flex: 1;
   min-width: 0;
@@ -56,7 +56,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ---------- Topbar (Barra Superior) ---------- */
+
 .topbar {
   display: flex;
   align-items: center;
@@ -104,13 +104,13 @@ body {
   background: var(--bg);
 }
 
-/* ---------- Área de Conteúdo ---------- */
+
 .content {
   padding: 32px;
   max-width: 1200px;
 }
 
-/* ---------- Cards de Resumo ---------- */
+
 .cards-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -142,7 +142,7 @@ body {
   margin-top: 2px;
 }
 
-/* ---------- Ações e Botões ---------- */
+
 .controls-row {
   display: flex;
   align-items: center;
@@ -191,7 +191,7 @@ body {
   background: #2751bd;
 }
 
-/* ---------- Abas de Filtro ---------- */
+
 .tabs {
   display: inline-flex;
   background: #eceff6;
@@ -220,7 +220,7 @@ body {
   box-shadow: 0 1px 3px rgba(20, 32, 58, 0.12);
 }
 
-/* ---------- Tabela ---------- */
+
 .table-card {
   background: var(--card);
   border: 1px solid var(--line);
@@ -376,7 +376,7 @@ tbody tr:hover {
   font-size: 13.5px;
 }
 
-/* ---------- Modal ---------- */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -508,4 +508,94 @@ body.dark-preview .icon-btn {
   background-color: #1e1e1e;
   border-color: #2d2d2d;
   color: #ffffff;
+}
+/* Indicadores de Vencimento com Setas */
+.vencimento-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.seta-vencimento {
+  font-weight: bold;
+  font-size: 1.1rem;
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+}
+
+/* Seta Vermelha para Atrasados/Vencidos */
+.venc-atrasado {
+  color: #dc3545;
+  animation: pulse 1.5s infinite;
+}
+
+/* Seta Laranja para Vencimento próximo ou Hoje */
+.venc-hoje, .venc-alerta {
+  color: #fd7e14;
+}
+
+/* Seta Verde para Pago */
+.venc-pago {
+  color: #28a745;
+}
+
+/* Ampulheta/Pendente */
+.venc-pendente {
+  color: #6c757d;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+/* Estilização moderna das Ações da Tabela */
+.btn-acao {
+  border: none;
+  background: transparent;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Botão Marcar como Pago (Verde) */
+.btn-pago {
+  color: #1f9d55;
+  background-color: var(--green-50);
+  border: 1px solid rgba(31, 157, 85, 0.2);
+}
+
+.btn-pago:hover {
+  background-color: #1f9d55;
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(31, 157, 85, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Botão Remover (Vermelho) */
+.btn-remover {
+  color: #d33a3a;
+  background-color: var(--red-50);
+  border: 1px solid rgba(211, 58, 58, 0.2);
+}
+
+.btn-remover:hover {
+  background-color: #d33a3a;
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(211, 58, 58, 0.25);
+  transform: translateY(-1px);
+}
+
+.acoes-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

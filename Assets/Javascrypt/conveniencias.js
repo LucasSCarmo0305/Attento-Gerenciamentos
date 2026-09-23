@@ -105,7 +105,7 @@ const profissionais = [
                         ${e.status === 'pago' ? '✓ Pago' : 'Pendente'}
                       </button>
                     </td>
-                    <td><button class="remove-btn" data-id="${e.id}" title="Remover">✕</button></td>
+                    <td><button class="remove-btn" data-id="${e.id}" title="Remover">Remover</button></td>
                   </tr>
                 `).join('')}
                 <tr class="total-row">
@@ -217,13 +217,17 @@ const profissionais = [
   });
 
  
-  const alternarModoEscuro = document.getElementById('alternarModoEscuro');
-  if (alternarModoEscuro) {
-    alternarModoEscuro.addEventListener('click', () => {
-      document.body.classList.toggle('dark-preview');
-      alternarModoEscuro.textContent = document.body.classList.contains('dark-preview') ? '☀️' : '🌙';
-    });
-  }
-
+const alternarModoEscuro = document.getElementById('alternarModoEscuro');
+if (alternarModoEscuro) {
+  alternarModoEscuro.addEventListener('click', () => {
+    document.body.classList.toggle('dark-preview');
+    const estaEscuro = document.body.classList.contains('dark-preview');
+    
+    const textoTema = document.getElementById('textoModoEscuro');
+    if (textoTema) {
+      textoTema.textContent = estaEscuro ? 'Modo Claro' : 'Modo Escuro';
+    }
+  });
+}
 
   render();

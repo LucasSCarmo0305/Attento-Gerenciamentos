@@ -107,7 +107,7 @@
   .summary-card .label{ font-size:13.5px; color:var(--text-900); font-weight:600; margin-top:2px; }
   .summary-card .sub{ font-size:12.5px; color:var(--text-400); margin-top:1px; }
 
-  /* ---------- Filters ---------- */
+
   .filters-row{
     display:flex;
     flex-wrap:wrap;
@@ -132,7 +132,7 @@
     pointer-events:none;
   }
 
-  /* ---------- Masonry columns ---------- */
+
   .board{
     columns:2;
     column-gap:20px;
@@ -246,18 +246,32 @@
   .status-badge.pago{ background:var(--green-50); color:var(--green-600); }
   .status-badge.pendente{ background:var(--amber-50); color:var(--amber-700); }
 
-  .remove-btn{
-    width:24px;height:24px;
-    border-radius:7px;
-    border:1px solid #fbd6d6;
-    background:#fde8e8;
-    color:#d33a3a;
-    font-size:11px;
-    font-weight:700;
-    cursor:pointer;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .remove-btn:hover{ background:#fbd6d6; }
+/* Estilo padronizado para o botão .remove-btn */
+button.remove-btn,
+.remove-btn {
+  border: 1px solid rgba(211, 58, 58, 0.2);
+  background-color: var(--red-50, #fde8e8);
+  color: #d33a3a;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm, 8px);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+button.remove-btn:hover,
+.remove-btn:hover {
+  background-color: #d33a3a;
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(211, 58, 58, 0.25);
+  transform: translateY(-1px);
+}
 
   .total-row td{
     font-weight:800;
@@ -283,7 +297,6 @@
     font-size:13px;
   }
 
-  /* ---------- Modal ---------- */
   .modal-overlay{
     position:fixed; inset:0;
     background:rgba(20,32,58,.45);

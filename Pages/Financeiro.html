@@ -12,28 +12,25 @@
 <body>
 
 <div class="app">
-       <aside class="sidebar">
-            <div class="brand">
-             
-                <div class="brand-text">
-                    <h1>Attento</h1>
-                    <p>SAÚDE INTEGRAL</p>
-                </div>
-            </div>
-            <nav class="sidebar-nav">
-                <nav class="sidebar-nav">
+  <aside class="sidebar">
+    <div class="brand">
+   
+        <div class="brand-logo-container">
+            <img src="/Assets/imagens/Attento Logo.png" alt="Attento Logo" class="brand-logo">
+        </div>
 
-  <a href="index.html" class="nav-item"><span class="ic">▦</span>Início</a>
-  
-  <a href="salas.html" class="nav-item"><span class="ic">🗓</span>Salas</a>
-  
-
-  <a href="financeiro.html" class="nav-item"><span class="ic">$</span>Financeiro</a>
-  
-  <a href="conveniencias.html" class="nav-item"><span class="ic">🛡</span>Conveniências</a>
-</nav>
-            </nav>
-        </aside>
+        <div class="brand-text">
+            <h1>Attento</h1>
+            <p>SAÚDE INTEGRAL</p>
+        </div>
+    </div>
+    <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item"><span class="ic">▦</span>Início</a>
+        <a href="salas.html" class="nav-item"><span class="ic">🗓</span>Salas</a>
+        <a href="financeiro.html" class="nav-item"><span class="ic">$</span>Financeiro</a>
+        <a href="conveniencias.html" class="nav-item"><span class="ic">🛡</span>Conveniências</a>
+    </nav>
+</aside>
 
   <div class="main">
     <header class="topbar">
@@ -42,7 +39,10 @@
         <p>Contas, recebimentos e relatórios</p>
       </div>
       <div class="topbar-right">
-        <button class="icon-btn" title="Modo escuro" id="alternarModoEscuro">🌙</button>
+      <button class="btn-modo-escuro" id="alternarModoEscuro">
+                    <span class="indicador-tema"></span>
+                    <span id="textoModoEscuro">Modo Escuro</span>
+                    </button>
       </div>
     </header>
 
@@ -83,23 +83,30 @@
         <button class="tab" data-filter="pago">Pagos</button>
       </div>
 
-      <div class="table-card">
-        <table>
-          <thead>
-            <tr>
-              <th>Descrição</th>
-              <th>Categoria</th>
-              <th>Valor</th>
-              <th>Vencimento</th>
-              <th>Status</th>
-              <th>Ação</th>
-            </tr>
-          </thead>
-          <tbody id="corpoTabela"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+     <div class="table-card">
+  <table>
+    <thead>
+      <tr>
+        <th onclick="ordenarPor('descricao')" >
+          Descrição <span id="sort-descricao">⇅</span>
+        </th>
+        <th onclick="ordenarPor('categoria')" s>
+          Categoria <span id="sort-categoria">⇅</span>
+        </th>
+        <th onclick="ordenarPor('valor')" >
+          Valor <span id="sort-valor">⇅</span>
+        </th>
+        <th onclick="ordenarPor('vencimento')" >
+          Vencimento <span id="sort-vencimento">⇅</span>
+        </th>
+        <th onclick="ordenarPor('status')" >
+          Status <span id="sort-status">⇅</span>
+        </th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody id="corpoTabela"></tbody>
+  </table>
 </div>
 
 <div id="modalAdicionar" class="modal-overlay">

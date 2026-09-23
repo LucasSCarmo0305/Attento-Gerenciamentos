@@ -15,25 +15,23 @@
 
   <aside class="sidebar">
     <div class="brand">
-      <div class="brand-text">
-        <h1>Attento</h1>
-        <p>SAÚDE INTEGRAL</p>
-      </div>
+   
+        <div class="brand-logo-container">
+            <img src="/Assets/imagens/Attento Logo.png" alt="Attento Logo" class="brand-logo">
+        </div>
+
+        <div class="brand-text">
+            <h1>Attento</h1>
+            <p>SAÚDE INTEGRAL</p>
+        </div>
     </div>
-
     <nav class="sidebar-nav">
-                <nav class="sidebar-nav">
-
-    <a href="index.html" class="nav-item"><span class="ic">▦</span>Início</a>
-  
-    <a href="salas.html" class="nav-item"><span class="ic">🗓</span>Salas</a>
-  
-
-    <a href="financeiro.html" class="nav-item"><span class="ic">$</span>Financeiro</a>
-  
-    <a href="conveniencias.html" class="nav-item"><span class="ic">🛡</span>Conveniências</a>
-</nav>
-  </aside>
+        <a href="index.html" class="nav-item"><span class="ic">▦</span>Início</a>
+        <a href="salas.html" class="nav-item"><span class="ic">🗓</span>Salas</a>
+        <a href="financeiro.html" class="nav-item"><span class="ic">$</span>Financeiro</a>
+        <a href="conveniencias.html" class="nav-item"><span class="ic">🛡</span>Conveniências</a>
+    </nav>
+</aside>
 
   <div class="main">
 
@@ -44,7 +42,10 @@
       </div>
       <div class="topbar-right">
         
-        <button class="icon-btn" title="Modo escuro" id="alternarModoEscuro">🌙</button>
+          <button class="btn-modo-escuro" id="alternarModoEscuro">
+                    <span class="indicador-tema"></span>
+                    <span id="textoModoEscuro">Modo Escuro</span>
+                    </button>
       </div>
     </header>
 
@@ -53,7 +54,7 @@
 
       <div class="cards-row">
         <div class="summary-card total">
-          <div class="icon">📋</div>
+       
           <div>
             <div class="value" id="sumTotal">R$ 0,00</div>
             <div class="label">Total consumido</div>
@@ -61,7 +62,7 @@
           </div>
         </div>
         <div class="summary-card quitado">
-          <div class="icon">✅</div>
+          
           <div>
             <div class="value" id="sumQuitado">R$ 0,00</div>
             <div class="label">Quitado</div>
@@ -69,7 +70,7 @@
           </div>
         </div>
         <div class="summary-card aquitar">
-          <div class="icon">⏳</div>
+      
           <div>
             <div class="value" id="sumAquitar">R$ 0,00</div>
             <div class="label">A quitar</div>
@@ -78,7 +79,6 @@
         </div>
       </div>
 
-      <!-- Filters -->
       <div class="filters-row">
         <div class="select-wrap">
           <select id="fMonth">
@@ -106,7 +106,7 @@
 
 </div>
 
-<!-- Modal: adicionar consumo -->
+
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <div class="modal-header">
