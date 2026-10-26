@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attento · Grade de Salas</title>
+<link rel="stylesheet" href="/Assets/Css/salas.css">
+<link rel="stylesheet" href="/Assets/Css/sidebar.css">
+<link rel="stylesheet" href="/Assets/Css/index.css">
+</head>
+<body>
+<div class="app">
+ 
+   <aside class="sidebar">
+    <div class="brand">
+        <div class="brand-logo-container">
+            <img src="/Assets/imagens/Attento Logo.png" alt="Attento Logo" class="brand-logo">
+        </div>
+
+        <div class="brand-text">
+            <h1>Attento</h1>
+            <p>SAÚDE INTEGRAL</p>
+        </div>
+    </div>
+    <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item"><span class="ic">▦</span>Início</a>
+        <a href="salas.html" class="nav-item"><span class="ic">🗓</span>Salas</a>
+        <a href="financeiro.html" class="nav-item"><span class="ic">$</span>Financeiro</a>
+        <a href="conveniencias.html" class="nav-item"><span class="ic">🛡</span>Conveniências</a>
+    </nav>
+</aside>
+
+  <div class="main">
+    <header class="barra-superior">
+      <div>
+        <h2>Grade de Salas</h2>
+        <p>Disponibilidade e alocação por turno</p>
+      </div>
+      <div class="topo-direita">
+        <button class="btn-modo-escuro" id="alternarModoEscuro">
+          <span class="indicador-tema"></span>
+          <span id="textoModoEscuro">Modo Escuro</span>
+        </button>
+        <div class="admin"></div>
+      </div>
+    </header>
+
+    <div class="conteudo">
+
+      <div class="linha-controles">
+        <div class="grupo-controles" style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <div class="abas-unidades" id="unitTabs">
+            <button class="aba-unidade active" data-unit="europa">Attento Europa</button>
+            <button class="aba-unidade" data-unit="horizonte">Attento Horizonte</button>
+          </div>
+
+          <div class="abas-unidades abas-modo" id="modeTabs">
+            <button class="aba-modo active" data-mode="turno">Por Turno</button>
+            <button class="aba-modo" data-mode="hora">Por Hora (Hora Extra)</button>
+          </div>
+        </div>
+
+        <div class="seletor-mes">
+          <select id="monthSelect">
+            <option>Setembro 2026</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="linha-contadores">
+        <div class="cartao-contador ocupado">
+          <span class="ponto-indicador"></span>
+          <span id="countOcupados">0</span> Ocupados
+        </div>
+        <div class="cartao-contador disponivel">
+          <span class="ponto-indicador"></span>
+          <span id="countDisponiveis">0</span> Disponíveis
+        </div>
+        <div class="cartao-contador pendente">
+          <span class="ponto-indicador"></span>
+          <span id="countPendentes">0</span> Pendentes
+        </div>
+      </div>
+
+      <div class="cartao-tabela">
+        <div class="rolagem-tabela">
+          <table>
+            <thead>
+              <tr>
+                <th class="coluna-sala">Sala</th>
+                <th>Seg</th>
+                <th>Ter</th>
+                <th>Qua</th>
+                <th>Qui</th>
+                <th>Sex</th>
+                <th>Sáb</th>
+              </tr>
+            </thead>
+            <tbody id="gridBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="linha-legenda">
+        <div class="item-legenda"><span class="amostra-cor ocupado"></span>Ocupado</div>
+        <div class="item-legenda"><span class="amostra-cor pendente"></span>Pendente confirmação</div>
+        <div class="item-legenda"><span class="amostra-cor disponivel"></span>Disponível</div>
+        <div class="item-legenda legenda-turno"><strong>M</strong> Manhã · 08-13h</div>
+        <div class="item-legenda legenda-turno"><strong>T</strong> Tarde · 14-17h</div>
+        <div class="item-legenda legenda-turno"><strong>N</strong> Noite · 18-21h</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="fundo-modal" id="modalOverlay">
+  <div class="janela-modal">
+    <div class="cabecalho-modal">
+      <h3 id="modalTitle">Horário</h3>
+      <button class="fechar-modal" id="modalClose">✕</button>
+    </div>
+
+    <div class="info-modal" id="modalInfo"></div>
+
+    <form id="allocateForm" class="escondido">
+      <div class="grupo-formulario">
+        <label for="f-nome">Nome completo do Profissional:</label>
+        <input type="text" id="f-nome" required placeholder="Ex: Dra. Camila Ferreira">
+      </div>
+      
+      <div class="grupo-formulario">
+        <label for="f-telefone">Telefone / WhatsApp:</label>
+        <input type="tel" id="f-telefone" required placeholder="Ex: (11) 99999-9999">
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="f-email">E-mail:</label>
+        <input type="email" id="f-email" required placeholder="Ex: camila@email.com">
+      </div>
+
+      <div class="grupo-checkbox">
+        <label>
+          <input type="checkbox" id="f-pendente"> Marcação pendente de confirmação
+        </label>
+      </div>
+
+      <div class="acoes-formulario">
+        <button type="button" class="botao botao-contorno" id="cancelAllocate">Cancelar</button>
+        <button type="submit" class="botao botao-principal">Salvar Alocação</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/Assets/Javascrypt/salas.js"></script>
+</body>
+</html>

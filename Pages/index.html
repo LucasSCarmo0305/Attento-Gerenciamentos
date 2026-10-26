@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attento - Financeiro</title>
+    
+    <link rel="stylesheet" href="../Assets/Css/sidebar.css">
+    <link rel="stylesheet" href="../Assets/Css/index.css">
+</head>
+<body>
+
+    <div class="app">
+      
+      <aside class="sidebar">
+    <div class="brand">
+   
+        <div class="brand-logo-container">
+            <img src="/Assets/imagens/Attento Logo.png" alt="Attento Logo" class="brand-logo">
+        </div>
+
+        <div class="brand-text">
+            <h1>Attento</h1>
+            <p>SAÚDE INTEGRAL</p>
+        </div>
+    </div>
+    <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item"><span class="ic">▦</span>Início</a>
+        <a href="salas.html" class="nav-item"><span class="ic">🗓</span>Salas</a>
+        <a href="financeiro.html" class="nav-item"><span class="ic">$</span>Financeiro</a>
+        <a href="conveniencias.html" class="nav-item"><span class="ic">🛡</span>Conveniências</a>
+    </nav>
+</aside>
+
+        <div class="main">
+          
+            <header class="topbar">
+                <div>
+                    <h2>Visão Geral</h2>
+                    <p>Desenpenho geral</p>
+                </div>
+                
+                <div class="topbar-right">
+                    <button class="btn-modo-escuro" id="alternarModoEscuro">
+                    <span class="indicador-tema"></span>
+                    <span id="textoModoEscuro">Modo Escuro</span>
+                    </button>
+
+                    
+                 
+
+                    <div class="admin">
+                        <div class="avatar">AD</div>
+                        <div class="admin-text" style="margin-right: 15px;">
+                            <strong>Perfil</strong>
+                            <span>Gestor</span>
+                        </div>
+                        <a href="login.html" class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">Sair</a>
+                    </div>
+                </div>
+            </header>
+
+            <main class="content">
+                
+                <div class="cards-row">
+                 
+                    <div class="summary-card">
+                        <div class="icon" style="background: var(--blue-50); color: var(--blue-600);">🗓</div>
+                        <div>
+                            <div class="value" id="dash-salas">0</div>
+                            <div class="label">Salas Reservadas</div>
+                            <div class="sub">Para o dia de hoje</div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card faturado">
+                     
+                        <div>
+                            <div class="value" id="dash-faturamento"></div>
+                            <div class="label">Faturamento Diário</div>
+                            <div class="sub">Total de entradas hoje</div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card recebido">
+                       
+                        <div>
+                            <div class="value" id="dash-itens">0</div>
+                            <div class="label">Itens Consumidos</div>
+                            <div class="sub">Conveniência e extras</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls-row" style="margin-top: 30px;">
+                    <h3 style="margin: 0; font-size: 18px;">Próximas Reservas de Hoje</h3>
+               
+                </div>
+            
+                <div class="table-card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>PROFISSIONAL</th>
+                                <th>TIPO</th>
+                                <th>HORÁRIO</th>
+                                <th>STATUS</th>
+                                <th>VALOR</th>
+                            </tr>
+                        </thead>
+                    
+                        <tbody id="tabela-reservas">
+                            <tr class="empty-row">
+                                <td colspan="5">Carregando dados...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </main>
+
+            <footer style="padding: 24px; text-align: center; color: var(--text-400); font-size: 13px;">
+                <p>&copy; 2026 Attento. Todos os direitos reservados.</p>
+            </footer>
+        </div>
+    </div>
+
+
+    <script src="/Assets/Javascrypt/Index.js"></script>
+</body>
+</html>
+</body>
+</html>
