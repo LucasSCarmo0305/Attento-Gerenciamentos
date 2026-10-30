@@ -216,7 +216,68 @@ const profissionais = [
     render();
   });
 
- 
+  // Adição de Produtos
+  const addProduct = document.getElementById("addProduct");
+  const closePopup = document.getElementById("closePopup");
+  const cancelPopup = document.getElementById("cancelPopup");
+  const modal = document.getElementById("productModal");
+  const form = document.getElementById("productForm");
+
+  addProduct.addEventListener('click', () => {
+    productModal.style.display = "flex";
+  });
+
+  closePopup.addEventListener('click', () => {
+    productModal.style.display = "none";
+  });
+
+  cancelPopup.addEventListener('click', () => {
+    productModal.style.display = "none";
+  });
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const name = document.getElementById("productName").value.trim();
+    const price = Number(
+      document.getElementById("productPrice").value
+  );
+   if (!name || !Number.isFinite(price) || price < 0) {
+    alert("Please enter a valid product name and price.");
+    return;
+  }
+
+  const product = document.createElement("div");
+  const color = "#" + 
+    Math.floor(Math.random() * 16777216)
+    .toString(16)
+    .padStart(6, "0");
+  product.className = "item-card";
+  product.style.background = color;
+
+  const productName = document.createElement("strong");
+  productName.innerHTML = ` 
+    <div class="item-header">
+      <div class="title">${name} — ${price.toLocaleString("pt-BR", {style: "currency",currency: "BRL"})}/un</div>
+      <div class="right">
+        <span class="pending-pill">${currency(999)} a pagar</span>
+        <button class="add-btn">+ Add</button>
+      </div>
+    </div>`;
+
+
+  product.append(productName);
+  board.appendChild(product);
+
+  form.reset();
+  modal.style.display = "none";
+  });
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
 const alternarModoEscuro = document.getElementById('alternarModoEscuro');
 if (alternarModoEscuro) {
   alternarModoEscuro.addEventListener('click', () => {
