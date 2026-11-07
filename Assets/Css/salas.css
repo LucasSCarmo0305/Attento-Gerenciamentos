@@ -848,3 +848,302 @@ body.dark-preview .grupo-formulario input::placeholder {
 body.dark-preview .grupo-checkbox label {
   color: #cbd5e1 !important;
 }
+
+/* ===== Layout por turno: nome da sala + 1 linha por turno ===== */
+.linha-cabecalho-sala td {
+  padding: 22px 16px 8px;
+  border-top: 1px solid var(--line);
+  border-bottom: none;
+  vertical-align: middle;
+}
+.linha-cabecalho-sala .nome-sala {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-900);
+  margin-right: 10px;
+}
+.linha-cabecalho-sala .meta-sala {
+  font-size: 13px;
+  color: var(--text-400);
+}
+tbody tr:first-child td { border-top: none; }
+
+.linha-turno td {
+  padding: 5px 6px;
+  border-bottom: none;
+  vertical-align: middle;
+}
+.linha-turno.turno-n td { padding-bottom: 16px; }
+
+.linha-turno .coluna-preco { min-width: 170px; padding-left: 16px; }
+.linha-turno .etiqueta-preco {
+  margin-top: 0;
+  padding: 10px 12px;
+  font-size: 12px;
+}
+
+/* células maiores */
+.linha-turno .bloco-horario {
+  min-height: 72px;
+  padding: 14px 12px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 4px;
+}
+.linha-turno .bloco-horario .rotulo-turno {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0;
+  color: var(--text-900);
+}
+.linha-turno .bloco-horario .nome-horario { font-size: 13px; }
+
+/* cor de cada turno nas células livres */
+.linha-turno.turno-m .bloco-horario.livre { background: #fffbd6; border: 1px solid #f1e9a8; }
+.linha-turno.turno-t .bloco-horario.livre { background: #f9dede; border: 1px solid #f0c4c4; }
+.linha-turno.turno-n .bloco-horario.livre { background: #dde8fa; border: 1px solid #c3d4f2; }
+
+.linha-turno .bloco-horario.livre .rotulo-turno { color: var(--text-900); }
+.linha-turno .bloco-horario.livre .nome-horario { color: var(--text-600); }
+
+/* ocupado e pendente mantêm o rótulo na cor do status */
+.linha-turno .bloco-horario.ocupado .rotulo-turno { color: var(--blue-600); }
+.linha-turno .bloco-horario.pendente .rotulo-turno { color: var(--amber-700); }
+
+/* tabela mais larga para caber as células maiores */
+table { min-width: 1100px; }
+
+/* modo escuro */
+body.dark-preview .linha-turno.turno-m .bloco-horario.livre { background-color: #3b3512 !important; border-color: #5c531c !important; }
+body.dark-preview .linha-turno.turno-t .bloco-horario.livre { background-color: #3d1f1f !important; border-color: #5e2f2f !important; }
+body.dark-preview .linha-turno.turno-n .bloco-horario.livre { background-color: #1a2a4a !important; border-color: #2c4270 !important; }
+body.dark-preview .linha-turno .bloco-horario.livre .rotulo-turno { color: #f8fafc !important; }
+body.dark-preview .linha-cabecalho-sala .nome-sala { color: #ffffff !important; }
+
+/* ===== Alinhamento: colunas fixas e títulos centralizados ===== */
+table {
+  table-layout: fixed;
+  min-width: 960px;
+}
+thead th {
+  text-align: center;
+  padding: 14px 6px;
+  transition: var(--transition);
+}
+thead th.coluna-sala {
+  width: 190px;
+  min-width: 0;
+  text-align: left;
+  padding-left: 16px;
+}
+.linha-turno .coluna-preco {
+  min-width: 0;
+}
+
+/* ===== Interação: destaque ao passar o mouse ===== */
+.bloco-horario {
+  position: relative;
+}
+.bloco-horario.salta,
+.linha-turno .bloco-horario:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 8px 18px -4px rgba(15, 23, 42, 0.25);
+  z-index: 2;
+}
+
+/* título do dia reage junto com a coluna */
+thead th.th-destaque {
+  color: var(--blue-600);
+  transform: translateY(-2px);
+}
+
+/* etiqueta do turno cresce um pouco */
+.linha-turno .etiqueta-preco {
+  transition: var(--transition);
+  cursor: pointer;
+}
+.linha-turno .coluna-preco:hover .etiqueta-preco {
+  transform: scale(1.04);
+  box-shadow: 0 6px 14px -4px rgba(15, 23, 42, 0.25);
+}
+
+/* nome da sala muda de cor */
+.linha-cabecalho-sala { cursor: default; }
+.linha-cabecalho-sala:hover .nome-sala {
+  color: var(--blue-600);
+}
+
+/* ===== Altura igual: etiqueta do turno = célula ===== */
+.linha-turno .bloco-horario {
+  height: 84px;
+  min-height: 84px;
+  padding: 8px 12px;
+  gap: 2px;
+}
+.linha-turno .etiqueta-preco {
+  height: 84px;
+  align-items: center;
+  padding: 0 14px;
+  font-size: 12.5px;
+}
+
+/* ===== Ocupado com a cor do turno (tom mais forte) ===== */
+/* Manhã */
+.linha-turno.turno-m .bloco-horario.ocupado {
+  background: #fcd95b;
+  border: 1px solid #e0b61e;
+}
+.linha-turno.turno-m .bloco-horario.ocupado .rotulo-turno,
+.linha-turno.turno-m .bloco-horario.ocupado .nome-horario {
+  color: #5c3a05;
+}
+
+/* Tarde */
+.linha-turno.turno-t .bloco-horario.ocupado {
+  background: #f2a0a0;
+  border: 1px solid #d96666;
+}
+.linha-turno.turno-t .bloco-horario.ocupado .rotulo-turno,
+.linha-turno.turno-t .bloco-horario.ocupado .nome-horario {
+  color: #6b1414;
+}
+
+/* Noite */
+.linha-turno.turno-n .bloco-horario.ocupado {
+  background: #8fb0f2;
+  border: 1px solid #4a78d6;
+}
+.linha-turno.turno-n .bloco-horario.ocupado .rotulo-turno,
+.linha-turno.turno-n .bloco-horario.ocupado .nome-horario {
+  color: #14306e;
+}
+
+/* Pendente: continua âmbar, mas com borda tracejada para não confundir com ocupado */
+.linha-turno .bloco-horario.pendente {
+  border-style: dashed;
+  border-width: 1.5px;
+}
+
+/* ===== Modo escuro ===== */
+body.dark-preview .linha-turno.turno-m .bloco-horario.ocupado {
+  background-color: #7a5d0a !important;
+  border-color: #d9a91a !important;
+}
+body.dark-preview .linha-turno.turno-t .bloco-horario.ocupado {
+  background-color: #7f2a2a !important;
+  border-color: #e07070 !important;
+}
+body.dark-preview .linha-turno.turno-n .bloco-horario.ocupado {
+  background-color: #23459a !important;
+  border-color: #6f9bf0 !important;
+}
+body.dark-preview .linha-turno .bloco-horario.ocupado .rotulo-turno,
+body.dark-preview .linha-turno .bloco-horario.ocupado .nome-horario {
+  color: #ffffff !important;
+}
+/* ===== Etiquetas Manhã/Tarde/Noite com o tom forte ===== */
+.linha-turno .etiqueta-preco.m {
+  background: #fcd95b;
+  color: #5c3a05;
+}
+.linha-turno .etiqueta-preco.t {
+  background: #f2a0a0;
+  color: #6b1414;
+}
+.linha-turno .etiqueta-preco.n {
+  background: #8fb0f2;
+  color: #14306e;
+}
+
+/* ===== Camada translúcida para clarear / tingir (funciona em qualquer status) ===== */
+.bloco-horario::after,
+.linha-turno .etiqueta-preco::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: transparent;
+  pointer-events: none;
+  transition: background-color 0.2s ease;
+}
+.linha-turno .etiqueta-preco {
+  position: relative;
+}
+/* o texto fica acima da camada, sem desbotar */
+.bloco-horario > span,
+.linha-turno .etiqueta-preco > span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Mouse na etiqueta: ela e as células da linha ficam mais claras */
+.linha-turno .coluna-preco:hover .etiqueta-preco::after,
+.bloco-horario.realce-turno::after {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+/* Mouse no dia: células ganham tom azulado + contorno de "selecionado" */
+.bloco-horario.realce-dia::after {
+  background: rgba(96, 165, 250, 0.2);
+}
+.bloco-horario.realce-dia {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5),
+              0 8px 18px -4px rgba(15, 23, 42, 0.25);
+}
+
+/* Modo escuro */
+body.dark-preview .linha-turno .coluna-preco:hover .etiqueta-preco::after,
+body.dark-preview .bloco-horario.realce-turno::after {
+  background: rgba(255, 255, 255, 0.14);
+}
+body.dark-preview .bloco-horario.realce-dia::after {
+  background: rgba(96, 165, 250, 0.28);
+}
+/* Mouse em uma célula de horário: tom ainda mais claro */
+.linha-turno .bloco-horario:hover::after {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+/* Modo escuro */
+body.dark-preview .linha-turno .bloco-horario:hover::after {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* ===== Animação na troca de unidade ===== */
+@keyframes entraDireita {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes entraEsquerda {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: none; }
+}
+
+#gridBody tr.entra-direita {
+  animation: entraDireita 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+#gridBody tr.entra-esquerda {
+  animation: entraEsquerda 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+/* respeita quem desativa animações no sistema */
+@media (prefers-reduced-motion: reduce) {
+  #gridBody tr.entra-direita,
+  #gridBody tr.entra-esquerda {
+    animation: none;
+  }
+}
+
+/* Palavra "Livre" em verde */
+.bloco-horario.livre .nome-horario,
+.linha-turno .bloco-horario.livre .nome-horario {
+  color: #7bca70;
+  font-weight: 600;
+}
+
+/* Modo escuro: verde mais claro para dar contraste */
+body.dark-preview .bloco-horario.livre .nome-horario,
+body.dark-preview .linha-turno .bloco-horario.livre .nome-horario {
+  color: #4ade80 !important;
+}
