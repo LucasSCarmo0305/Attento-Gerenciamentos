@@ -150,4 +150,10 @@ tr:last-child td { border-bottom: none; }
 .status { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
 .status.pago { background: rgba(0, 168, 150, 0.1); color: var(--accent); }
 .status.pendente { background: rgba(229, 62, 62, 0.1); color: var(--danger); }
+<<<<<<< HEAD
 .valor { font-weight: 600; }
+=======
+.valor { font-weight: 600; }
+
+
+>>>>>>> 6fb2871

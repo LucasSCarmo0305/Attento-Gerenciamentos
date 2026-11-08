@@ -134,11 +134,22 @@
 
 
   .board{
+<<<<<<< HEAD
     columns:2;
     column-gap:20px;
   }
   @media (max-width: 760px){
     .board{ columns:1; }
+=======
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:20px;
+    align-items:start;
+  }
+  .board > .empty-msg{ grid-column:1 / -1; }
+  @media (max-width: 760px){
+    .board{ grid-template-columns:1fr; }
+>>>>>>> 6fb2871
   }
 
   .item-card{
@@ -149,7 +160,10 @@
     border-radius:var(--radius-lg);
     box-shadow:var(--shadow);
     overflow:hidden;
+<<<<<<< HEAD
     margin-bottom:20px;
+=======
+>>>>>>> 6fb2871
   }
 
   .item-header{
@@ -159,7 +173,18 @@
     gap:10px;
     padding:14px 16px;
     color:#fff;
+<<<<<<< HEAD
     flex-wrap:wrap;
+=======
+    flex-wrap:nowrap;
+  }
+  .item-header .header-left{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+    min-width:0;
+>>>>>>> 6fb2871
   }
   .item-header .title{
     display:flex;
@@ -167,12 +192,21 @@
     gap:8px;
     font-weight:700;
     font-size:14.5px;
+<<<<<<< HEAD
     white-space:nowrap;
+=======
+    overflow-wrap:anywhere;
+>>>>>>> 6fb2871
   }
   .item-header .right{
     display:flex;
     align-items:center;
     gap:8px;
+<<<<<<< HEAD
+=======
+    flex-shrink:0;
+    margin-left:auto;
+>>>>>>> 6fb2871
   }
   .pending-pill{
     background:rgba(255,255,255,.22);
@@ -410,4 +444,419 @@ body.dark-preview .icon-btn {
   background-color: #1e1e1e;
   border-color: #2d2d2d;
   color: #ffffff;
+<<<<<<< HEAD
+=======
+}
+
+
+.item-card.custom .item-header{ background:var(--strong); }
+.item-card.custom thead th{ background:var(--tint); }
+.item-card.custom .total-row td{ background:var(--tint); }
+.item-card.custom .total-row .pend-label{ color:var(--strong); }
+
+
+
+.icon-act{
+  background:rgba(255,255,255,.22);
+  color:#fff;
+  border:none;
+  width:30px; height:30px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:14px;
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:0;
+}
+.icon-act:hover{ background:rgba(255,255,255,.38); }
+.icon-act .chev{ display:inline-block; transition:transform .2s ease; }
+.item-card.collapsed .icon-act .chev{ transform:rotate(-90deg); }
+
+/* Modal de produto: cor e emoji */
+.field input[type="color"]{ height:42px; padding:4px; cursor:pointer; }
+.emoji-presets{ display:flex; flex-wrap:wrap; gap:6px; margin:-2px 0 16px; }
+.emoji-chip{
+  width:34px; height:34px;
+  border:1px solid var(--line); background:#f8f9fc;
+  border-radius:8px; font-size:17px; cursor:pointer; padding:0;
+}
+.emoji-chip:hover{ background:#fff; border-color:var(--blue-600); }
+
+/* Editar / Excluir abaixo do nome da categoria */
+.cat-actions{ display:flex; gap:6px; }
+.mini-act{
+  background:rgba(255,255,255,.22);
+  color:#fff;
+  border:none;
+  font:inherit;
+  font-size:11.5px;
+  font-weight:700;
+  padding:4px 10px;
+  border-radius:999px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.mini-act:hover{ background:rgba(255,255,255,.38); }
+
+/* Botão "Limpar pagos" (à direita da linha de filtros) */
+.btn-clear-paid{
+  margin-left:auto;
+  background:#fff;
+  color:#d33a3a;
+  border:1px solid rgba(211,58,58,.35);
+  font:inherit;
+  font-size:12.5px;
+  font-weight:700;
+  padding:7px 13px;
+  border-radius:999px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.btn-clear-paid:hover{ background:#d33a3a; color:#fff; }
+
+
+.confirm-modal{ max-width:380px; }
+.confirm-msg{ margin:0 0 20px; font-size:14px; line-height:1.5; color:var(--text-600); }
+.btn-danger{ background:#d33a3a; color:#fff; }
+.btn-danger:hover{ background:#b92e2e; }
+
+
+.table-scroll{ max-height:300px; overflow:auto; }
+.table-scroll thead th{ position:sticky; top:0; z-index:2; box-shadow:0 1px 0 var(--line); }
+.table-scroll .total-row td{ position:sticky; bottom:0; z-index:1; box-shadow:0 -1px 0 var(--line); }
+
+
+
+/* Fundo escuro atrás do modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 1000;
+}
+
+/* Exibe o modal quando tiver a classe 'open' */
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 420px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #222222;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666666;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: #000000;
+}
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444444;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #2f5fd8;
+  outline: none;
+}
+
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+
+
+.btn {
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-primary {
+  background-color: #2f5fd8;
+  color: #ffffff;
+}
+
+.btn-secondary {
+  background-color: #e4e6eb;
+  color: #333333;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+
+
+body.dark-preview .modal-card {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-preview .modal-header h3,
+body.dark-preview .form-group label,
+body.dark-preview .close-btn {
+  color: #ffffff;
+}
+
+body.dark-preview .form-group input,
+body.dark-preview .form-group select {
+  background-color: #2b2b2b;
+  color: #ffffff;
+  border-color: #444444;
+}
+
+body.dark-preview .btn-secondary {
+  background-color: #3a3a3a;
+  color: #ffffff;
+}
+
+.btn-prof {
+  background-color: #2f5fd8;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-prof:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.btn-prof:active {
+  transform: translateY(0);
+}
+
+/* Ajuste automático para o modo escuro */
+body.dark-preview .btn-prof {
+  background-color: #3b82f6;
+}
+
+body.dark-preview .btn-prof:hover {
+  background-color: #2563eb;
+}
+
+/* ==========================================
+   MODO ESCURO GLOBAL (Padronizado com Salas)
+   ========================================== */
+
+/* Layout e Estrutura Principal */
+body.dark-preview {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+body.dark-preview .app,
+body.dark-preview .main,
+body.dark-preview .content {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+/* Sidebar e Navegação */
+body.dark-preview .sidebar {
+  background-color: #1e293b;
+  border-right-color: #334155;
+}
+
+body.dark-preview .brand-text h1,
+body.dark-preview .nav-item {
+  color: #f8fafc;
+}
+
+body.dark-preview .nav-item:hover,
+body.dark-preview .nav-item.active {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #60a5fa;
+}
+
+/* Topbar */
+body.dark-preview .topbar {
+  background-color: #1e293b;
+  border-bottom-color: #334155;
+  color: #f8fafc;
+}
+
+body.dark-preview .topbar p {
+  color: #94a3b8;
+}
+
+/* Cards de Resumo, Cards de Produtos e Modais */
+body.dark-preview .summary-card,
+body.dark-preview .item-card,
+body.dark-preview .modal,
+body.dark-preview .modal-card {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #f8fafc;
+  box-shadow: 0 4px 18px -4px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-preview .summary-card .label,
+body.dark-preview .summary-card .sub,
+body.dark-preview .modal-header h3,
+body.dark-preview .form-group label,
+body.dark-preview .field label {
+  color: #cbd5e1;
+}
+
+/* Tabelas */
+body.dark-preview table {
+  color: #f8fafc;
+}
+
+body.dark-preview th {
+  background-color: #0f172a;
+  color: #94a3b8;
+  border-bottom-color: #334155;
+}
+
+body.dark-preview td {
+  border-bottom-color: #334155;
+}
+
+body.dark-preview tr:hover td {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+body.dark-preview .total-row {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+/* Inputs, Selects e Datalists */
+body.dark-preview select,
+body.dark-preview input[type="text"],
+body.dark-preview input[type="number"],
+body.dark-preview input[type="date"] {
+  background-color: #0f172a;
+  color: #f8fafc;
+  border-color: #334155;
+}
+
+body.dark-preview select option {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+body.dark-preview input:focus,
+body.dark-preview select:focus {
+  border-color: #60a5fa;
+}
+
+/* Badges de Status (Harmonizadas com as cores de Salas) */
+
+/* Status Pago / Quitado / Livre (Verde vibrante de Salas) */
+body.dark-preview .status-badge.pago,
+body.dark-preview .summary-card.quitado .value {
+  color: #4ade80 !important;
+}
+
+body.dark-preview .status-badge.pago {
+  background-color: rgba(74, 222, 128, 0.15) !important;
+  border: 1px solid #22c55e !important;
+}
+
+/* Status Pendente / A Quitar (Amarelo de Turno Manhã de Salas) */
+body.dark-preview .status-badge.pendente,
+body.dark-preview .pending-pill,
+body.dark-preview .summary-card.aquitar .value {
+  color: #fde047 !important;
+}
+
+body.dark-preview .status-badge.pendente {
+  background-color: #7a5d0a !important;
+  border: 1px solid #d9a91a !important;
+}
+
+/* Botões com efeito de transparência */
+body.dark-preview .btn-secondary,
+body.dark-preview .btn-outline,
+body.dark-preview .btn-clear-paid {
+  background-color: #334155;
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+body.dark-preview .btn-secondary:hover,
+body.dark-preview .btn-outline:hover,
+body.dark-preview .btn-clear-paid:hover {
+  background-color: #475569;
+>>>>>>> 6fb2871
 }

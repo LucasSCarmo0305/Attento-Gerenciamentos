@@ -598,4 +598,155 @@ body.dark-preview .icon-btn {
   display: flex;
   align-items: center;
   gap: 8px;
+<<<<<<< HEAD
+=======
+}
+
+/* ==========================================
+   MODO ESCURO GLOBAL (Padronizado com Salas)
+   ========================================== */
+
+/* Layout e Estrutura Principal */
+body.dark-preview {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+body.dark-preview .app,
+body.dark-preview .main,
+body.dark-preview .content {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+/* Sidebar e Navegação */
+body.dark-preview .sidebar {
+  background-color: #1e293b;
+  border-right-color: #334155;
+}
+
+body.dark-preview .brand-text h1,
+body.dark-preview .nav-item {
+  color: #f8fafc;
+}
+
+body.dark-preview .nav-item:hover,
+body.dark-preview .nav-item.active {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #60a5fa;
+}
+
+/* Topbar */
+body.dark-preview .topbar {
+  background-color: #1e293b;
+  border-bottom-color: #334155;
+  color: #f8fafc;
+}
+
+body.dark-preview .topbar p {
+  color: #94a3b8;
+}
+
+/* Cards de Resumo, Cards de Produtos e Modais */
+body.dark-preview .summary-card,
+body.dark-preview .item-card,
+body.dark-preview .modal,
+body.dark-preview .modal-card {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #f8fafc;
+  box-shadow: 0 4px 18px -4px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-preview .summary-card .label,
+body.dark-preview .summary-card .sub,
+body.dark-preview .modal-header h3,
+body.dark-preview .form-group label,
+body.dark-preview .field label {
+  color: #cbd5e1;
+}
+
+/* Tabelas */
+body.dark-preview table {
+  color: #f8fafc;
+}
+
+body.dark-preview th {
+  background-color: #0f172a;
+  color: #94a3b8;
+  border-bottom-color: #334155;
+}
+
+body.dark-preview td {
+  border-bottom-color: #334155;
+}
+
+body.dark-preview tr:hover td {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+body.dark-preview .total-row {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+/* Inputs, Selects e Datalists */
+body.dark-preview select,
+body.dark-preview input[type="text"],
+body.dark-preview input[type="number"],
+body.dark-preview input[type="date"] {
+  background-color: #0f172a;
+  color: #f8fafc;
+  border-color: #334155;
+}
+
+body.dark-preview select option {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+body.dark-preview input:focus,
+body.dark-preview select:focus {
+  border-color: #60a5fa;
+}
+
+/* Badges de Status (Harmonizadas com as cores de Salas) */
+
+/* Status Pago / Quitado / Livre (Verde vibrante de Salas) */
+body.dark-preview .status-badge.pago,
+body.dark-preview .summary-card.quitado .value {
+  color: #4ade80 !important;
+}
+
+body.dark-preview .status-badge.pago {
+  background-color: rgba(74, 222, 128, 0.15) !important;
+  border: 1px solid #22c55e !important;
+}
+
+/* Status Pendente / A Quitar (Amarelo de Turno Manhã de Salas) */
+body.dark-preview .status-badge.pendente,
+body.dark-preview .pending-pill,
+body.dark-preview .summary-card.aquitar .value {
+  color: #fde047 !important;
+}
+
+body.dark-preview .status-badge.pendente {
+  background-color: #7a5d0a !important;
+  border: 1px solid #d9a91a !important;
+}
+
+/* Botões com efeito de transparência */
+body.dark-preview .btn-secondary,
+body.dark-preview .btn-outline,
+body.dark-preview .btn-clear-paid {
+  background-color: #334155;
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+body.dark-preview .btn-secondary:hover,
+body.dark-preview .btn-outline:hover,
+body.dark-preview .btn-clear-paid:hover {
+  background-color: #475569;
+>>>>>>> 6fb2871
 }

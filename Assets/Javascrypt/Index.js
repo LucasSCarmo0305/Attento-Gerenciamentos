@@ -52,12 +52,27 @@ function carregarFaturamentoDiario() {
 }
 
 const alternarModoEscuro = document.getElementById('alternarModoEscuro');
+<<<<<<< HEAD
+=======
+const textoTema = document.getElementById('textoModoEscuro');
+const modoEscuroSalvo = localStorage.getItem('modoEscuro') === 'true';
+if (modoEscuroSalvo) {
+  document.body.classList.add('dark-preview');
+  if (textoTema) {
+    textoTema.textContent = 'Modo Claro';
+  }
+}
+>>>>>>> 6fb2871
 if (alternarModoEscuro) {
   alternarModoEscuro.addEventListener('click', () => {
     document.body.classList.toggle('dark-preview');
     const estaEscuro = document.body.classList.contains('dark-preview');
+<<<<<<< HEAD
     
     const textoTema = document.getElementById('textoModoEscuro');
+=======
+    localStorage.setItem('modoEscuro', estaEscuro)
+>>>>>>> 6fb2871
     if (textoTema) {
       textoTema.textContent = estaEscuro ? 'Modo Claro' : 'Modo Escuro';
     }
