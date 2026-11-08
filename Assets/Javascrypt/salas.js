@@ -151,6 +151,7 @@ function renderizarGrade() {
     const sala = unidade.salas[i];
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     htmlLinhas += '<tr>';
     
     // Informações da Sala
@@ -163,14 +164,34 @@ function renderizarGrade() {
         </div>
       </td>
     `;
+=======
+    if (modoAtual === 'turno') {
+      // Linha com o nome da sala
+      htmlLinhas += `
+        <tr class="linha-cabecalho-sala" data-sala="${sala.id}">
+          <td colspan="7">
+            <span class="nome-sala">${sala.nome}</span>
+            <span class="meta-sala">${sala.codigo} · ${sala.tamanho}</span>
+          </td>
+        </tr>
+      `;
+>>>>>>> origin/grade-salas-visual
 
-    // Colunas dos Dias da Semana
-    for (let d = 0; d < diasSemana.length; d++) {
-      const dia = diasSemana[d];
-      const classeCelula = modoAtual === 'hora' ? 'celula-por-hora' : '';
+      // Uma linha por turno
+      for (let t = 0; t < turnos.length; t++) {
+        const turno = turnos[t];
 
-      htmlLinhas += `<td><div class="celula-dia ${classeCelula}">`;
+        htmlLinhas += `
+          <tr class="linha-turno turno-${turno.toLowerCase()}" data-sala="${sala.id}">
+            <td class="coluna-preco">
+              <div class="etiqueta-preco ${turno.toLowerCase()}">
+                <span class="preco-turno">${rotulosTurno[turno].toUpperCase()}</span>
+                <span class="valor-preco">${formatarMoeda(sala.precios[turno])}</span>
+              </div>
+            </td>
+        `;
 
+<<<<<<< HEAD
       if (modoAtual === 'turno') {
         for (let t = 0; t < turnos.length; t++) {
           const turno = turnos[t];
@@ -203,11 +224,16 @@ function renderizarGrade() {
         for (let d = 0; d < diasSemana.length; d++) {
           const dia = diasSemana[d];
 >>>>>>> 6fb2871
+=======
+        for (let d = 0; d < diasSemana.length; d++) {
+          const dia = diasSemana[d];
+>>>>>>> origin/grade-salas-visual
           const slot = sala.slots[dia][turno];
           const nomeProf = slot.status === 'livre' ? 'Livre' : obterNomeProfissional(slot.profissional);
           const textoPendente = slot.status === 'pendente' ? '<span class="subtexto-horario">Pendente</span>' : '';
 
           htmlLinhas += `
+<<<<<<< HEAD
 <<<<<<< HEAD
             <div class="bloco-horario ${slot.status}" data-sala="${sala.id}" data-dia="${dia}" data-turno="${turno}">
               <span class="rotulo-turno">${turno} · ${horariosTurno[turno]}</span>
@@ -227,6 +253,17 @@ function renderizarGrade() {
             </td>
           `;
         }
+=======
+            <td>
+              <div class="bloco-horario ${slot.status}" data-sala="${sala.id}" data-dia="${dia}" data-turno="${turno}">
+                <span class="rotulo-turno">${horariosTurno[turno]}</span>
+                <span class="nome-horario">${nomeProf}</span>
+                ${textoPendente}
+              </div>
+            </td>
+          `;
+        }
+>>>>>>> origin/grade-salas-visual
 
         htmlLinhas += '</tr>';
       }
@@ -247,7 +284,10 @@ function renderizarGrade() {
         const dia = diasSemana[d];
         htmlLinhas += '<td><div class="celula-dia celula-por-hora">';
 
+<<<<<<< HEAD
 >>>>>>> 6fb2871
+=======
+>>>>>>> origin/grade-salas-visual
         for (let h = 0; h < horasExtra.length; h++) {
           const hora = horasExtra[h];
           const slot = sala.slotsPorHora[dia][hora];
@@ -263,10 +303,16 @@ function renderizarGrade() {
           `;
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+        htmlLinhas += '</div></td>';
+>>>>>>> origin/grade-salas-visual
       }
 
-      htmlLinhas += '</div></td>';
+      htmlLinhas += '</tr>';
     }
+<<<<<<< HEAD
 
     htmlLinhas += '</tr>';
 =======
@@ -277,6 +323,8 @@ function renderizarGrade() {
       htmlLinhas += '</tr>';
     }
 >>>>>>> 6fb2871
+=======
+>>>>>>> origin/grade-salas-visual
   }
 
   corpoTabela.innerHTML = htmlLinhas;
@@ -364,11 +412,16 @@ document.addEventListener('keydown', function (e) {
 // Troca de Abas (Unidade / Modo)
 document.addEventListener('click', function (e) {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const abaUnidade = e.target.closest('.aba-unidade');
   if (abaUnidade) {
 =======
     const abaUnidade = e.target.closest('.aba-unidade');
   if (abaUnidade) {
+=======
+    const abaUnidade = e.target.closest('.aba-unidade');
+  if (abaUnidade) {
+>>>>>>> origin/grade-salas-visual
     if (abaUnidade.dataset.unit === unidadeAtual) return;
 
     // Descobre a direção: indo para a próxima unidade entra pela direita
@@ -377,16 +430,23 @@ document.addEventListener('click', function (e) {
       ? 'direita'
       : 'esquerda';
 
+<<<<<<< HEAD
 >>>>>>> 6fb2871
+=======
+>>>>>>> origin/grade-salas-visual
     const abas = document.querySelectorAll('.aba-unidade');
     abas.forEach(function (aba) { aba.classList.remove('active'); });
     abaUnidade.classList.add('active');
     unidadeAtual = abaUnidade.dataset.unit;
     renderizarGrade();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     animarTroca(direcao);
 >>>>>>> 6fb2871
+=======
+    animarTroca(direcao);
+>>>>>>> origin/grade-salas-visual
     return;
   }
 
@@ -569,8 +629,11 @@ if (btnAlternarTema) {
 
 aplicarTemaSalvo();
 <<<<<<< HEAD
+<<<<<<< HEAD
 renderizarGrade();
 =======
+=======
+>>>>>>> origin/grade-salas-visual
 renderizarGrade();
 
 // ===== Destaque interativo (hover) =====
@@ -668,5 +731,9 @@ function animarTroca(direcao) {
     tr.style.animationDelay = (i * 35) + 'ms'; // uma linha logo após a outra
     tr.classList.add('entra-' + direcao);
   });
+<<<<<<< HEAD
 }
 >>>>>>> 6fb2871
+=======
+}
+>>>>>>> origin/grade-salas-visual
