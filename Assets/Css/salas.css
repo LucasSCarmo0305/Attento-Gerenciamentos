@@ -1,0 +1,1149 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --navy-900: #152238;
+  --navy-800: #1b2c48;
+  --navy-active: #2c4270;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --line: #e2e8f0;
+  --text-900: #0f172a;
+  --text-600: #475569;
+  --text-400: #94a3b8;
+  --blue-600: #2f5fd8;
+  --blue-50: #e9f0ff;
+  --green-50: #e7f8ef;
+  --green-600: #1f9d55;
+  --amber-50: #fff4e0;
+  --amber-100: #ffe9bf;
+  --amber-700: #b26a00;
+  --red-50: #fde8e8;
+  --red-600: #d33a3a;
+  --gray-100: #eef0f6;
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-sm: 8px;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.05), 0 2px 4px -1px rgba(15, 23, 42, 0.03);
+  --shadow-lg: 0 20px 30px -10px rgba(15, 23, 42, 0.12);
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text-900);
+}
+
+body {
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg);
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--card);
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  transition: var(--transition);
+}
+
+.brand {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand-logo-container {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brand-text h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-900);
+  letter-spacing: -0.3px;
+}
+
+.brand-text p {
+  margin: 3px 0 0 0;
+  padding: 0;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text-400);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 12px;
+  gap: 4px;
+}
+
+.sidebar-nav .nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  color: var(--text-600);
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.sidebar-nav .nav-item:hover {
+  background-color: var(--bg);
+  color: var(--text-900);
+}
+
+.sidebar-nav .nav-item.active {
+  background-color: var(--blue-50);
+  color: var(--blue-600);
+  font-weight: 600;
+}
+
+.sidebar-nav .ic {
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+}
+
+.main {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg);
+  transition: var(--transition);
+}
+
+.barra-superior {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 32px 0;
+  width: 100%;
+}
+
+.barra-superior h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-900);
+}
+
+.barra-superior p {
+  margin: 4px 0 0 0;
+  font-size: 13px;
+  color: var(--text-600);
+}
+
+.topo-direita {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.btn-modo-escuro {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-600);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.btn-modo-escuro:hover {
+  background: var(--bg);
+  border-color: var(--text-400);
+  color: var(--text-900);
+}
+
+.indicador-tema {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-400);
+  transition: var(--transition);
+}
+
+.conteudo {
+  padding: 28px 32px 48px;
+  max-width: 1280px;
+}
+
+.linha-controles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.grupo-controles {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.abas-unidades,
+.abas-modo {
+  display: inline-flex;
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  gap: 4px;
+}
+
+.aba-unidade,
+.aba-modo {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--text-600);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.aba-unidade:hover,
+.aba-modo:hover {
+  color: var(--text-900);
+}
+
+.aba-unidade.active {
+  background: var(--blue-50);
+  color: var(--blue-600);
+  font-weight: 700;
+}
+
+.aba-modo.active {
+  background: var(--blue-600);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(47, 95, 216, 0.25);
+}
+
+.linha-contadores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.cartao-contador {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: var(--text-900);
+  box-shadow: var(--shadow-sm);
+}
+
+.cartao-contador .ponto-indicador {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cartao-contador.ocupado .ponto-indicador { background: var(--blue-600); }
+.cartao-contador.disponivel .ponto-indicador { background: var(--text-400); }
+.cartao-contador.pendente {
+  background: var(--amber-50);
+  border-color: var(--amber-100);
+  color: var(--amber-700);
+}
+.cartao-contador.pendente .ponto-indicador { background: var(--amber-700); }
+
+.cartao-tabela {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.rolagem-tabela {
+  overflow-x: auto;
+}
+
+.rolagem-tabela::-webkit-scrollbar,
+.celula-por-hora::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.rolagem-tabela::-webkit-scrollbar-thumb,
+.celula-por-hora::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 4px;
+}
+
+.rolagem-tabela::-webkit-scrollbar-thumb:hover,
+.celula-por-hora::-webkit-scrollbar-thumb:hover {
+  background: var(--text-400);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 920px;
+}
+
+thead th {
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  color: var(--text-400);
+  font-weight: 700;
+  background: var(--bg);
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+thead th.coluna-sala { min-width: 170px; }
+
+tbody td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+tbody tr:last-child td { border-bottom: none; }
+
+.info-sala .nome-sala { font-weight: 700; font-size: 14px; color: var(--text-900); }
+.info-sala .detalhes-sala { font-size: 12.5px; color: var(--text-400); margin-top: 3px; }
+.info-sala .preco-sala { font-size: 12.5px; color: var(--text-600); margin-top: 6px; font-weight: 600; }
+
+.etiqueta-preco {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.etiqueta-preco.m { background: #fef3c7; color: #92400e; }
+.etiqueta-preco.t { background: #fee2e2; color: #991b1b; }
+.etiqueta-preco.n { background: #dbeafe; color: #1e40af; }
+.etiqueta-preco.hora { background: #10b981; color: #ffffff; }
+
+.celula-dia {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 118px;
+}
+
+.celula-dia.celula-por-hora {
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.bloco-horario {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: var(--transition);
+}
+
+.bloco-horario:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.bloco-horario .rotulo-turno {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.bloco-horario .nome-horario {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-900);
+}
+
+.bloco-horario .subtexto-horario {
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.bloco-horario.horario-por-hora {
+  padding: 6px 8px;
+}
+
+.bloco-horario.horario-por-hora .rotulo-turno { font-size: 9.5px; }
+.bloco-horario.horario-por-hora .nome-horario { font-size: 11.5px; }
+
+.bloco-horario.livre {
+  background: var(--bg);
+  border: 1px dashed var(--line);
+}
+.bloco-horario.livre:hover {
+  background: var(--card);
+  border-color: var(--blue-600);
+}
+.bloco-horario.livre .rotulo-turno { color: var(--text-400); }
+.bloco-horario.livre .nome-horario { color: var(--text-400); font-weight: 500; }
+
+.bloco-horario.ocupado {
+  background: var(--blue-50);
+  border-color: var(--blue-600);
+}
+.bloco-horario.ocupado .rotulo-turno { color: var(--blue-600); }
+
+.bloco-horario.pendente {
+  background: var(--amber-50);
+  border-color: var(--amber-100);
+}
+.bloco-horario.pendente .rotulo-turno,
+.bloco-horario.pendente .subtexto-horario {
+  color: var(--amber-700);
+}
+
+.linha-legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.item-legenda {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--text-600);
+}
+
+.legenda-turno strong {
+  color: var(--text-900);
+  font-weight: 700;
+}
+
+.amostra-cor {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.amostra-cor.ocupado { background: var(--blue-50); border: 1px solid var(--blue-600); }
+.amostra-cor.pendente { background: var(--amber-50); border: 1px solid var(--amber-100); }
+.amostra-cor.disponivel { background: var(--bg); border: 1px dashed var(--line); }
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: var(--transition);
+}
+
+.botao-contorno {
+  background: var(--card);
+  border-color: var(--line);
+  color: var(--text-900);
+}
+.botao-contorno:hover {
+  background: var(--bg);
+  border-color: var(--text-400);
+}
+
+.botao-principal {
+  background: var(--blue-600);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(47, 95, 216, 0.25);
+}
+
+.fundo-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.fundo-modal.open {
+  display: flex;
+}
+
+.janela-modal {
+  background: var(--card);
+  width: 100%;
+  max-width: 440px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 26px 28px 24px;
+}
+
+.cabecalho-modal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.cabecalho-modal h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-900);
+}
+
+.fechar-modal {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--text-600);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.fechar-modal:hover {
+  background: var(--bg);
+  color: var(--text-900);
+}
+
+.info-modal {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  font-size: 13.5px;
+  color: var(--text-600);
+  line-height: 1.6;
+}
+
+.info-modal strong {
+  color: var(--text-900);
+}
+
+.grupo-formulario {
+  margin-bottom: 16px;
+}
+
+.grupo-formulario label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  font-weight: 700;
+  color: var(--text-400);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.grupo-formulario input[type="text"],
+.grupo-formulario input[type="tel"],
+.grupo-formulario input[type="email"],
+.grupo-formulario select {
+  width: 100%;
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--text-900);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  transition: var(--transition);
+}
+
+.grupo-formulario input:focus,
+.grupo-formulario select:focus {
+  outline: none;
+  border-color: var(--blue-600);
+  background: var(--card);
+  box-shadow: 0 0 0 3px rgba(47, 95, 216, 0.15);
+}
+
+.grupo-checkbox {
+  margin-bottom: 18px;
+}
+
+.grupo-checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-600);
+  cursor: pointer;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.grupo-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--blue-600);
+}
+
+.acoes-formulario {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+.escondido {
+  display: none !important;
+}
+
+/* REGRAS DO MODO ESCURO (Ajuste de Alto Contraste para Textos) */
+body.dark-preview,
+body.dark-preview .app,
+body.dark-preview .main,
+body.dark-preview .barra-superior,
+body.dark-preview .conteudo,
+body.dark-preview .linha-controles,
+body.dark-preview .linha-contadores {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+/* Sidebar & Navegação */
+body.dark-preview .sidebar {
+  background-color: #1e293b !important;
+  border-right-color: #334155 !important;
+}
+
+body.dark-preview .brand {
+  border-bottom-color: #334155 !important;
+}
+
+body.dark-preview .brand-text h1,
+body.dark-preview .barra-superior h2,
+body.dark-preview .cabecalho-modal h3,
+body.dark-preview .info-sala .nome-sala,
+body.dark-preview .texto-admin strong {
+  color: #ffffff !important;
+}
+
+body.dark-preview .brand-text p,
+body.dark-preview .barra-superior p,
+body.dark-preview .info-sala .detalhes-sala,
+body.dark-preview .item-legenda,
+body.dark-preview .grupo-formulario label,
+body.dark-preview .texto-admin span {
+  color: #cbd5e1 !important;
+}
+
+body.dark-preview .sidebar-nav .nav-item {
+  color: #cbd5e1 !important;
+}
+
+body.dark-preview .sidebar-nav .nav-item:hover {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+body.dark-preview .sidebar-nav .nav-item.active {
+  background-color: #1e3a8a !important;
+  color: #60a5fa !important;
+}
+
+/* Cartões, Abas e Seletores */
+body.dark-preview .cartao-tabela,
+body.dark-preview .janela-modal,
+body.dark-preview .cartao-contador,
+body.dark-preview .abas-unidades,
+body.dark-preview .abas-modo,
+body.dark-preview .btn-modo-escuro,
+body.dark-preview .selecao-mes select {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-preview .aba-unidade,
+body.dark-preview .aba-modo {
+  color: #cbd5e1 !important;
+}
+
+body.dark-preview .aba-unidade.active {
+  background-color: #1e3a8a !important;
+  color: #60a5fa !important;
+}
+
+body.dark-preview .aba-modo.active {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+body.dark-preview .indicador-tema {
+  background: #60a5fa !important;
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.6) !important;
+}
+
+/* Tabela e Células */
+body.dark-preview table,
+body.dark-preview tbody,
+body.dark-preview tr,
+body.dark-preview td {
+  background-color: transparent !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-preview thead th {
+  background-color: #1e293b !important;
+  color: #94a3b8 !important;
+  border-color: #334155 !important;
+}
+
+/* Blocos de Horários (Livre, Ocupado e Pendente) */
+body.dark-preview .bloco-horario.livre {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+body.dark-preview .bloco-horario.livre .rotulo-turno,
+body.dark-preview .bloco-horario.livre .nome-horario {
+  color: #94a3b8 !important;
+}
+
+body.dark-preview .bloco-horario.ocupado {
+  background-color: #1e3a8a !important;
+  border-color: #3b82f6 !important;
+}
+body.dark-preview .bloco-horario.ocupado .rotulo-turno,
+body.dark-preview .bloco-horario.ocupado .nome-horario,
+body.dark-preview .bloco-horario.ocupado .subtexto-horario {
+  color: #93c5fd !important;
+}
+
+body.dark-preview .bloco-horario.pendente {
+  background-color: #451a03 !important;
+  border-color: #78350f !important;
+}
+body.dark-preview .bloco-horario.pendente .rotulo-turno,
+body.dark-preview .bloco-horario.pendente .nome-horario,
+body.dark-preview .bloco-horario.pendente .subtexto-horario {
+  color: #fcd34d !important;
+}
+
+/* Modais e Formulários */
+body.dark-preview .info-modal {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+body.dark-preview .info-modal strong {
+  color: #ffffff !important;
+}
+
+body.dark-preview .grupo-formulario input,
+body.dark-preview .grupo-formulario select {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #ffffff !important;
+}
+
+body.dark-preview .grupo-formulario input::placeholder {
+  color: #64748b !important;
+}
+
+body.dark-preview .grupo-checkbox label {
+  color: #cbd5e1 !important;
+}
+
+/* ===== Layout por turno: nome da sala + 1 linha por turno ===== */
+.linha-cabecalho-sala td {
+  padding: 22px 16px 8px;
+  border-top: 1px solid var(--line);
+  border-bottom: none;
+  vertical-align: middle;
+}
+.linha-cabecalho-sala .nome-sala {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-900);
+  margin-right: 10px;
+}
+.linha-cabecalho-sala .meta-sala {
+  font-size: 13px;
+  color: var(--text-400);
+}
+tbody tr:first-child td { border-top: none; }
+
+.linha-turno td {
+  padding: 5px 6px;
+  border-bottom: none;
+  vertical-align: middle;
+}
+.linha-turno.turno-n td { padding-bottom: 16px; }
+
+.linha-turno .coluna-preco { min-width: 170px; padding-left: 16px; }
+.linha-turno .etiqueta-preco {
+  margin-top: 0;
+  padding: 10px 12px;
+  font-size: 12px;
+}
+
+/* células maiores */
+.linha-turno .bloco-horario {
+  min-height: 72px;
+  padding: 14px 12px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 4px;
+}
+.linha-turno .bloco-horario .rotulo-turno {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0;
+  color: var(--text-900);
+}
+.linha-turno .bloco-horario .nome-horario { font-size: 13px; }
+
+/* cor de cada turno nas células livres */
+.linha-turno.turno-m .bloco-horario.livre { background: #fffbd6; border: 1px solid #f1e9a8; }
+.linha-turno.turno-t .bloco-horario.livre { background: #f9dede; border: 1px solid #f0c4c4; }
+.linha-turno.turno-n .bloco-horario.livre { background: #dde8fa; border: 1px solid #c3d4f2; }
+
+.linha-turno .bloco-horario.livre .rotulo-turno { color: var(--text-900); }
+.linha-turno .bloco-horario.livre .nome-horario { color: var(--text-600); }
+
+/* ocupado e pendente mantêm o rótulo na cor do status */
+.linha-turno .bloco-horario.ocupado .rotulo-turno { color: var(--blue-600); }
+.linha-turno .bloco-horario.pendente .rotulo-turno { color: var(--amber-700); }
+
+/* tabela mais larga para caber as células maiores */
+table { min-width: 1100px; }
+
+/* modo escuro */
+body.dark-preview .linha-turno.turno-m .bloco-horario.livre { background-color: #3b3512 !important; border-color: #5c531c !important; }
+body.dark-preview .linha-turno.turno-t .bloco-horario.livre { background-color: #3d1f1f !important; border-color: #5e2f2f !important; }
+body.dark-preview .linha-turno.turno-n .bloco-horario.livre { background-color: #1a2a4a !important; border-color: #2c4270 !important; }
+body.dark-preview .linha-turno .bloco-horario.livre .rotulo-turno { color: #f8fafc !important; }
+body.dark-preview .linha-cabecalho-sala .nome-sala { color: #ffffff !important; }
+
+/* ===== Alinhamento: colunas fixas e títulos centralizados ===== */
+table {
+  table-layout: fixed;
+  min-width: 960px;
+}
+thead th {
+  text-align: center;
+  padding: 14px 6px;
+  transition: var(--transition);
+}
+thead th.coluna-sala {
+  width: 190px;
+  min-width: 0;
+  text-align: left;
+  padding-left: 16px;
+}
+.linha-turno .coluna-preco {
+  min-width: 0;
+}
+
+/* ===== Interação: destaque ao passar o mouse ===== */
+.bloco-horario {
+  position: relative;
+}
+.bloco-horario.salta,
+.linha-turno .bloco-horario:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 8px 18px -4px rgba(15, 23, 42, 0.25);
+  z-index: 2;
+}
+
+/* título do dia reage junto com a coluna */
+thead th.th-destaque {
+  color: var(--blue-600);
+  transform: translateY(-2px);
+}
+
+/* etiqueta do turno cresce um pouco */
+.linha-turno .etiqueta-preco {
+  transition: var(--transition);
+  cursor: pointer;
+}
+.linha-turno .coluna-preco:hover .etiqueta-preco {
+  transform: scale(1.04);
+  box-shadow: 0 6px 14px -4px rgba(15, 23, 42, 0.25);
+}
+
+/* nome da sala muda de cor */
+.linha-cabecalho-sala { cursor: default; }
+.linha-cabecalho-sala:hover .nome-sala {
+  color: var(--blue-600);
+}
+
+/* ===== Altura igual: etiqueta do turno = célula ===== */
+.linha-turno .bloco-horario {
+  height: 84px;
+  min-height: 84px;
+  padding: 8px 12px;
+  gap: 2px;
+}
+.linha-turno .etiqueta-preco {
+  height: 84px;
+  align-items: center;
+  padding: 0 14px;
+  font-size: 12.5px;
+}
+
+/* ===== Ocupado com a cor do turno (tom mais forte) ===== */
+/* Manhã */
+.linha-turno.turno-m .bloco-horario.ocupado {
+  background: #fcd95b;
+  border: 1px solid #e0b61e;
+}
+.linha-turno.turno-m .bloco-horario.ocupado .rotulo-turno,
+.linha-turno.turno-m .bloco-horario.ocupado .nome-horario {
+  color: #5c3a05;
+}
+
+/* Tarde */
+.linha-turno.turno-t .bloco-horario.ocupado {
+  background: #f2a0a0;
+  border: 1px solid #d96666;
+}
+.linha-turno.turno-t .bloco-horario.ocupado .rotulo-turno,
+.linha-turno.turno-t .bloco-horario.ocupado .nome-horario {
+  color: #6b1414;
+}
+
+/* Noite */
+.linha-turno.turno-n .bloco-horario.ocupado {
+  background: #8fb0f2;
+  border: 1px solid #4a78d6;
+}
+.linha-turno.turno-n .bloco-horario.ocupado .rotulo-turno,
+.linha-turno.turno-n .bloco-horario.ocupado .nome-horario {
+  color: #14306e;
+}
+
+/* Pendente: continua âmbar, mas com borda tracejada para não confundir com ocupado */
+.linha-turno .bloco-horario.pendente {
+  border-style: dashed;
+  border-width: 1.5px;
+}
+
+/* ===== Modo escuro ===== */
+body.dark-preview .linha-turno.turno-m .bloco-horario.ocupado {
+  background-color: #7a5d0a !important;
+  border-color: #d9a91a !important;
+}
+body.dark-preview .linha-turno.turno-t .bloco-horario.ocupado {
+  background-color: #7f2a2a !important;
+  border-color: #e07070 !important;
+}
+body.dark-preview .linha-turno.turno-n .bloco-horario.ocupado {
+  background-color: #23459a !important;
+  border-color: #6f9bf0 !important;
+}
+body.dark-preview .linha-turno .bloco-horario.ocupado .rotulo-turno,
+body.dark-preview .linha-turno .bloco-horario.ocupado .nome-horario {
+  color: #ffffff !important;
+}
+/* ===== Etiquetas Manhã/Tarde/Noite com o tom forte ===== */
+.linha-turno .etiqueta-preco.m {
+  background: #fcd95b;
+  color: #5c3a05;
+}
+.linha-turno .etiqueta-preco.t {
+  background: #f2a0a0;
+  color: #6b1414;
+}
+.linha-turno .etiqueta-preco.n {
+  background: #8fb0f2;
+  color: #14306e;
+}
+
+/* ===== Camada translúcida para clarear / tingir (funciona em qualquer status) ===== */
+.bloco-horario::after,
+.linha-turno .etiqueta-preco::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: transparent;
+  pointer-events: none;
+  transition: background-color 0.2s ease;
+}
+.linha-turno .etiqueta-preco {
+  position: relative;
+}
+/* o texto fica acima da camada, sem desbotar */
+.bloco-horario > span,
+.linha-turno .etiqueta-preco > span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Mouse na etiqueta: ela e as células da linha ficam mais claras */
+.linha-turno .coluna-preco:hover .etiqueta-preco::after,
+.bloco-horario.realce-turno::after {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+/* Mouse no dia: células ganham tom azulado + contorno de "selecionado" */
+.bloco-horario.realce-dia::after {
+  background: rgba(96, 165, 250, 0.2);
+}
+.bloco-horario.realce-dia {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5),
+              0 8px 18px -4px rgba(15, 23, 42, 0.25);
+}
+
+/* Modo escuro */
+body.dark-preview .linha-turno .coluna-preco:hover .etiqueta-preco::after,
+body.dark-preview .bloco-horario.realce-turno::after {
+  background: rgba(255, 255, 255, 0.14);
+}
+body.dark-preview .bloco-horario.realce-dia::after {
+  background: rgba(96, 165, 250, 0.28);
+}
+/* Mouse em uma célula de horário: tom ainda mais claro */
+.linha-turno .bloco-horario:hover::after {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+/* Modo escuro */
+body.dark-preview .linha-turno .bloco-horario:hover::after {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* ===== Animação na troca de unidade ===== */
+@keyframes entraDireita {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes entraEsquerda {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: none; }
+}
+
+#gridBody tr.entra-direita {
+  animation: entraDireita 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+#gridBody tr.entra-esquerda {
+  animation: entraEsquerda 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+/* respeita quem desativa animações no sistema */
+@media (prefers-reduced-motion: reduce) {
+  #gridBody tr.entra-direita,
+  #gridBody tr.entra-esquerda {
+    animation: none;
+  }
+}
+
+/* Palavra "Livre" em verde */
+.bloco-horario.livre .nome-horario,
+.linha-turno .bloco-horario.livre .nome-horario {
+  color: #7bca70;
+  font-weight: 600;
+}
+
+/* Modo escuro: verde mais claro para dar contraste */
+body.dark-preview .bloco-horario.livre .nome-horario,
+body.dark-preview .linha-turno .bloco-horario.livre .nome-horario {
+  color: #4ade80 !important;
+}
