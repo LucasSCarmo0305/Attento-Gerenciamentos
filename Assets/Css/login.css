@@ -5,12 +5,17 @@
             font-family: Arial, sans-serif;
         }
         body {
-            background-color: #f4f6f9;
+            background-color: #fbfafd;
+            background-image: url("/Assets/imagens/ImagenLogin.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             justify-content: space-between;
             align-items: center;
+
         }
         main {
             display: flex;
@@ -21,17 +26,17 @@
             padding: 20px;
         }
         .login-card {
-            background: #ffffff;
+            background: #121c8b;
             padding: 2rem;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(6, 6, 6, 0.1);
             width: 100%;
             max-width: 400px;
         }
         h1 {
             margin-bottom: 1.5rem;
             text-align: center;
-            color: #333;
+            color: #fffcfc;
         }
         .form-Usuario {
             margin-bottom: 1.2rem;
@@ -43,7 +48,7 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: bold;
-            color: #555;
+            color: #fbf8f8;
         }
         input {
             width: 100%;
@@ -71,6 +76,7 @@
             background-color: #0056b3;
         }
         .register-link {
+            color: #ffffff;
             margin-top: 1rem;
             text-align: center;
             font-size: 0.9rem;

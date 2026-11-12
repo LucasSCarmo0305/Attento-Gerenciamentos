@@ -5,7 +5,11 @@
             font-family: Arial, sans-serif;
         }
         body {
-            background-color: #f4f6f9;
+            background-color: #fbfafd;
+            background-image: url("/Assets/imagens/ImagenLogin.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -21,7 +25,7 @@
             padding: 20px;
         }
         .tabela-cadastro {
-            background: #ffffff;
+            background: #121c8b;
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -31,7 +35,7 @@
         h1 {
             margin-bottom: 1.5rem;
             text-align: center;
-            color: #333;
+            color: #ffffff;
         }
         .form-Usuario {
             margin-bottom: 1.2rem;
@@ -43,7 +47,7 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: bold;
-            color: #555;
+            color: #ffffff;
         }
         input {
             width: 100%;
@@ -59,7 +63,7 @@
         button {
             width: 100%;
             padding: 0.75rem;
-            background-color: #285ba7;
+            background-color: #007bff;
             color: white;
             border: none;
             border-radius: 4px;
@@ -71,6 +75,7 @@
             background-color: #2c2a83;
         }
         .login-link {
+            color: #ffffff;
             margin-top: 1rem;
             text-align: center;
             font-size: 0.9rem;
@@ -96,7 +101,7 @@
     justify-content: space-between;
     align-items: center;
     /* Linha da imagem com uma camada escura para melhorar a leitura do texto */
-    background-image: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.5)), url('../imagens/ImagenLogin.png');
+    background-image: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.5)), url('/Assets/imagens/ImagenLogin.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
