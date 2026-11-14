@@ -4,19 +4,7 @@
             padding: 0;
             font-family: Arial, sans-serif;
         }
-        body {
-            background-color: #fbfafd;
-            background-image: url("/Assets/imagens/ImagenLogin.png");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            justify-content: space-between;
-            align-items: center;
 
-        }
         main {
             display: flex;
             justify-content: center;
@@ -102,7 +90,7 @@ body {
     justify-content: space-between;
     align-items: center;
     /* Linha da imagem com uma camada escura para melhorar a leitura do texto */
-    background-image: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.5)), url('/Assets/imagens/ImagenLogin.png');
+    background-image: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.5)), url("../imagens/Lobby\ Azul\ Abstrato\ com\ Luzes\ Difusas.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
