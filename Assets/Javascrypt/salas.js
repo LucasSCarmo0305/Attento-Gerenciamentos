@@ -141,14 +141,19 @@ function renderizarGrade() {
 
     if (modoAtual === 'turno') {
   
-      htmlLinhas += `
-        <tr class="linha-cabecalho-sala" data-sala="${sala.id}">
-          <td colspan="7">
-            <span class="nome-sala">${sala.nome}</span>
-            <span class="meta-sala">${sala.codigo} · ${sala.tamanho}</span>
-          </td>
-        </tr>
-      `;
+     htmlLinhas += `
+  <tr class="linha-cabecalho-sala" data-sala="${sala.id}">
+    <td colspan="7">
+      <div class="cabecalho-sala-flex">
+        <div>
+          <span class="nome-sala">${sala.nome}</span>
+          <span class="meta-sala">${sala.codigo} · ${sala.tamanho}</span>
+        </div>
+        <button type="button" class="btn-remover-sala" data-remover="${sala.id}">🗑 Remover</button>
+      </div>
+    </td>
+  </tr>
+`;
 
       // Uma linha por turno
       for (let t = 0; t < turnos.length; t++) {
@@ -192,6 +197,7 @@ function renderizarGrade() {
             <div class="nome-sala">${sala.nome}</div>
             <div class="meta-sala">${sala.codigo} · ${sala.tamanho}</div>
             <div class="precos-sala">${renderizarPrecos(sala)}</div>
+            <button type="button" class="btn-remover-sala" data-remover="${sala.id}">🗑 Remover</button>
           </div>
         </td>
       `;
@@ -221,7 +227,9 @@ function renderizarGrade() {
       htmlLinhas += '</tr>';
     }
   }
-
+  if (unidade.salas.length === 0) {
+  htmlLinhas = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-400);">Nenhuma sala cadastrada nesta unidade.</td></tr>';
+}
   corpoTabela.innerHTML = htmlLinhas;
   atualizarContadores();
 }
@@ -581,3 +589,99 @@ function animarTroca(direcao) {
     tr.classList.add('entra-' + direcao);
   });
 }
+// ===== Adicionar / Remover salas =====
+function gerarIdSala(nome) {
+  const base = nome
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '') || 'sala';
+  return base + '-' + Date.now();
+}
+
+const modalSala = document.getElementById('modalSala');
+const formSala = document.getElementById('formSala');
+
+function abrirModalSala() {
+  formSala.reset();
+  modalSala.classList.add('open');
+  document.getElementById('s-nome').focus();
+}
+
+function fecharModalSala() {
+  modalSala.classList.remove('open');
+}
+
+document.getElementById('btnAdicionarSala').addEventListener('click', abrirModalSala);
+document.getElementById('modalSalaClose').addEventListener('click', fecharModalSala);
+document.getElementById('cancelarSala').addEventListener('click', fecharModalSala);
+modalSala.addEventListener('click', function (e) {
+  if (e.target === modalSala) fecharModalSala();
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') fecharModalSala();
+});
+
+formSala.addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const unidade = dadosUnidades[unidadeAtual];
+  const nome = document.getElementById('s-nome').value.trim();
+
+  const jaExiste = unidade.salas.some(function (s) {
+    return s.nome.toLowerCase() === nome.toLowerCase();
+  });
+  if (jaExiste) {
+    alert('Já existe uma sala com esse nome nesta unidade.');
+    return;
+  }
+
+  const codigo = document.getElementById('s-codigo').value.trim()
+    || 'Sala ' + String(unidade.salas.length + 1).padStart(2, '0');
+  const tamanho = document.getElementById('s-tamanho').value + 'm²';
+
+  const precos = {
+    M: Number(document.getElementById('s-preco-m').value),
+    T: Number(document.getElementById('s-preco-t').value),
+    N: Number(document.getElementById('s-preco-n').value),
+    hora: Number(document.getElementById('s-preco-h').value)
+  };
+
+  unidade.salas.push(criarSala(gerarIdSala(nome), nome, codigo, tamanho, precos));
+
+  salvarDados();
+  fecharModalSala();
+  renderizarGrade();
+});
+
+function salaTemReservas(sala) {
+  for (let d = 0; d < diasSemana.length; d++) {
+    const dia = diasSemana[d];
+    for (let t = 0; t < turnos.length; t++) {
+      if (sala.slots[dia][turnos[t]].status !== 'livre') return true;
+    }
+    for (let h = 0; h < horasExtra.length; h++) {
+      if (sala.slotsPorHora[dia][horasExtra[h]].status !== 'livre') return true;
+    }
+  }
+  return false;
+}
+
+document.getElementById('gridBody').addEventListener('click', function (e) {
+  const btn = e.target.closest('.btn-remover-sala');
+  if (!btn) return;
+
+  const unidade = dadosUnidades[unidadeAtual];
+  const sala = unidade.salas.find(function (s) { return s.id === btn.dataset.remover; });
+  if (!sala) return;
+
+  let msg = 'Remover a sala "' + sala.nome + '"?';
+  if (salaTemReservas(sala)) {
+    msg += '\n\nATENÇÃO: ela tem horários ocupados/pendentes, que serão perdidos.';
+  }
+  if (!confirm(msg)) return;
+
+  unidade.salas = unidade.salas.filter(function (s) { return s.id !== sala.id; });
+  salvarDados();
+  renderizarGrade();
+});

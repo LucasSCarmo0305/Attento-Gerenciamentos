@@ -49,6 +49,7 @@
 
       <div class="linha-controles">
         <div class="grupo-controles" style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button type="button" class="botao botao-principal" id="btnAdicionarSala">+ Adicionar sala</button>
           <div class="abas-unidades" id="unitTabs">
             <button class="aba-unidade active" data-unit="europa">Attento Europa</button>
             <button class="aba-unidade" data-unit="horizonte">Attento Horizonte</button>
@@ -148,7 +149,53 @@
     </form>
   </div>
 </div>
+<div class="fundo-modal" id="modalSala">
+  <div class="janela-modal">
+    <div class="cabecalho-modal">
+      <h3>Adicionar sala</h3>
+      <button type="button" class="fechar-modal" id="modalSalaClose">✕</button>
+    </div>
 
+    <form id="formSala">
+      <div class="grupo-formulario">
+        <label for="s-nome">Nome da sala:</label>
+        <input type="text" id="s-nome" required placeholder="Ex: Sala Aurora">
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="s-codigo">Código (opcional):</label>
+        <input type="text" id="s-codigo" placeholder="Ex: Sala 05 (se vazio, é gerado)">
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="s-tamanho">Tamanho (m²):</label>
+        <input type="number" id="s-tamanho" required min="1" placeholder="Ex: 20">
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="s-preco-m">Preço Manhã (R$):</label>
+        <input type="number" id="s-preco-m" required min="0" step="0.01" value="300">
+      </div>
+      <div class="grupo-formulario">
+        <label for="s-preco-t">Preço Tarde (R$):</label>
+        <input type="number" id="s-preco-t" required min="0" step="0.01" value="330">
+      </div>
+      <div class="grupo-formulario">
+        <label for="s-preco-n">Preço Noite (R$):</label>
+        <input type="number" id="s-preco-n" required min="0" step="0.01" value="300">
+      </div>
+      <div class="grupo-formulario">
+        <label for="s-preco-h">Preço Hora Extra (R$/h):</label>
+        <input type="number" id="s-preco-h" required min="0" step="0.01" value="80">
+      </div>
+
+      <div class="acoes-formulario">
+        <button type="button" class="botao botao-contorno" id="cancelarSala">Cancelar</button>
+        <button type="submit" class="botao botao-principal">Salvar sala</button>
+      </div>
+    </form>
+  </div>
+</div>
 <script src="../Assets/Javascrypt/salas.js"></script>
 </body>
 </html>
