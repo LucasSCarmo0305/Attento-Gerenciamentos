@@ -4,11 +4,11 @@ let contas = JSON.parse(localStorage.getItem('financeiro_data')) || [];
 
 
 let ordenacaoAtual = {
-  coluna: 'vencimento', 
-  direcao: 'asc'        
+  coluna: 'vencimento',
+  direcao: 'asc'
 };
 
-const formatarMoeda = (valor) => 
+const formatarMoeda = (valor) =>
   Number(valor || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
 function formatarData(data) {
@@ -120,14 +120,14 @@ function carregarTabela(filtro = 'todos') {
     const valor = c.valor || 0;
     const vencimento = c.vencimento || '';
 
-//setas para melhor visualização!
+    // setas para melhor visualização (cores ficam no CSS)
     let setaData = '';
     if (status === 'pendente') {
-      setaData = '<span style="color: #d97706; font-weight: bold; margin-right: 6px; display: inline-block;">➔</span> ';
+      setaData = '<span class="seta-data seta-pendente">➔</span>';
     } else if (status === 'vencido') {
-      setaData = '<span style="color: #dc2626; font-weight: bold; margin-right: 6px; display: inline-block;">⬇</span> ';
+      setaData = '<span class="seta-data seta-vencido">⬇</span>';
     } else if (status === 'pago') {
-      setaData = '<span style="color: #16a34a; font-weight: bold; margin-right: 6px; display: inline-block;">⬆</span> ';
+      setaData = '<span class="seta-data seta-pago">⬆</span>';
     }
 
     return `
@@ -146,8 +146,10 @@ function carregarTabela(filtro = 'todos') {
           </span>
         </td>
         <td>
-${status !== 'pago' ? `<button onclick="confirmarConta(${indiceReal})" class="btn-acao btn-pago" title="Confirmar pagamento">✓ Marcar como Pago</button>` : ''}
+          <div class="acoes-cell">
+            ${status !== 'pago' ? `<button onclick="confirmarConta(${indiceReal})" class="btn-acao btn-pago" title="Confirmar pagamento">✓ Pago</button>` : ''}
             <button onclick="excluirConta(${indiceReal})" class="btn-acao btn-remover" title="Excluir">✕ Remover</button>
+          </div>
         </td>
       </tr>
     `;
@@ -275,27 +277,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-const alternarModoEscuro = document.getElementById('alternarModoEscuro');
-const textoTema = document.getElementById('textoModoEscuro');
-const modoEscuroSalvo = localStorage.getItem('modoEscuro') === 'true';
-if (modoEscuroSalvo) {
-  document.body.classList.add('dark-preview');
-  if (textoTema) {
-    textoTema.textContent = 'Modo Claro';
-  }
-}
-if (alternarModoEscuro) {
-  alternarModoEscuro.addEventListener('click', () => {
-    document.body.classList.toggle('dark-preview');
-    const estaEscuro = document.body.classList.contains('dark-preview');
-    
-    const textoTema = document.getElementById('textoModoEscuro');
-    localStorage.setItem('modoEscuro', estaEscuro);
+  const alternarModoEscuro = document.getElementById('alternarModoEscuro');
+  const textoTema = document.getElementById('textoModoEscuro');
+  const modoEscuroSalvo = localStorage.getItem('modoEscuro') === 'true';
+  if (modoEscuroSalvo) {
+    document.body.classList.add('dark-preview');
     if (textoTema) {
-      textoTema.textContent = estaEscuro ? 'Modo Claro' : 'Modo Escuro';
+      textoTema.textContent = 'Modo Claro';
     }
-  });
-}
+  }
+  if (alternarModoEscuro) {
+    alternarModoEscuro.addEventListener('click', () => {
+      document.body.classList.toggle('dark-preview');
+      const estaEscuro = document.body.classList.contains('dark-preview');
+
+      const textoTema = document.getElementById('textoModoEscuro');
+      localStorage.setItem('modoEscuro', estaEscuro);
+      if (textoTema) {
+        textoTema.textContent = estaEscuro ? 'Modo Claro' : 'Modo Escuro';
+      }
+    });
+  }
   atualizarSumario();
   carregarTabela('todos');
 });

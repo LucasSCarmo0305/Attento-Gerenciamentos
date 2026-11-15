@@ -15,7 +15,7 @@
 <div class="app">
   <aside class="sidebar">
     <div class="brand">
-   
+
         <div class="brand-logo-container">
             <img src="../Assets/imagens/Attento Logo.png" alt="Attento Logo" class="brand-logo">
         </div>
@@ -31,7 +31,7 @@
         <a href="financeiro.html" class="nav-item active"><span class="ic">$</span>Financeiro</a>
         <a href="conveniencias.html" class="nav-item"><span class="ic">🛡</span>Conveniências</a>
     </nav>
-</aside>
+  </aside>
 
   <div class="main">
     <header class="topbar">
@@ -40,10 +40,10 @@
         <p>Contas, recebimentos e relatórios</p>
       </div>
       <div class="topbar-right">
-      <button class="btn-modo-escuro" id="alternarModoEscuro">
-                    <span class="indicador-tema"></span>
-                    <span id="textoModoEscuro">Modo Escuro</span>
-                    </button>
+        <button class="btn-modo-escuro" id="alternarModoEscuro">
+          <span class="indicador-tema"></span>
+          <span id="textoModoEscuro">Modo Escuro</span>
+        </button>
       </div>
     </header>
 
@@ -51,18 +51,21 @@
 
       <div class="cards-row">
         <div class="summary-card faturado">
+     
           <div>
             <div class="value" id="totalFaturado">R$ 0,00</div>
             <div class="label">Total faturado</div>
           </div>
         </div>
         <div class="summary-card recebido">
+   
           <div>
             <div class="value" id="totalRecebido">R$ 0,00</div>
             <div class="label">Recebido</div>
           </div>
         </div>
         <div class="summary-card despesas">
+          
           <div>
             <div class="value" id="totalDespesas">R$ 0,00</div>
             <div class="label">Despesas</div>
@@ -84,59 +87,63 @@
         <button class="tab" data-filter="pago">Pagos</button>
       </div>
 
-     <div class="table-card">
-  <table>
-    <thead>
-      <tr>
-        <th onclick="ordenarPor('descricao')" >
-          Descrição <span id="sort-descricao">⇅</span>
-        </th>
-        <th onclick="ordenarPor('categoria')" s>
-          Categoria <span id="sort-categoria">⇅</span>
-        </th>
-        <th onclick="ordenarPor('valor')" >
-          Valor <span id="sort-valor">⇅</span>
-        </th>
-        <th onclick="ordenarPor('vencimento')" >
-          Vencimento <span id="sort-vencimento">⇅</span>
-        </th>
-        <th onclick="ordenarPor('status')" >
-          Status <span id="sort-status">⇅</span>
-        </th>
-        <th>Ação</th>
-      </tr>
-    </thead>
-    <tbody id="corpoTabela"></tbody>
-  </table>
-</div>
-
-<div id="modalAdicionar" class="modal-overlay">
-  <div class="modal-content">
-    <h3>Nova Conta</h3>
-    <form id="formularioAdicionar">
-      <input type="text" id="descricao" placeholder="Descrição" required>
-      
-      <select id="categoria" required>
-        <option value="locacao">Locação</option>
-        <option value="convenio">Recebíveis</option>
-        <option value="outros">Despesa</option>
-      </select>
-      
-      <input type="number" id="valor" placeholder="Valor (R$)" step="0.01" min="0" required>
-
-      <input type="date" id="vencimento" required>
-      
-      <select id="status" required>
-        <option value="pendente">Pendente</option>
-        <option value="pago">Pago</option>
-        <option value="vencido">Vencido</option>
-      </select>
-      
-      <div class="modal-actions">
-        <button type="button" id="botaoFecharModal" class="btn btn-outline">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Salvar</button>
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th onclick="ordenarPor('descricao')">
+                Descrição <span id="sort-descricao">⇅</span>
+              </th>
+              <th onclick="ordenarPor('categoria')">
+                Categoria <span id="sort-categoria">⇅</span>
+              </th>
+              <th onclick="ordenarPor('valor')">
+                Valor <span id="sort-valor">⇅</span>
+              </th>
+              <th onclick="ordenarPor('vencimento')">
+                Vencimento <span id="sort-vencimento">⇅</span>
+              </th>
+              <th onclick="ordenarPor('status')">
+                Status <span id="sort-status">⇅</span>
+              </th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="corpoTabela"></tbody>
+        </table>
       </div>
-    </form>
+
+      <div id="modalAdicionar" class="modal-overlay">
+        <div class="modal-content">
+          <h3>Nova Conta</h3>
+          <form id="formularioAdicionar">
+            <input type="text" id="descricao" placeholder="Descrição" required>
+
+            <select id="categoria" required>
+              <option value="locacao">Locação</option>
+              <option value="convenio">Convênio</option>
+              <option value="outros">Despesa</option>
+            </select>
+
+            <input type="number" id="valor" placeholder="Valor (R$)" step="0.01" min="0" required>
+
+            <input type="date" id="vencimento" required>
+
+            <select id="status" required>
+              <option value="pendente">Pendente</option>
+              <option value="pago">Pago</option>
+              <option value="vencido">Vencido</option>
+            </select>
+
+            <div class="modal-actions">
+              <button type="button" id="botaoFecharModal" class="btn btn-outline">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
