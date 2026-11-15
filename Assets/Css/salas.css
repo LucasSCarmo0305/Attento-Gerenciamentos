@@ -1026,3 +1026,65 @@ body.dark-preview .linha-turno .bloco-horario.livre .nome-horario {
     padding: 20px 16px 40px;
   }
 }
+/* ===== Adicionar / remover salas ===== */
+.cabecalho-sala-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.btn-remover-sala {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--red-600);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btn-remover-sala:hover {
+  background: var(--red-50);
+  border-color: var(--red-600);
+}
+
+.info-sala .btn-remover-sala { margin-top: 10px; }
+
+/* inputs numéricos do formulário (o CSS só cobria text/tel/email) */
+.grupo-formulario input[type="number"] {
+  width: 100%;
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--text-900);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  transition: var(--transition);
+}
+.grupo-formulario input[type="number"]:focus {
+  outline: none;
+  border-color: var(--blue-600);
+  background: var(--card);
+  box-shadow: 0 0 0 3px rgba(47, 95, 216, 0.15);
+}
+
+/* botões que o JS já usa no modal mas não existiam no CSS */
+.botao-perigo  { background: var(--red-600);   color: #fff; }
+.botao-sucesso { background: var(--green-600); color: #fff; }
+.rodape-modal  { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
+
+/* modo escuro */
+body.dark-preview .btn-remover-sala {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f87171 !important;
+}
+body.dark-preview .grupo-formulario input[type="number"] {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #ffffff !important;
+}
