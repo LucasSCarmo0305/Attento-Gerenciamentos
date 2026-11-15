@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Attento</title>
+    <link rel="stylesheet" href="../Assets/Css/login.css">
+    <link rel="icon" href="../Assets/imagens/Attento Logo Simples.png">
+</head>
+<body>
+
+    <main>
+        <div class="login-card">
+            <h1>Login</h1>
+            <form id="loginForm" novalidate>
+                <div class="form-Usuario">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" autocomplete="email" placeholder="seu@email.com" required>
+                </div>
+
+                <div class="form-Password">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" autocomplete="current-password" placeholder="••••••••" required>
+                </div>
+
+                <p class="mensagem" id="mensagem" role="alert" hidden></p>
+
+                <button type="submit" id="botaoEntrar">Entrar</button>
+            </form>
+
+            <div class="register-link">
+                <p>Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Attento. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../Assets/Javascrypt/auth.js"></script>
+    <script src="../Assets/Javascrypt/login.js"></script>
+</body>
+</html>

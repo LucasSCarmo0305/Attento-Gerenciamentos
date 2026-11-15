@@ -1,0 +1,135 @@
+/* Página "Gerenciar funcionários" — complementa financeiro.css */
+
+.celula-nome {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.texto-secundario {
+  color: var(--text-600);
+}
+
+.sem-acao {
+  color: var(--text-400);
+}
+
+.status.aguardando {
+  background: var(--blue-50);
+  color: var(--blue-600);
+}
+
+.status.aguardando::before {
+  background: var(--blue-600);
+}
+
+.status.inativo {
+  background: #eceff4;
+  color: var(--text-600);
+}
+
+.status.inativo::before {
+  background: var(--text-400);
+}
+
+.btn-neutro {
+  color: var(--text-600);
+  background-color: var(--bg);
+  border: 1px solid var(--line);
+}
+
+.btn-neutro:hover {
+  background-color: #e9edf6;
+  color: var(--text-900);
+}
+
+.aviso-pedidos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+  padding: 14px 18px;
+  border: 1px solid #bcd0ff;
+  border-radius: var(--radius-md);
+  background: var(--blue-50);
+  color: var(--text-900);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.aviso-pedidos[hidden],
+.contagem-aba[hidden],
+.rodape-aviso[hidden] {
+  display: none;
+}
+
+.contagem-aba {
+  display: inline-block;
+  min-width: 20px;
+  margin-left: 8px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--blue-600);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+
+.rodape-aviso {
+  margin: 16px 2px 0;
+  font-size: 13px;
+  color: var(--text-600);
+}
+
+/* ---------- Modo escuro ---------- */
+body.dark-preview .texto-secundario {
+  color: #94a3b8;
+}
+
+body.dark-preview .rodape-aviso {
+  color: #cbd5e1;
+}
+
+body.dark-preview .status.aguardando {
+  background-color: rgba(96, 165, 250, 0.16);
+  color: #93c5fd;
+}
+
+body.dark-preview .status.aguardando::before {
+  background-color: #60a5fa;
+}
+
+body.dark-preview .status.inativo {
+  background-color: #334155;
+  color: #cbd5e1;
+}
+
+body.dark-preview .status.inativo::before {
+  background-color: #94a3b8;
+}
+
+body.dark-preview .btn-neutro {
+  background-color: #334155;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+body.dark-preview .btn-neutro:hover {
+  background-color: #475569;
+  color: #ffffff;
+}
+
+body.dark-preview .aviso-pedidos {
+  background-color: rgba(96, 165, 250, 0.12);
+  border-color: rgba(96, 165, 250, 0.35);
+  color: #f8fafc;
+}
+
+body.dark-preview .contagem-aba {
+  background-color: #3b82f6;
+}

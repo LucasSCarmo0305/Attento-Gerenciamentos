@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attento · Gerenciar funcionários</title>
+
+  <script src="../Assets/Javascrypt/auth.js" data-acesso="admin"></script>
+
+  <link rel="stylesheet" href="../Assets/Css/financeiro.css">
+  <link rel="stylesheet" href="../Assets/Css/index.css">
+  <link rel="stylesheet" href="../Assets/Css/sidebar.css">
+  <link rel="stylesheet" href="../Assets/Css/funcionarios.css">
+  <link rel="icon" href="../Assets/imagens/Attento Logo Simples.png">
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+        <div class="brand-logo-container">
+            <img src="../Assets/imagens/Attento Logo.png" alt="Attento Logo" class="brand-logo">
+        </div>
+
+        <div class="brand-text">
+            <h1>Attento</h1>
+            <p>SAÚDE INTEGRAL</p>
+        </div>
+    </div>
+    <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item"><span class="ic">▦</span>Início</a>
+        <a href="salas.html" class="nav-item"><span class="ic">🗓</span>Salas</a>
+        <a href="financeiro.html" class="nav-item"><span class="ic">$</span>Financeiro</a>
+        <a href="conveniencias.html" class="nav-item"><span class="ic">🛡</span>Conveniências</a>
+        <a href="funcionarios.html" class="nav-item active" data-papel="admin" hidden><span class="ic">👥</span>Gerenciar funcionários</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div>
+        <h2>Gerenciar funcionários</h2>
+        <p>Aprove os pedidos de cadastro e controle quem pode entrar</p>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-modo-escuro" id="alternarModoEscuro" type="button">
+          <span class="indicador-tema"></span>
+          <span id="textoModoEscuro">Modo Escuro</span>
+        </button>
+
+        <div class="admin">
+          <div class="avatar" data-usuario-iniciais>--</div>
+          <div class="admin-text" style="margin-right: 15px;">
+            <strong data-usuario-nome>Perfil</strong>
+            <span data-usuario-papel></span>
+          </div>
+          <a href="login.html" class="btn btn-outline" data-sair style="padding: 6px 12px; font-size: 12px;">Sair</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <div class="cards-row">
+        <div class="summary-card">
+          <div>
+            <div class="value" id="totalFuncionarios">0</div>
+            <div class="label">Funcionários</div>
+          </div>
+        </div>
+        <div class="summary-card">
+          <div>
+            <div class="value" id="totalAtivos">0</div>
+            <div class="label">Com acesso ativo</div>
+          </div>
+        </div>
+        <div class="summary-card">
+          <div>
+            <div class="value" id="totalPendentes">0</div>
+            <div class="label">Aguardando aprovação</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="aviso-pedidos" id="avisoPedidos" hidden>
+        <span id="textoPedidos"></span>
+        <button type="button" class="btn btn-primary" id="verPedidos">Ver pedidos</button>
+      </div>
+
+      <div class="tabs" id="abasFiltro">
+        <button class="tab active" data-filter="todos" type="button">Todos</button>
+        <button class="tab" data-filter="pedidos" type="button">Pedidos de cadastro<span class="contagem-aba" id="contagemPedidos" hidden></span></button>
+        <button class="tab" data-filter="ativo" type="button">Ativos</button>
+        <button class="tab" data-filter="inativo" type="button">Inativos</button>
+      </div>
+
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th>CPF</th>
+              <th>Status</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="corpoTabela"></tbody>
+        </table>
+      </div>
+
+      <p class="rodape-aviso" id="avisoAcao" role="status" hidden></p>
+
+    </div>
+  </div>
+</div>
+
+<script src="../Assets/Javascrypt/tema.js"></script>
+<script src="../Assets/Javascrypt/funcionarios.js"></script>
+</body>
+</html>

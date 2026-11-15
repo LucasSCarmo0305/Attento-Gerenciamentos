@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attento · Início</title>
+<script src="../Assets/Javascrypt/auth.js" data-acesso="logado"></script>
+<link rel="stylesheet" href="../Assets/Css/sidebar.css">
+<link rel="stylesheet" href="../Assets/Css/index.css">
+<link rel="icon" href="../Assets/imagens/Attento Logo Simples.png">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo-container">
+        <img src="../Assets/imagens/Attento Logo.png" alt="Attento Logo" class="brand-logo">
+      </div>
+      <div class="brand-text"><h1>Attento</h1><p>SAÚDE INTEGRAL</p></div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-item active"><span class="ic">▦</span>Início</a>
+      <a href="salas.html" class="nav-item"><span class="ic">🗓</span>Salas</a>
+      <a href="financeiro.html" class="nav-item"><span class="ic">$</span>Financeiro</a>
+      <a href="conveniencias.html" class="nav-item"><span class="ic">🛡</span>Conveniências</a>
+      <a href="funcionarios.html" class="nav-item" data-papel="admin" hidden><span class="ic">👥</span>Gerenciar funcionários</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div>
+        <h2 id="saudacao">Início</h2>
+        <p id="dataHoje"></p>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-tema" id="alternarModoEscuro" type="button">
+          <span class="indicador-tema"></span>
+          <span id="textoModoEscuro">Modo Escuro</span>
+        </button>
+        <div class="admin">
+          <div class="avatar" data-usuario-iniciais>--</div>
+          <div class="admin-text" style="margin-right: 15px;">
+            <strong data-usuario-nome>Perfil</strong>
+            <span data-usuario-papel></span>
+          </div>
+          <a href="login.html" class="btn btn-outline" data-sair style="padding: 6px 12px; font-size: 12px;">Sair</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <section class="d-kpis">
+        <article class="kpi">
+          <span class="kpi-label">Faturamento de hoje</span>
+          <strong class="kpi-valor" id="dash-faturamento">R$ 0,00</strong>
+          <span class="kpi-sub" id="kpiFatSub"></span>
+        </article>
+        <article class="kpi">
+          <span class="kpi-label">Ocupação de hoje</span>
+          <strong class="kpi-valor" id="kpiOcup">0%</strong>
+          <span class="kpi-sub" id="kpiOcupSub"></span>
+        </article>
+        <article class="kpi">
+          <span class="kpi-label">Receita de salas na semana</span>
+          <strong class="kpi-valor" id="kpiSalas">R$ 0,00</strong>
+          <span class="kpi-sub" id="kpiSalasSub"></span>
+        </article>
+        <article class="kpi">
+          <span class="kpi-label">Conveniências no mês</span>
+          <strong class="kpi-valor" id="kpiConv">R$ 0,00</strong>
+          <span class="kpi-sub" id="kpiConvSub"></span>
+        </article>
+      </section>
+
+      <section class="d-grid">
+        <div class="painel largo">
+          <div class="painel-topo"><h3>Agenda de hoje</h3><a href="salas.html">Abrir grade</a></div>
+          <div id="agenda"></div>
+        </div>
+
+        <div class="painel">
+          <div class="painel-topo"><h3>Precisa de atenção</h3></div>
+          <ul class="alertas" id="alertas"></ul>
+        </div>
+
+        <div class="painel largo">
+          <div class="painel-topo"><h3>Ocupação da semana</h3><span class="nota">Todas as unidades, por turno</span></div>
+          <div class="semana" id="semana"></div>
+          <div id="unidades"></div>
+        </div>
+
+        <div class="painel">
+          <div class="painel-topo"><h3>Conveniências</h3><a href="conveniencias.html">Ver tudo</a></div>
+          <div id="convTop"></div>
+        </div>
+
+        <div class="painel largo">
+          <div class="painel-topo"><h3>Últimos lançamentos</h3><a href="financeiro.html">Abrir financeiro</a></div>
+          <div id="finRecentes"></div>
+        </div>
+
+        <div class="painel">
+          <div class="painel-topo"><h3>Financeiro</h3></div>
+          <div id="finResumo"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<script src="../Assets/Javascrypt/tema.js"></script>
+<script src="../Assets/Javascrypt/Index.js"></script>
+</body>
+</html>

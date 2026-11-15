@@ -1,0 +1,17 @@
+# Variáveis de ambiente e credenciais
+.env
+.env.local
+*.env
+config.json
+
+# Pastas de dependências e IDE
+node_modules/
+.vscode/
+.idea/
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Logs de erros
+*.log
