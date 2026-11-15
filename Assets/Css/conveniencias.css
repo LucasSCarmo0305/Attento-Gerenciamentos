@@ -630,16 +630,23 @@ body.dark-preview .status-badge.pendente{
 
 
 body.dark-preview .btn-secondary,
-body.dark-preview .btn-outline,
-body.dark-preview .btn-clear-paid{
+body.dark-preview .btn-outline{
   background-color:#334155;
   color:#f8fafc;
   border-color:#475569;
 }
+body.dark-preview .btn-clear-paid{
+  background-color: #0f172a;
+  color:#d33a3a;
+  border-color: #b91c1c;
+}
 body.dark-preview .btn-secondary:hover,
-body.dark-preview .btn-outline:hover,
-body.dark-preview .btn-clear-paid:hover{
+body.dark-preview .btn-outline:hover{
   background-color:#475569;
+}
+body.dark-preview .btn-clear-paid:hover{
+  background-color:#d33a3a;
+  color:#f8fafc;
 }
 
 body.dark-preview .remove-btn{
