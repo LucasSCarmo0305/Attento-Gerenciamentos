@@ -117,7 +117,7 @@ No primeiro carregamento o sistema cria o administrador de demonstração:
 | Campo  | Valor             |
 | ------ | ----------------- |
 | E-mail | `admin@Email.com` |
-| Senha  | `admn123`         |
+| Senha  | `admin123`         |
 
 Fluxo de um funcionário novo:
 
@@ -129,8 +129,8 @@ Usuários que já existiam no formato antigo (`{ email, password }`) são migrad
 
 **Limitações conhecidas (por enquanto):**
 
-- O **CPF** só é conferido pelo formato (11 números); os dígitos verificadores **não** são validados, para facilitar testes. Para voltar a validar os dígitos, basta ampliar `cpfComFormatoValido()` no `auth.js`.
-- Não há recuperação de senha: quem esquecer a senha precisa de outra solução (ex.: o admin excluir o cadastro e a pessoa pedir de novo).
+- O **CPF** por enquanto só é conferido pelo formato (11 números); os dígitos verificadores **não** são validados, para facilitar testes.
+- Por enquanto não há recuperação de senha: quem esquecer a senha precisa de outra solução (ex.: o admin excluir o cadastro e a pessoa pedir de novo).
 
 > **Atenção:** as senhas ficam guardadas com hash (PBKDF2), mas tudo roda no navegador, em `localStorage`. Isso organiza as telas e os perfis, **não é segurança de verdade**: quem abrir o console do navegador consegue alterar papéis e dados, e cada navegador tem a sua própria lista de usuários (um pedido de cadastro feito em um computador não aparece no navegador do administrador em outro). As credenciais de teste estão no código-fonte (`auth.js`). Para uso com dados reais é necessário um back-end que valide login, papéis e aprovações.
 
@@ -143,8 +143,8 @@ Usuários que já existiam no formato antigo (`{ email, password }`) são migrad
 | Usuários      | `localStorage` (chave `usuarios`); sessão em `sessionStorage` |
 | Tema escuro   | `localStorage` (chave `modoEscuro`)                   |
 | Financeiro    | `localStorage` (chave `financeiro_data`)              |
-| Conveniências | Em memória (os lançamentos somem ao recarregar a página) |
-| Salas         | Em desenvolvimento                                    |
+| Conveniências | `localStorage` |
+| Salas         | `localStorage`                                  |
 
 Para limpar os dados salvos, abra as ferramentas de desenvolvedor do navegador (`F12`), vá em *Application > Local Storage* e remova as chaves acima.
 
