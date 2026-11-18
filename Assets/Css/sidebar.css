@@ -98,6 +98,14 @@
   transition: opacity 0.2s ease;
 }
 
+.sidebar-nav .ic img {
+  width: 18px;
+  height: 18px;
+  display: block;
+  object-fit: contain;
+  border-radius: 3px;
+}
+
 .sidebar-nav a.nav-item.active .ic {
   opacity: 1;
   color: #2f5fd8;
