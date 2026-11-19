@@ -253,3 +253,14 @@ body.dark-preview .indicador-tema {
     display: none; 
   }
 }
+.sidebar-nav .nav-item .ic i {
+  font-size: 19px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-nav .nav-item.active .ic i {
+  font-weight: bold;
+}
