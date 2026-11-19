@@ -197,3 +197,20 @@
 
   Auth.pronto.then(carregar);
 })();
+
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. Carrega o Phosphor Icons automaticamente se ainda não estiver na página
+  if (!document.querySelector('script[src*="phosphor-icons"]')) {
+    const phScript = document.createElement("script");
+    phScript.src = "https://unpkg.com/@phosphor-icons/web";
+    document.head.appendChild(phScript);
+  }
+
+  // 2. Marca o item ativo da sidebar de acordo com a página atual
+  const paginaAtual = window.location.pathname.split("/").pop() || "index.html";
+
+  document.querySelectorAll(".sidebar-nav .nav-item").forEach((link) => {
+    const destino = link.getAttribute("href").split("/").pop();
+    link.classList.toggle("active", destino === paginaAtual);
+  });
+});

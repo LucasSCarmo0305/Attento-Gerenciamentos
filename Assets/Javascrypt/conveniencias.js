@@ -599,3 +599,20 @@ document.getElementById('clearPaid').addEventListener('click', function () {
 
 criarBotoesEmoji();
 renderizar();
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  if (!document.querySelector('script[src*="phosphor-icons"]')) {
+    const phScript = document.createElement("script");
+    phScript.src = "https://unpkg.com/@phosphor-icons/web";
+    document.head.appendChild(phScript);
+  }
+
+
+  const paginaAtual = window.location.pathname.split("/").pop() || "index.html";
+
+  document.querySelectorAll(".sidebar-nav .nav-item").forEach((link) => {
+    const destino = link.getAttribute("href").split("/").pop();
+    link.classList.toggle("active", destino === paginaAtual);
+  });
+});
