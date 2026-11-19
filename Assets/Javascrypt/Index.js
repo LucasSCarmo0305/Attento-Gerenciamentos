@@ -198,7 +198,6 @@ function lerConveniencias() {
   return resultado;
 }
 
-// CORRIGIDO: Agora contabiliza as vencidas corretamente e não soma despesas na receita
 function lerFinanceiro() {
   const contas = carregarLista('financeiro_data', []);
   const hoje = hojeISO();
@@ -229,7 +228,7 @@ function lerFinanceiro() {
     lista.push(conta);
 
     if (conta.status === 'pago') {
-      // Soma no faturamento apenas se for receita
+      // Soma no faturamento apenas se for receita (não for despesa/'outros')
       if (conta.categoria !== 'outros') {
         resultado.totalPago += conta.valor;
         if (conta.data === hoje) resultado.faturamentoHoje += conta.valor;
@@ -478,7 +477,6 @@ function desenharConveniencias(conveniencias) {
   mostrarHtml('convTop', html);
 }
 
-// CORRIGIDO: Adicionado a classe de vencido visualmente para o "Últimos lançamentos"
 function desenharFinanceiro(financeiro) {
   if (financeiro.recentes.length === 0) {
     mostrarHtml('finRecentes', '<div class="vazio">Nenhum lançamento no financeiro ainda.</div>');
@@ -494,8 +492,8 @@ function desenharFinanceiro(financeiro) {
         classe = 'pago';
         rotulo = 'Pago';
       } else if (c.status === 'vencido' || (c.data !== '' && c.data < hojeISO())) {
-        classe = 'vencido'; 
-        rotulo = 'Vencido';
+        classe = 'pendente'; // <- Puxando a classe que tem cor vermelha no CSS 
+        rotulo = 'Vencido';  // <- Mostrando o texto "Vencido"
       }
 
       html += '<div class="linha-dado">';
@@ -507,7 +505,7 @@ function desenharFinanceiro(financeiro) {
   }
 
   let corVencidas = 'inherit';
-  if (financeiro.vencidas > 0) corVencidas = 'var(--danger)'; // Altere para a sua cor ou classe CSS
+  if (financeiro.vencidas > 0) corVencidas = 'var(--danger)'; 
 
   mostrarHtml('finResumo',
     '<div class="linha-dado"><span>Total recebido</span><strong>' + formatarMoeda(financeiro.totalPago) + '</strong></div>' +
@@ -536,4 +534,4 @@ window.addEventListener('storage', atualizarDashboard);
 
 document.addEventListener('visibilitychange', function () {
   if (!document.hidden) atualizarDashboard();
-}); 
+});
