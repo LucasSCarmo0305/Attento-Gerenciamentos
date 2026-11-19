@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="app">
-  <!-- SIDEBAR ORIGINAL (INTOCADA) -->
+  <!-- SIDEBAR UNIVERSAL -->
   <aside class="sidebar">
     <div class="brand">
       <div class="brand-logo-container">
@@ -20,7 +20,7 @@
       </div>
       <div class="brand-text"><h1>Attento</h1><p>SAÚDE INTEGRAL</p></div>
     </div>
- <nav class="sidebar-nav">
+    <nav class="sidebar-nav">
       <a href="index.html" class="nav-item active"><span class="ic"><i class="ph ph-squares-four"></i></span>Início</a>
       <a href="salas.html" class="nav-item"><span class="ic"><i class="ph ph-calendar-blank"></i></span>Salas</a>
       <a href="financeiro.html" class="nav-item"><span class="ic"><i class="ph ph-currency-dollar"></i></span>Financeiro</a>
@@ -31,7 +31,11 @@
 
   <div class="main">
     <header class="topbar">
-      <div>
+      <div class="topbar-titulo">
+        <div class="status-pill">
+          <span class="pulse-dot"></span>
+          <span>Attento · Painel Operacional</span>
+        </div>
         <h2 id="saudacao">Início</h2>
         <p id="dataHoje"></p>
       </div>
@@ -57,63 +61,81 @@
     </header>
 
     <div class="content">
+      <!-- KPIs COM ASSINATURA DA MARCA -->
       <section class="d-kpis">
         <article class="kpi kpi-destaque">
           <div class="kpi-topo">
             <span class="kpi-label">Faturamento de hoje</span>
-            <i class="ph ph-trend-up kpi-ic" aria-hidden="true"></i>
+            <span class="kpi-badge-ic"><i class="ph ph-trend-up" aria-hidden="true"></i></span>
           </div>
           <strong class="kpi-valor" id="dash-faturamento">R$ 0,00</strong>
           <span class="kpi-sub" id="kpiFatSub"></span>
         </article>
 
-        <article class="kpi">
+        <article class="kpi kpi-ocup">
           <div class="kpi-topo">
             <span class="kpi-label">Ocupação de hoje</span>
-            <i class="ph ph-calendar-check kpi-ic" aria-hidden="true"></i>
+            <span class="kpi-badge-ic"><i class="ph ph-calendar-check" aria-hidden="true"></i></span>
           </div>
           <strong class="kpi-valor" id="kpiOcup">0%</strong>
           <span class="kpi-sub" id="kpiOcupSub"></span>
         </article>
 
-        <article class="kpi">
+        <article class="kpi kpi-salas">
           <div class="kpi-topo">
             <span class="kpi-label">Receita de salas na semana</span>
-            <i class="ph ph-door-open kpi-ic" aria-hidden="true"></i>
+            <span class="kpi-badge-ic"><i class="ph ph-door-open" aria-hidden="true"></i></span>
           </div>
           <strong class="kpi-valor" id="kpiSalas">R$ 0,00</strong>
           <span class="kpi-sub" id="kpiSalasSub"></span>
         </article>
 
-        <article class="kpi">
+        <article class="kpi kpi-conv">
           <div class="kpi-topo">
             <span class="kpi-label">Conveniências no mês</span>
-            <i class="ph ph-bag kpi-ic" aria-hidden="true"></i>
+            <span class="kpi-badge-ic"><i class="ph ph-bag" aria-hidden="true"></i></span>
           </div>
           <strong class="kpi-valor" id="kpiConv">R$ 0,00</strong>
           <span class="kpi-sub" id="kpiConvSub"></span>
         </article>
       </section>
 
+      <!-- PAINÉIS PRINCIPAIS -->
       <section class="d-grid">
         <div class="painel largo">
           <div class="painel-topo">
-            <h3>Agenda de hoje</h3>
-            <a href="salas.html">Abrir grade <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+            <div class="painel-titulo-grupo">
+              <span class="painel-marcador"></span>
+              <h3>Agenda de hoje</h3>
+            </div>
+            <div class="painel-acoes">
+              <div class="legenda-mini">
+                <span><i class="dot-o"></i>Ocupado</span>
+                <span><i class="dot-p"></i>Pendente</span>
+                <span><i class="dot-l"></i>Livre</span>
+              </div>
+              <a href="salas.html">Abrir grade <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+            </div>
           </div>
           <div id="agenda"></div>
         </div>
 
         <div class="painel">
           <div class="painel-topo">
-            <h3>Precisa de atenção</h3>
+            <div class="painel-titulo-grupo">
+              <span class="painel-marcador alerta"></span>
+              <h3>Precisa de atenção</h3>
+            </div>
           </div>
           <ul class="alertas" id="alertas"></ul>
         </div>
 
         <div class="painel largo">
           <div class="painel-topo">
-            <h3>Ocupação da semana</h3>
+            <div class="painel-titulo-grupo">
+              <span class="painel-marcador accent"></span>
+              <h3>Ocupação da semana</h3>
+            </div>
             <span class="nota">Todas as unidades, por turno</span>
           </div>
           <div class="semana" id="semana"></div>
@@ -122,7 +144,10 @@
 
         <div class="painel">
           <div class="painel-topo">
-            <h3>Conveniências</h3>
+            <div class="painel-titulo-grupo">
+              <span class="painel-marcador accent"></span>
+              <h3>Conveniências</h3>
+            </div>
             <a href="conveniencias.html">Ver tudo <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
           </div>
           <div id="convTop"></div>
@@ -130,7 +155,10 @@
 
         <div class="painel largo">
           <div class="painel-topo">
-            <h3>Últimos lançamentos</h3>
+            <div class="painel-titulo-grupo">
+              <span class="painel-marcador"></span>
+              <h3>Últimos lançamentos</h3>
+            </div>
             <a href="financeiro.html">Abrir financeiro <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
           </div>
           <div id="finRecentes"></div>
@@ -138,7 +166,10 @@
 
         <div class="painel">
           <div class="painel-topo">
-            <h3>Financeiro</h3>
+            <div class="painel-titulo-grupo">
+              <span class="painel-marcador"></span>
+              <h3>Financeiro</h3>
+            </div>
           </div>
           <div id="finResumo"></div>
         </div>
