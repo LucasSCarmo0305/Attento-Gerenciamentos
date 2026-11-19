@@ -4,8 +4,6 @@ const turnos = ['M', 'T', 'N'];
 const nomesTurnos = { M: 'Manhã', T: 'Tarde', N: 'Noite' };
 const horariosTurnos = { M: '08-13h', T: '14-17h', N: '18-21h' };
 
-
-
 function formatarMoeda(valor) {
   return Number(valor || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
@@ -26,9 +24,6 @@ function mostrarHtml(id, html) {
   if (elemento) elemento.innerHTML = html;
 }
 
-
-
-
 function carregarLista(chave, padrao) {
   const salvo = localStorage.getItem(chave);
   if (!salvo) return padrao;
@@ -47,9 +42,6 @@ function hojeISO() {
   return hoje.getFullYear() + '-' + mes + '-' + dia;
 }
 
-
-
-
 function paraISO(data) {
   if (!data) return '';
   data = String(data).trim();
@@ -67,18 +59,11 @@ function formatarData(dataISO) {
   return partes[2] + '/' + partes[1] + '/' + partes[0];
 }
 
-
-
-
 function nomeDoProfissional(profissional) {
   if (!profissional) return '';
   if (typeof profissional === 'object') return profissional.nome;
   return profissional;
 }
-
-
-
-
 
 function lerSalas() {
   const dados = carregarLista('attento_dados_unidades', null);
@@ -102,8 +87,6 @@ function lerSalas() {
   }
 
   if (!dados) return resultado;
-
-
 
   const posicaoHoje = new Date().getDay() - 1;
   if (posicaoHoje >= 0) resultado.diaHoje = diasSemana[posicaoHoje];
@@ -145,7 +128,6 @@ function lerSalas() {
             });
           }
 
-          // Guarda os turnos de hoje para a agenda
           if (dia === resultado.diaHoje) {
             linhaHoje.turnos[turno] = slot;
             resultado.hojeTotal++;
@@ -163,7 +145,6 @@ function lerSalas() {
   return resultado;
 }
 
-
 function lerConveniencias() {
   const produtos = carregarLista('attento_produtos', []);
   const consumos = carregarLista('attento_consumos', []);
@@ -176,7 +157,6 @@ function lerConveniencias() {
   for (let i = 0; i < consumos.length; i++) {
     const c = consumos[i];
 
-
     if (c.data.slice(0, 7) !== mesAtual) continue;
 
     resultado.total += c.valor;
@@ -188,7 +168,6 @@ function lerConveniencias() {
     }
 
     if (!totaisProduto[c.produtoId]) {
-     
       let nome = 'Produto removido';
       let emoji = '🛒';
       let cor = '#718096';
@@ -219,7 +198,7 @@ function lerConveniencias() {
   return resultado;
 }
 
-// Página Financeiro
+// CORRIGIDO: Agora contabiliza as vencidas corretamente e não soma despesas na receita
 function lerFinanceiro() {
   const contas = carregarLista('financeiro_data', []);
   const hoje = hojeISO();
@@ -249,14 +228,18 @@ function lerFinanceiro() {
     };
     lista.push(conta);
 
-
-    if (conta.categoria === 'outros') continue;
-
     if (conta.status === 'pago') {
-      resultado.totalPago += conta.valor;
-      if (conta.data === hoje) resultado.faturamentoHoje += conta.valor;
+      // Soma no faturamento apenas se for receita
+      if (conta.categoria !== 'outros') {
+        resultado.totalPago += conta.valor;
+        if (conta.data === hoje) resultado.faturamentoHoje += conta.valor;
+      }
     } else {
-      resultado.aReceber += conta.valor;
+      // Soma no "A receber" apenas se for receita
+      if (conta.categoria !== 'outros') {
+        resultado.aReceber += conta.valor;
+      }
+      // Conta como VENCIDA independente de ser receita ou despesa
       if (conta.data !== '' && conta.data < hoje) {
         resultado.vencidas++;
         resultado.valorVencidas += conta.valor;
@@ -264,21 +247,16 @@ function lerFinanceiro() {
     }
   }
 
-
   if (resultado.faturamentoHoje === 0 && resultado.totalPago > 0) {
     resultado.faturamentoHoje = resultado.totalPago;
     resultado.usouTotal = true;
   }
-
 
   lista.sort(function (a, b) { return b.data.localeCompare(a.data); });
   resultado.recentes = lista.slice(0, 6);
 
   return resultado;
 }
-
-
-
 
 function desenharSaudacao() {
   const hora = new Date().getHours();
@@ -293,7 +271,6 @@ function desenharSaudacao() {
 }
 
 function desenharCards(salas, conveniencias, financeiro) {
-
   mostrarTexto('dash-faturamento', formatarMoeda(financeiro.faturamentoHoje));
   if (!financeiro.temDados) {
     mostrarTexto('kpiFatSub', 'Nenhum lançamento ainda');
@@ -302,7 +279,6 @@ function desenharCards(salas, conveniencias, financeiro) {
   } else {
     mostrarTexto('kpiFatSub', 'Pago hoje');
   }
-
 
   let porcentagem = 0;
   if (salas.hojeTotal > 0) {
@@ -316,12 +292,10 @@ function desenharCards(salas, conveniencias, financeiro) {
     mostrarTexto('kpiOcupSub', 'Domingo, sem atendimento');
   }
 
-
   mostrarTexto('kpiSalas', formatarMoeda(salas.receitaSemana));
   let textoSalas = salas.ocupados + ' turnos ocupados';
   if (salas.pendente > 0) textoSalas += ', ' + salas.pendente + ' a confirmar';
   mostrarTexto('kpiSalasSub', textoSalas);
-
 
   mostrarTexto('kpiConv', formatarMoeda(conveniencias.total));
   if (conveniencias.pendente > 0) {
@@ -388,7 +362,6 @@ function desenharAlertas(salas, conveniencias, financeiro) {
   }
 
   if (salas.pendente > 0) {
-
     let exemplos = '';
     for (let i = 0; i < salas.pendentes.length && i < 2; i++) {
       const p = salas.pendentes[i];
@@ -467,7 +440,6 @@ function desenharSemana(salas) {
   }
   mostrarHtml('unidades', htmlUnidades);
 
-
   setTimeout(animarBarras, 50);
 }
 
@@ -506,8 +478,8 @@ function desenharConveniencias(conveniencias) {
   mostrarHtml('convTop', html);
 }
 
+// CORRIGIDO: Adicionado a classe de vencido visualmente para o "Últimos lançamentos"
 function desenharFinanceiro(financeiro) {
- 
   if (financeiro.recentes.length === 0) {
     mostrarHtml('finRecentes', '<div class="vazio">Nenhum lançamento no financeiro ainda.</div>');
   } else {
@@ -517,9 +489,13 @@ function desenharFinanceiro(financeiro) {
 
       let classe = 'pendente';
       let rotulo = 'Pendente';
+      
       if (c.status === 'pago') {
         classe = 'pago';
         rotulo = 'Pago';
+      } else if (c.status === 'vencido' || (c.data !== '' && c.data < hojeISO())) {
+        classe = 'vencido'; 
+        rotulo = 'Vencido';
       }
 
       html += '<div class="linha-dado">';
@@ -530,9 +506,8 @@ function desenharFinanceiro(financeiro) {
     mostrarHtml('finRecentes', html);
   }
 
-
   let corVencidas = 'inherit';
-  if (financeiro.vencidas > 0) corVencidas = 'var(--danger)';
+  if (financeiro.vencidas > 0) corVencidas = 'var(--danger)'; // Altere para a sua cor ou classe CSS
 
   mostrarHtml('finResumo',
     '<div class="linha-dado"><span>Total recebido</span><strong>' + formatarMoeda(financeiro.totalPago) + '</strong></div>' +
@@ -540,7 +515,6 @@ function desenharFinanceiro(financeiro) {
     '<div class="linha-dado"><span>Contas vencidas</span><strong style="color:' + corVencidas + '">' + financeiro.vencidas + '</strong></div>'
   );
 }
-
 
 function atualizarDashboard() {
   const salas = lerSalas();
@@ -558,10 +532,8 @@ function atualizarDashboard() {
 
 document.addEventListener('DOMContentLoaded', atualizarDashboard);
 
-
 window.addEventListener('storage', atualizarDashboard);
-
 
 document.addEventListener('visibilitychange', function () {
   if (!document.hidden) atualizarDashboard();
-});
+}); 
