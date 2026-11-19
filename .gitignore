@@ -1,17 +1,86 @@
-# Variáveis de ambiente e credenciais
+# ==========================================
+# SEGURANÇA, CREDENCIAIS E CONFIGURAÇÕES
+# ==========================================
 .env
-.env.local
-*.env
+.env.*
+!.env.example
+*.pem
+*.key
 config.json
+secrets.json
+firebase-debug.log
 
-# Pastas de dependências e IDE
+# ==========================================
+# DEPENDÊNCIAS E GERENCIADORES DE PACOTES
+# ==========================================
 node_modules/
-.vscode/
+.pnp
+.pnp.js
+.npm
+.yarn/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ==========================================
+# BUILD, CACHE E ARQUIVOS TEMPORÁRIOS
+# ==========================================
+dist/
+build/
+out/
+.cache/
+.temp/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~
+
+# ==========================================
+# BANCOS DE DADOS LOCAIS E DADOS DE TESTE
+# ==========================================
+*.sqlite
+*.sqlite3
+*.db
+
+# ==========================================
+# IDES E EDITORES DE CÓDIGO
+# ==========================================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
 .idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
 
-# Arquivos do sistema operacional
+# ==========================================
+# SISTEMA OPERACIONAL
+# ==========================================
+# macOS
 .DS_Store
-Thumbs.db
+.AppleDouble
+.LSOverride
+._*
 
-# Logs de erros
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+
+# ==========================================
+# LOGS E RELATÓRIOS DE ERRO
+# ==========================================
+logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
