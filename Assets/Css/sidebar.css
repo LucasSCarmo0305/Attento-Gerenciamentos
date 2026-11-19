@@ -607,7 +607,7 @@ body.dark-preview .botao-principal:hover {
   border-color: #79b8ff !important;
 }
 
-/* Responsivo Topbar */
+
 @media (max-width: 768px) {
   .topbar,
   .barra-superior {
@@ -636,7 +636,7 @@ body.dark-preview .botao-principal:hover {
     display: none !important;
   }
 }
-/* Hover vermelho no botão Sair (Modo Claro e Modo Escuro) */
+
 .topbar .btn-sair:hover,
 .barra-superior .btn-sair:hover,
 .topbar a[data-sair]:hover,
@@ -657,4 +657,26 @@ body.dark-preview .barra-superior a[data-sair]:hover {
 .topbar a[data-sair]:hover i,
 .barra-superior a[data-sair]:hover i {
   color: #ffffff !important;
+}
+
+
+.status-pill,
+.topbar .status-pill,
+.barra-superior .status-pill {
+  color: #64748b !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+  gap: 0 !important;
+}
+
+.pulse-dot,
+.topbar .pulse-dot,
+.barra-superior .pulse-dot {
+  display: none !important;
+}
+
+body.dark-preview .status-pill,
+body.dark-preview .topbar .status-pill,
+body.dark-preview .barra-superior .status-pill {
+  color: #94a3b8 !important;
 }
