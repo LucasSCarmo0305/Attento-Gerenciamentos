@@ -8,40 +8,45 @@
   <script src="../Assets/Javascrypt/auth.js" data-acesso="admin"></script>
 
   <link rel="stylesheet" href="../Assets/Css/financeiro.css">
-  <link rel="stylesheet" href="../Assets/Css/index.css">
-  <link rel="stylesheet" href="../Assets/Css/sidebar.css">
   <link rel="stylesheet" href="../Assets/Css/funcionarios.css">
+  <link rel="stylesheet" href="../Assets/Css/sidebar.css">
   <link rel="icon" href="../Assets/imagens/Attento Logo Simples.png">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
 
 <div class="app">
   <aside class="sidebar">
     <div class="brand">
-        <div class="brand-logo-container">
-            <img src="../Assets/imagens/Attento Logo.png" alt="Attento Logo" class="brand-logo">
-        </div>
-
-        <div class="brand-text">
-            <h1>Attento</h1>
-            <p>SAÚDE INTEGRAL</p>
-        </div>
+      <div class="brand-logo-container">
+        <img src="../Assets/imagens/Attento Logo.png" alt="Attento Logo" class="brand-logo">
+      </div>
+      <div class="brand-text">
+        <h1>Attento</h1>
+        <p>SAÚDE INTEGRAL</p>
+      </div>
     </div>
-   <nav class="sidebar-nav">
-      <a href="index.html" class="nav-item active"><span class="ic"><i class="ph ph-squares-four"></i></span>Início</a>
+
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-item"><span class="ic"><i class="ph ph-squares-four"></i></span>Início</a>
       <a href="salas.html" class="nav-item"><span class="ic"><i class="ph ph-calendar-blank"></i></span>Salas</a>
       <a href="financeiro.html" class="nav-item"><span class="ic"><i class="ph ph-currency-dollar"></i></span>Financeiro</a>
       <a href="conveniencias.html" class="nav-item"><span class="ic"><i class="ph ph-shopping-bag"></i></span>Conveniências</a>
-      <a href="funcionarios.html" class="nav-item" data-papel="admin" hidden><span class="ic"><i class="ph ph-users"></i></span>Gerenciar funcionários</a>
+      <a href="funcionarios.html" class="nav-item active" data-papel="admin" hidden><span class="ic"><i class="ph ph-users"></i></span>Gerenciar funcionários</a>
     </nav>
   </aside>
 
   <div class="main">
     <header class="topbar">
       <div>
+        <div class="status-pill">
+          <span class="pulse-dot"></span>
+          <span>Attento · Controle de Acesso</span>
+        </div>
         <h2>Gerenciar funcionários</h2>
         <p>Aprove os pedidos de cadastro e controle quem pode entrar</p>
       </div>
+
       <div class="topbar-right">
         <button class="btn-modo-escuro" id="alternarModoEscuro" type="button">
           <span class="indicador-tema"></span>
@@ -49,38 +54,54 @@
         </button>
 
         <div class="admin">
-          <div class="avatar" data-usuario-iniciais>--</div>
-          <div class="admin-text" style="margin-right: 15px;">
+          <div class="admin-text">
             <strong data-usuario-nome>Perfil</strong>
             <span data-usuario-papel></span>
           </div>
-          <a href="login.html" class="btn btn-outline" data-sair style="padding: 6px 12px; font-size: 12px;">Sair</a>
+          <div class="avatar" data-usuario-iniciais>--</div>
+          <a href="login.html" class="btn-sair" data-sair title="Sair do sistema">
+            <i class="ph ph-sign-out"></i>
+            <span>Sair</span>
+          </a>
         </div>
       </div>
     </header>
 
     <div class="content">
 
+  
       <div class="cards-row">
-        <div class="summary-card">
-          <div>
-            <div class="value" id="totalFuncionarios">0</div>
+        <div class="summary-card faturado">
+          <div class="card-icon">
+            <i class="ph ph-users-three" aria-hidden="true"></i>
+          </div>
+          <div class="card-body">
             <div class="label">Funcionários</div>
+            <div class="value" id="totalFuncionarios">0</div>
           </div>
         </div>
-        <div class="summary-card">
-          <div>
-            <div class="value" id="totalAtivos">0</div>
+
+        <div class="summary-card recebido">
+          <div class="card-icon">
+            <i class="ph ph-user-check" aria-hidden="true"></i>
+          </div>
+          <div class="card-body">
             <div class="label">Com acesso ativo</div>
+            <div class="value" id="totalAtivos">0</div>
           </div>
         </div>
-        <div class="summary-card">
-          <div>
-            <div class="value" id="totalPendentes">0</div>
+
+        <div class="summary-card pendentes-card">
+          <div class="card-icon">
+            <i class="ph ph-user-plus" aria-hidden="true"></i>
+          </div>
+          <div class="card-body">
             <div class="label">Aguardando aprovação</div>
+            <div class="value" id="totalPendentes">0</div>
           </div>
         </div>
       </div>
+
 
       <div class="aviso-pedidos" id="avisoPedidos" hidden>
         <span id="textoPedidos"></span>
@@ -89,10 +110,13 @@
 
       <div class="tabs" id="abasFiltro">
         <button class="tab active" data-filter="todos" type="button">Todos</button>
-        <button class="tab" data-filter="pedidos" type="button">Pedidos de cadastro<span class="contagem-aba" id="contagemPedidos" hidden></span></button>
+        <button class="tab" data-filter="pedidos" type="button">
+          Pedidos de cadastro<span class="contagem-aba" id="contagemPedidos" hidden></span>
+        </button>
         <button class="tab" data-filter="ativo" type="button">Ativos</button>
         <button class="tab" data-filter="inativo" type="button">Inativos</button>
       </div>
+
 
       <div class="table-card">
         <table>

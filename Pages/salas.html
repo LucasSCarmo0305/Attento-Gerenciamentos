@@ -34,23 +34,32 @@
 </aside>
 
   <div class="main">
-    <header class="barra-superior">
+<header class="barra-superior">
       <div>
+        <div class="status-pill">
+          <span class="pulse-dot"></span>
+          <span>Attento · Agenda Operacional</span>
+        </div>
         <h2>Grade de Salas</h2>
         <p>Disponibilidade e alocação por turno</p>
       </div>
+
       <div class="topo-direita">
-        <button class="btn-modo-escuro" id="alternarModoEscuro">
+        <button class="btn-modo-escuro" id="alternarModoEscuro" type="button">
           <span class="indicador-tema"></span>
           <span id="textoModoEscuro">Modo Escuro</span>
         </button>
+
         <div class="admin">
-          <div class="avatar" data-usuario-iniciais>--</div>
-          <div class="admin-text" style="margin-right: 15px;">
+          <div class="admin-text">
             <strong data-usuario-nome>Perfil</strong>
             <span data-usuario-papel></span>
           </div>
-          <a href="login.html" class="btn btn-outline" data-sair style="padding: 6px 12px; font-size: 12px;">Sair</a>
+          <div class="avatar" data-usuario-iniciais>--</div>
+          <a href="login.html" class="btn-sair" data-sair title="Sair do sistema">
+            <i class="ph ph-sign-out"></i>
+            <span>Sair</span>
+          </a>
         </div>
       </div>
     </header>

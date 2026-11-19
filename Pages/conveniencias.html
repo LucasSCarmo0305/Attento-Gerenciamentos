@@ -12,6 +12,20 @@
 </head>
 <body>
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attento · Conveniências</title>
+<script src="../Assets/Javascrypt/auth.js" data-acesso="logado"></script>
+<link rel="stylesheet" href="../Assets/Css/conveniencias.css">
+<link rel="stylesheet" href="../Assets/Css/sidebar.css">
+<link rel="icon" href="../Assets/imagens/Attento Logo Simples.png">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
 <div class="app">
 
   <aside class="sidebar">
@@ -24,11 +38,11 @@
         <p>SAÚDE INTEGRAL</p>
       </div>
     </div>
- <nav class="sidebar-nav">
-      <a href="index.html" class="nav-item active"><span class="ic"><i class="ph ph-squares-four"></i></span>Início</a>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-item"><span class="ic"><i class="ph ph-squares-four"></i></span>Início</a>
       <a href="salas.html" class="nav-item"><span class="ic"><i class="ph ph-calendar-blank"></i></span>Salas</a>
       <a href="financeiro.html" class="nav-item"><span class="ic"><i class="ph ph-currency-dollar"></i></span>Financeiro</a>
-      <a href="conveniencias.html" class="nav-item"><span class="ic"><i class="ph ph-shopping-bag"></i></span>Conveniências</a>
+      <a href="conveniencias.html" class="nav-item active"><span class="ic"><i class="ph ph-shopping-bag"></i></span>Conveniências</a>
       <a href="funcionarios.html" class="nav-item" data-papel="admin" hidden><span class="ic"><i class="ph ph-users"></i></span>Gerenciar funcionários</a>
     </nav>
   </aside>
@@ -37,9 +51,14 @@
 
     <header class="topbar">
       <div>
+        <div class="status-pill">
+          <span class="pulse-dot"></span>
+          <span>Attento · Consumo & Serviços</span>
+        </div>
         <h2>Conveniências</h2>
         <p>Impressão e consumíveis</p>
       </div>
+
       <div class="topbar-right">
         <button class="btn-modo-escuro" id="alternarModoEscuro" type="button">
           <span class="indicador-tema"></span>
@@ -47,12 +66,15 @@
         </button>
 
         <div class="admin">
-          <div class="avatar" data-usuario-iniciais>--</div>
-          <div class="admin-text" style="margin-right: 15px;">
+          <div class="admin-text">
             <strong data-usuario-nome>Perfil</strong>
             <span data-usuario-papel></span>
           </div>
-          <a href="login.html" class="btn btn-outline" data-sair style="padding: 6px 12px; font-size: 12px;">Sair</a>
+          <div class="avatar" data-usuario-iniciais>--</div>
+          <a href="login.html" class="btn-sair" data-sair title="Sair do sistema">
+            <i class="ph ph-sign-out"></i>
+            <span>Sair</span>
+          </a>
         </div>
       </div>
     </header>

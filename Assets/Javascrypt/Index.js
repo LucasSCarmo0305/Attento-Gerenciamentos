@@ -492,8 +492,8 @@ function desenharFinanceiro(financeiro) {
         classe = 'pago';
         rotulo = 'Pago';
       } else if (c.status === 'vencido' || (c.data !== '' && c.data < hojeISO())) {
-        classe = 'pendente'; // <- Puxando a classe que tem cor vermelha no CSS 
-        rotulo = 'Vencido';  // <- Mostrando o texto "Vencido"
+        classe = 'pendente'; 
+        rotulo = 'Vencido'; 
       }
 
       html += '<div class="linha-dado">';

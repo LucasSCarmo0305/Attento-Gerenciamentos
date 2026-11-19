@@ -1346,3 +1346,205 @@ body.dark-preview .grupo-formulario input[type="number"] {
     justify-content: center;
   }
 }
+/* ==========================================
+   BARRA SUPERIOR · IDENTIDADE ATTENTO
+   ========================================== */
+.barra-superior {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 32px;
+  width: 100%;
+  background-color: var(--card);
+  border-bottom: 1px solid var(--line);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #009e8d;
+  margin-bottom: 4px;
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #009e8d;
+  box-shadow: 0 0 0 3px rgba(0, 158, 141, 0.14);
+}
+
+.barra-superior h2 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--text-900);
+}
+
+.barra-superior p {
+  margin: 2px 0 0 0;
+  font-size: 13px;
+  color: var(--text-600);
+}
+
+.topo-direita {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-left: auto;
+}
+
+.btn-modo-escuro {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: #f9faf8;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-900);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-modo-escuro:hover {
+  border-color: #083d5c;
+}
+
+.indicador-tema {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #009e8d;
+  transition: var(--transition);
+}
+
+.topo-direita .admin {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-left: 1px solid var(--line);
+  padding-left: 18px;
+}
+
+.topo-direita .admin-text {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.topo-direita .admin-text strong {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-900);
+}
+
+.topo-direita .admin-text span {
+  font-size: 11.5px;
+  color: var(--text-600);
+}
+
+.topo-direita .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #083d5c 0%, #009e8d 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.topo-direita .btn-sair {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 7px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--text-600);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.topo-direita .btn-sair:hover {
+  border-color: #dc2626;
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
+}
+
+/* Modo escuro da barra superior */
+body.dark-preview .barra-superior {
+  background-color: #141f2e !important;
+  border-bottom-color: #243347 !important;
+}
+
+body.dark-preview .status-pill {
+  color: #2dd4bf !important;
+}
+
+body.dark-preview .pulse-dot,
+body.dark-preview .indicador-tema {
+  background: #2dd4bf !important;
+  box-shadow: 0 0 8px rgba(45, 212, 191, 0.5) !important;
+}
+
+body.dark-preview .btn-modo-escuro,
+body.dark-preview .topo-direita .btn-sair {
+  background-color: #192638 !important;
+  border-color: #243347 !important;
+  color: #f1f5f9 !important;
+}
+
+body.dark-preview .topo-direita .admin {
+  border-left-color: #243347 !important;
+}
+
+body.dark-preview .topo-direita .admin-text strong {
+  color: #f1f5f9 !important;
+}
+
+body.dark-preview .topo-direita .admin-text span {
+  color: #94a3b8 !important;
+}
+
+@media (max-width: 768px) {
+  .barra-superior {
+    padding: 16px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .topo-direita {
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 0;
+  }
+
+  .topo-direita .admin {
+    border-left: none;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .topo-direita .admin-text {
+    display: none;
+  }
+}
