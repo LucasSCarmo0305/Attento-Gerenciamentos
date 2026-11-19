@@ -1,40 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 /* ==========================================
    VISÃO COMPUTADOR (Barra Lateral Esquerda)
    ========================================== */
 .sidebar {
-  width: 250px;
-  background-color: #5B88C5;
-  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  width: 256px;
+  background: linear-gradient(180deg, #073550 0%, #083d5c 65%, #06314a 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
   height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   z-index: 100;
+  box-shadow: 4px 0 24px rgba(8, 61, 92, 0.12);
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
+/* Cabeçalho da Marca */
 .brand {
-  padding: 20px 16px;
+  padding: 22px 18px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  gap: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .brand-logo-container {
-  width: 46px;
-  height: 46px;
+  width: 44px;
+  height: 44px;
   background-color: #ffffff;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
   flex-shrink: 0;
 }
 
@@ -47,56 +50,88 @@
 .brand-text h1 {
   margin: 0;
   font-size: 19px;
-  color: #ffffff; 
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  line-height: 1.2;
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
 }
 
 .brand-text p {
-  margin: 2px 0 0 0;
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.85);
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  margin: 3px 0 0 0;
+  font-size: 9.5px;
+  color: #5eead4; /* Verde clínico suave para destacar o subtítulo */
+  font-weight: 700;
+  letter-spacing: 0.11em;
 }
 
+/* Navegação Principal */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
   padding: 20px 14px;
-  gap: 6px;
+  gap: 5px;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .sidebar-nav a.nav-item {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 11px 16px;
-  color: #f7f8fb;
+  padding: 11px 14px;
+  color: rgba(241, 245, 249, 0.82);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
-  border-radius: 10px;
-  transition: all 0.2s ease;
+  border-radius: 11px;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .sidebar-nav a.nav-item:hover {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.09);
   color: #ffffff;
+  transform: translateX(2px);
 }
 
+/* Item Ativo */
 .sidebar-nav a.nav-item.active {
   background-color: #ffffff;
-  color: #2f5fd8;
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  color: #083d5c;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
 }
 
+.sidebar-nav a.nav-item.active::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 22px;
+  border-radius: 0 4px 4px 0;
+  background-color: #009e8d;
+}
+
+/* Ícones (Phosphor Icons + fallback de imagem) */
 .sidebar-nav .ic {
-  font-size: 18px;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
   opacity: 0.85;
-  transition: opacity 0.2s ease;
+  transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar-nav .ic i {
+  font-size: 19px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sidebar-nav .ic img {
@@ -107,160 +142,181 @@
   border-radius: 3px;
 }
 
+.sidebar-nav a.nav-item:hover .ic {
+  opacity: 1;
+}
+
 .sidebar-nav a.nav-item.active .ic {
   opacity: 1;
-  color: #2f5fd8;
+  color: #009e8d; /* Ícone ativo ganha o verde esmeralda da Attento */
 }
 
-.main {
-  margin-left: 250px;
-  width: calc(100% - 250px);
+.sidebar-nav a.nav-item.active .ic i {
+  font-weight: bold;
 }
 
-.btn-modo-escuro {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  background-color: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  border-radius: 20px;
-  color: #475569;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.btn-modo-escuro:hover {
-  background-color: #e2e8f0;
-  color: #0f172a;
-}
-
-.indicador-tema {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #64748b;
-  transition: all 0.25s ease;
-}
-
-body.dark-preview .btn-modo-escuro {
-  background-color: #1e293b;
-  border-color: #334155;
-  color: #f8fafc;
-}
-
-body.dark-preview .btn-modo-escuro:hover {
-  background-color: #334155;
-}
-
-body.dark-preview .indicador-tema {
-  background-color: #38bdf8;
-  box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
-}
-
+/* Item restrito (Gerenciar funcionários) */
 .sidebar-nav a.nav-item[hidden] {
   display: none;
 }
 
 .sidebar-nav a.nav-item[data-papel] {
-  gap: 8px;
-  padding: 11px 8px 11px 14px;
-  font-size: 12.5px;
+  margin-top: auto; /* Empurra o item administrativo para a base da sidebar */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 14px;
+  border-radius: 0 0 11px 11px;
+  gap: 10px;
+  font-size: 13px;
   white-space: nowrap;
 }
 
+.sidebar-nav a.nav-item[data-papel].active {
+  border-radius: 11px;
+  margin-top: auto;
+  padding-top: 11px;
+  border-top: none;
+}
+
+/* Badges Numéricas */
 .nav-badge {
   flex-shrink: 0;
   margin-left: auto;
   min-width: 20px;
   padding: 1px 7px;
   border-radius: 999px;
-  background: #ffffff;
-  color: #1b3f7a;
-  font-size: 11.5px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  font-size: 11px;
   font-weight: 700;
   line-height: 18px;
   text-align: center;
 }
 
 .sidebar-nav a.nav-item.active .nav-badge {
-  background: #2f5fd8;
+  background: #083d5c;
   color: #ffffff;
 }
 
+/* Ajuste da área principal */
+.main {
+  margin-left: 256px;
+  width: calc(100% - 256px);
+}
+
 /* ==========================================
-   VISÃO TELEMÓVEL E TABLET (Formato Aplicativo - Fixo no Fundo)
+   MODO ESCURO (Sincronizado com index.css)
+   ========================================== */
+body.dark-preview .sidebar {
+  background: #101926;
+  border-right-color: #243347;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-preview .brand {
+  border-bottom-color: #243347;
+}
+
+body.dark-preview .sidebar-nav a.nav-item {
+  color: #94a3b8;
+}
+
+body.dark-preview .sidebar-nav a.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #f8fafc;
+}
+
+body.dark-preview .sidebar-nav a.nav-item.active {
+  background-color: #192638;
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1px #2d4059;
+}
+
+body.dark-preview .sidebar-nav a.nav-item.active .ic {
+  color: #2dd4bf;
+}
+
+body.dark-preview .sidebar-nav a.nav-item.active::before {
+  background-color: #2dd4bf;
+}
+
+/* ==========================================
+   VISÃO TELEMÓVEL E TABLET (Barra Inferior Estilo App)
    ========================================== */
 @media (max-width: 768px) {
   .sidebar {
     width: 100%;
     height: auto;
-    position: fixed; /* Fixa na tela */
-    top: auto; /* Remove a colagem do topo */
-    bottom: 0; /* Cola no fundo da tela */
-    flex-direction: row; /* Coloca os itens em linha */
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    flex-direction: row;
     border-right: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    background-color: #1b263b; /* Uma cor mais escura para o fundo combina melhor em mobile */
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    background: #073550;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.18);
     z-index: 9999;
+    padding-bottom: env(safe-area-inset-bottom); /* Suporte a notch de iPhone */
   }
 
-  /* Ocultamos a logo no menu inferior para poupar espaço */
+  body.dark-preview .sidebar {
+    background: #101926;
+    border-top-color: #243347;
+  }
+
   .brand {
-    display: none; 
+    display: none;
   }
 
   .main {
     margin-left: 0;
     width: 100%;
-    /* Dá um espaço no fundo da página para o conteúdo não ficar escondido atrás do menu */
-    padding-bottom: 80px; 
+    padding-bottom: 84px;
   }
 
-  /* Ajusta o menu para distribuir os botões igualmente */
   .sidebar-nav {
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
     width: 100%;
-    padding: 8px 4px;
-    gap: 0;
+    padding: 8px 6px;
+    gap: 4px;
     margin: 0;
+    overflow: visible;
   }
 
-  /* Deixa o ícone em cima e o texto em baixo, bem pequeno */
   .sidebar-nav a.nav-item {
     flex-direction: column;
-    padding: 6px 4px;
-    font-size: 11px; /* Texto menor para caber tudo */
+    padding: 7px 4px;
+    font-size: 11px;
+    font-weight: 500;
     gap: 4px;
-    flex: 1; /* Faz todos os botões terem a mesma largura */
+    flex: 1;
     justify-content: center;
-    border-radius: 8px;
-    white-space: normal;
+    border-radius: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-align: center;
   }
 
+  .sidebar-nav a.nav-item:hover {
+    transform: none;
+  }
+
+  .sidebar-nav a.nav-item.active::before {
+    display: none;
+  }
+
   .sidebar-nav a.nav-item[data-papel] {
-    padding: 6px 4px;
-    white-space: normal;
+    margin-top: 0;
+    border-top: none;
+    padding: 7px 4px;
+    font-size: 11px;
+    border-radius: 10px;
   }
 
-  /* Oculta as badges numéricas no mobile (ou pode ajustar o tamanho) */
   .nav-badge {
-    display: none; 
+    display: none;
   }
-}
-.sidebar-nav .nav-item .ic i {
-  font-size: 19px;
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.sidebar-nav .nav-item.active .ic i {
-  font-weight: bold;
 }
