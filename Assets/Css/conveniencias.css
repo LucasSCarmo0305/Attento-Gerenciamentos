@@ -661,3 +661,70 @@ body.dark-preview .remove-btn:hover{
 
 body.dark-preview .btn-prof{ background-color:#3b82f6; }
 body.dark-preview .btn-prof:hover{ background-color:#2563eb; }
+
+@media (max-width: 768px) {
+  header.topbar {
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .content {
+    padding: 16px 12px 40px;
+  }
+  
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal, .modal-card {
+    padding: 16px;
+    width: 95%;
+  }
+
+  /* Garante que a tabela possa rolar horizontalmente caso o conteúdo seja grande */
+  .table-scroll {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards-row {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    padding: 16px;
+    align-items: center;
+  }
+
+  .item-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-header .right {
+    margin-left: 0;
+    margin-top: 12px;
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .btn-clear-paid {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .filters-row {
+    flex-direction: column;
+  }
+
+  .filters-row .select-wrap, 
+  .filters-row select {
+    width: 100%;
+  }
+}

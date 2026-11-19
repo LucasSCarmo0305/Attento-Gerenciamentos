@@ -95,3 +95,31 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+
+@media (max-width: 480px) {
+    main {
+        padding: 15px;
+    }
+    .tabela-cadastro {
+        padding: 1.5rem;
+    }
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+    }
+    input, button {
+        padding: 0.6rem;
+    }
+}
+
+@media (max-width: 360px) {
+    main {
+        padding: 10px;
+    }
+    .tabela-cadastro {
+        padding: 1.2rem;
+    }
+    h1 {
+        font-size: 1.3rem;
+    }
+}

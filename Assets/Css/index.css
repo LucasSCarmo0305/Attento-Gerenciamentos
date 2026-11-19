@@ -495,3 +495,111 @@ body.dark-preview .painel-topo a:hover { color: #0f172a; }
 @media (prefers-reduced-motion: reduce) {
   .col .pilha-v i, .pilha i, .kpi { transition: none; }
 }
+
+
+
+/* Tablet (até 768px) */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 16px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .topbar-right {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  /* Reduz o tamanho mínimo dos cards para caber 2 em tablets */
+  .cards-row {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  /* Habilita scroll horizontal na tabela principal */
+  .table-card {
+    overflow-x: auto;
+  }
+  
+  table {
+    min-width: 650px; /* Evita que o texto esmague */
+  }
+
+  .controls-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+}
+
+/* Mobile (até 480px) */
+@media (max-width: 480px) {
+  .topbar {
+    padding: 16px;
+  }
+
+  .content {
+    padding: 12px;
+  }
+
+  /* Força 1 coluna para todos os cards no celular */
+  .cards-row, 
+  .d-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    padding: 16px;
+  }
+
+  .kpi-valor {
+    font-size: 24px;
+  }
+
+  .painel {
+    padding: 16px;
+  }
+
+  .painel-topo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .painel-topo a {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Ajustes do gráfico da semana */
+  .semana {
+    height: 140px;
+    gap: 2px;
+  }
+
+  .col span {
+    font-size: 10px;
+  }
+
+  .col .pct {
+    font-size: 10px;
+  }
+
+  /* Botões ocupam 100% no mobile */
+  .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .linha-dado {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
