@@ -1193,6 +1193,106 @@ body.dark-preview .grupo-formulario input[type="number"] {
 }
 
 /* Telas extra pequenas (Smartphones até 480px) */
+/* ==========================================================================
+   RESPONSIVO E ADAPTAÇÃO PARA DISPOSITIVOS MÓVEIS
+   ========================================================================== */
+
+/* 1. Telas Médias (Tablets e Laptops pequenos até 900px) */
+@media (max-width: 900px) {
+  .main {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .barra-superior {
+    padding: 20px 20px 0;
+  }
+
+  .conteudo {
+    padding: 20px 20px 40px;
+  }
+}
+
+/* 2. Telas Pequenas (Smartphones grandes e Tablets até 768px) */
+@media (max-width: 768px) {
+  .main {
+    /* IMPORTANTE: Garante que a tabela não fique escondida atrás do menu inferior fixo */
+    padding-bottom: 85px; 
+  }
+
+  .barra-superior {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .topo-direita {
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .linha-controles {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .grupo-controles {
+    width: 100%;
+    flex-direction: column; /* Empilha as abas para não espremer o texto */
+    gap: 10px;
+  }
+
+  .abas-unidades,
+  .abas-modo {
+    width: 100%;
+    display: flex;
+  }
+
+  .aba-unidade,
+  .aba-modo {
+    flex: 1;
+    text-align: center;
+    padding: 10px 8px; /* Área de toque (touch) um pouco maior */
+  }
+
+  .selecao-mes { width: 100%; }
+  .selecao-mes select { width: 100%; }
+
+  .linha-contadores {
+    gap: 10px;
+    justify-content: space-between;
+  }
+
+  /* Cartões dividem a tela em 2 colunas */
+  .cartao-contador {
+    flex: 1 1 calc(50% - 10px);
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .cartao-tabela {
+    max-width: 100%;
+    border-radius: var(--radius-md); /* Borda ligeiramente menor para ganhar espaço útil */
+  }
+  
+  .rolagem-tabela {
+    -webkit-overflow-scrolling: touch; /* Rolagem suave e fluida no iOS */
+  }
+
+  /* PREVENÇÃO DE ZOOM NO IOS: Inputs precisam ter 16px no mobile para a tela não dar zoom sozinha ao digitar */
+  .grupo-formulario input[type="text"],
+  .grupo-formulario input[type="tel"],
+  .grupo-formulario input[type="email"],
+  .grupo-formulario input[type="number"],
+  .grupo-formulario select {
+    font-size: 16px; 
+    padding: 12px 14px; /* Mais altura para facilitar o toque com o dedo */
+  }
+}
+
+/* 3. Telas Extra Pequenas (Smartphones até 480px) */
 @media (max-width: 480px) {
   .barra-superior {
     padding: 16px 14px 0;
@@ -1202,20 +1302,20 @@ body.dark-preview .grupo-formulario input[type="number"] {
     padding: 16px 14px 30px;
   }
 
-  /* Cartões de status ocupam 100% da tela */
+  /* Status passam a ocupar a largura total, um embaixo do outro */
   .cartao-contador {
     flex: 1 1 100%;
   }
 
-  /* Ajustes nos modais para preencherem melhor a tela pequena */
+  /* Melhorias no Modal para telas apertadas */
   .fundo-modal {
-    padding: 10px;
+    padding: 12px;
   }
 
   .janela-modal {
     padding: 20px 16px;
-    max-height: 95vh;
-    overflow-y: auto; /* Permite rolar dentro do modal se for muito grande */
+    max-height: 90vh;
+    overflow-y: auto; /* Garante rolagem dentro do modal se o formulário for longo */
   }
 
   .cabecalho-sala-flex {
@@ -1226,14 +1326,15 @@ body.dark-preview .grupo-formulario input[type="number"] {
   .info-sala .btn-remover-sala {
     width: 100%;
     margin-top: 12px;
+    justify-content: center;
   }
 
-  /* Botões dos formulários ficam empilhados (um embaixo do outro) */
+  /* Botões dos formulários ficam empilhados para ocupar 100% e facilitar clique */
   .acoes-formulario,
   .rodape-modal {
     flex-direction: column;
     width: 100%;
-    gap: 8px;
+    gap: 10px;
   }
 
   .acoes-formulario .botao,
@@ -1242,5 +1343,6 @@ body.dark-preview .grupo-formulario input[type="number"] {
   .rodape-modal button {
     width: 100%;
     margin: 0;
+    justify-content: center;
   }
 }
