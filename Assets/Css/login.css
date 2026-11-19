@@ -126,3 +126,27 @@ body {
             opacity: 0.7;
             cursor: wait;
         }
+@media (max-width: 480px) {
+    main {
+        padding: 15px; /* Reduz o padding externo para aproveitar a tela */
+    }
+
+    .login-card {
+        padding: 1.5rem; /* Reduz o padding interno do cartão */
+    }
+
+    .login-logo {
+        width: 150px; /* Reduz um pouco a logo em telas muito pequenas */
+        height: 70px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+    }
+
+    input, button {
+        padding: 0.65rem; /* Ajusta a altura dos botões e inputs */
+        font-size: 0.95rem;
+    }
+}

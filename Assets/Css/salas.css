@@ -1108,3 +1108,139 @@ body.dark-preview .grupo-formulario input[type="number"] {
   border-color: #334155 !important;
   color: #ffffff !important;
 }
+
+@media (max-width: 900px) {
+  .main {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .barra-superior {
+    padding: 20px 20px 0;
+  }
+
+  .conteudo {
+    padding: 20px 20px 40px;
+  }
+}
+
+/* Telas pequenas (Smartphones grandes e Tablets até 768px) */
+@media (max-width: 768px) {
+  .barra-superior {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .topo-direita {
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .linha-controles {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .grupo-controles {
+    width: 100%;
+    flex-wrap: nowrap;
+  }
+
+  /* Permite rolar as abas horizontalmente se faltar espaço */
+  .abas-unidades,
+  .abas-modo {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch; /* Scroll suave no iOS */
+    padding-bottom: 2px; /* Espaço para a barra de rolagem não cortar */
+  }
+
+  .aba-unidade,
+  .aba-modo {
+    flex: 1;
+    text-align: center;
+  }
+
+  .selecao-mes {
+    width: 100%;
+  }
+  
+  .selecao-mes select {
+    width: 100%;
+  }
+
+  .linha-contadores {
+    justify-content: space-between;
+  }
+
+  /* Faz os cartões de status dividirem a tela em 2 colunas */
+  .cartao-contador {
+    flex: 1 1 calc(50% - 6px);
+    justify-content: center;
+  }
+
+  /* A tabela precisa de limite para o scroll funcionar corretamente */
+  .cartao-tabela {
+    max-width: 100%;
+  }
+  
+  .rolagem-tabela {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Telas extra pequenas (Smartphones até 480px) */
+@media (max-width: 480px) {
+  .barra-superior {
+    padding: 16px 14px 0;
+  }
+
+  .conteudo {
+    padding: 16px 14px 30px;
+  }
+
+  /* Cartões de status ocupam 100% da tela */
+  .cartao-contador {
+    flex: 1 1 100%;
+  }
+
+  /* Ajustes nos modais para preencherem melhor a tela pequena */
+  .fundo-modal {
+    padding: 10px;
+  }
+
+  .janela-modal {
+    padding: 20px 16px;
+    max-height: 95vh;
+    overflow-y: auto; /* Permite rolar dentro do modal se for muito grande */
+  }
+
+  .cabecalho-sala-flex {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .info-sala .btn-remover-sala {
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  /* Botões dos formulários ficam empilhados (um embaixo do outro) */
+  .acoes-formulario,
+  .rodape-modal {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .acoes-formulario .botao,
+  .rodape-modal .botao,
+  .acoes-formulario button,
+  .rodape-modal button {
+    width: 100%;
+    margin: 0;
+  }
+}

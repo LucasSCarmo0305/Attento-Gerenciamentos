@@ -172,3 +172,27 @@ footer {
     font-size: 0.85rem;
     color: #e2e8f0;
 }
+@media (max-width: 480px) {
+    main {
+        padding: 15px; /* Reduz a margem externa em celulares */
+    }
+
+    .tabela-cadastro {
+        padding: 1.5rem; /* Diminui o espaçamento interno do card */
+    }
+
+    h1 {
+        font-size: 1.5rem; /* Diminui o título para não quebrar a linha de forma estranha */
+    }
+
+    .introducao {
+        font-size: 0.85rem; /* Ajusta o texto de introdução */
+    }
+
+    input, 
+    button, 
+    .botao-link {
+        padding: 0.65rem; /* Altura um pouco menor para inputs e botões */
+        font-size: 0.95rem;
+    }
+}

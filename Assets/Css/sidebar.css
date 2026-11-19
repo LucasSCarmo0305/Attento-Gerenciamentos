@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+/* ==========================================
+   VISÃO COMPUTADOR (Barra Lateral Esquerda)
+   ========================================== */
 .sidebar {
   width: 250px;
   background-color: #5B88C5;
@@ -22,7 +25,6 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-
 .brand-logo-container {
   width: 46px;
   height: 46px;
@@ -35,7 +37,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   flex-shrink: 0;
 }
-
 
 .brand-logo {
   width: 100%;
@@ -116,7 +117,6 @@
   width: calc(100% - 250px);
 }
 
-
 .btn-modo-escuro {
   display: inline-flex;
   align-items: center;
@@ -138,7 +138,6 @@
   color: #0f172a;
 }
 
-
 .indicador-tema {
   width: 8px;
   height: 8px;
@@ -146,7 +145,6 @@
   background-color: #64748b;
   transition: all 0.25s ease;
 }
-
 
 body.dark-preview .btn-modo-escuro {
   background-color: #1e293b;
@@ -163,7 +161,6 @@ body.dark-preview .indicador-tema {
   box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
 }
 
-/* itens exclusivos do administrador começam ocultos até o auth.js liberar */
 .sidebar-nav a.nav-item[hidden] {
   display: none;
 }
@@ -189,8 +186,70 @@ body.dark-preview .indicador-tema {
   text-align: center;
 }
 
-/* no item ativo (fundo branco) o selo usa a cor da marca para continuar visível */
 .sidebar-nav a.nav-item.active .nav-badge {
   background: #2f5fd8;
   color: #ffffff;
+}
+
+/* ==========================================
+   VISÃO TELEMÓVEL E TABLET (Formato Aplicativo - Fixo no Fundo)
+   ========================================== */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: fixed; /* Fixa na tela */
+    top: auto; /* Remove a colagem do topo */
+    bottom: 0; /* Cola no fundo da tela */
+    flex-direction: row; /* Coloca os itens em linha */
+    border-right: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    background-color: #1b263b; /* Uma cor mais escura para o fundo combina melhor em mobile */
+    z-index: 9999;
+  }
+
+  /* Ocultamos a logo no menu inferior para poupar espaço */
+  .brand {
+    display: none; 
+  }
+
+  .main {
+    margin-left: 0;
+    width: 100%;
+    /* Dá um espaço no fundo da página para o conteúdo não ficar escondido atrás do menu */
+    padding-bottom: 80px; 
+  }
+
+  /* Ajusta o menu para distribuir os botões igualmente */
+  .sidebar-nav {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    padding: 8px 4px;
+    gap: 0;
+    margin: 0;
+  }
+
+  /* Deixa o ícone em cima e o texto em baixo, bem pequeno */
+  .sidebar-nav a.nav-item {
+    flex-direction: column;
+    padding: 6px 4px;
+    font-size: 11px; /* Texto menor para caber tudo */
+    gap: 4px;
+    flex: 1; /* Faz todos os botões terem a mesma largura */
+    justify-content: center;
+    border-radius: 8px;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .sidebar-nav a.nav-item[data-papel] {
+    padding: 6px 4px;
+    white-space: normal;
+  }
+
+  /* Oculta as badges numéricas no mobile (ou pode ajustar o tamanho) */
+  .nav-badge {
+    display: none; 
+  }
 }
