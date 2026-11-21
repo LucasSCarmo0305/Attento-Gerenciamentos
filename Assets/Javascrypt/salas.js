@@ -558,6 +558,18 @@ function animarTroca(direcao) {
   });
 }
 // ===== Adicionar / Remover salas =====
+// Converte "R$ 1.234,56" em número (1234.56)
+function lerMoeda(texto) {
+  const centavos = parseInt(String(texto).replace(/\D/g, ''), 10) || 0;
+  return centavos / 100;
+}
+
+// Máscara: formata enquanto a pessoa digita
+document.querySelectorAll('.input-moeda').forEach(function (campo) {
+  campo.addEventListener('input', function () {
+    campo.value = formatarMoeda(lerMoeda(campo.value));
+  });
+});
 function gerarIdSala(nome) {
   const base = nome
     .toLowerCase()
@@ -608,12 +620,12 @@ formSala.addEventListener('submit', function (e) {
     || 'Sala ' + String(unidade.salas.length + 1).padStart(2, '0');
   const tamanho = document.getElementById('s-tamanho').value + 'm²';
 
-  const precos = {
-    M: Number(document.getElementById('s-preco-m').value),
-    T: Number(document.getElementById('s-preco-t').value),
-    N: Number(document.getElementById('s-preco-n').value),
-    hora: Number(document.getElementById('s-preco-h').value)
-  };
+ const precos = {
+  M: lerMoeda(document.getElementById('s-preco-m').value),
+  T: lerMoeda(document.getElementById('s-preco-t').value),
+  N: lerMoeda(document.getElementById('s-preco-n').value),
+  hora: lerMoeda(document.getElementById('s-preco-h').value)
+};
 
   unidade.salas.push(criarSala(gerarIdSala(nome), nome, codigo, tamanho, precos));
 
