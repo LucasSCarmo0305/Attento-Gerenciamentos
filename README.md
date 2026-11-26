@@ -25,6 +25,52 @@ O projeto é um front-end estático (HTML, CSS e JavaScript puro), sem back-end 
 
 ---
 
+# Documentação da Integração — API de Inteligência Artificial
+
+## 1. Visão Geral
+
+Este módulo integra o sistema **Attento Saúde Integral** a uma API de Inteligência Artificial generativa com o objetivo de [descrever a função principal — ex.: gerar análises financeiras automáticas, responder dúvidas operacionais via assistente virtual ou sugerir ações para contas pendentes/vencidas].
+
+- **Provedor / Modelo:** `[Ex.: Google Gemini (gemini-2.5-flash) / OpenAI (gpt-4o-mini)]`
+- **Protocolo:** HTTPS / REST (JSON)
+- **Camada de consumo:** `[Ex.: Front-end (JavaScript Fetch API) / Back-end Proxy (Node.js)]`
+- **Módulo do sistema:** `[Ex.: Financeiro / Dashboard / Assistente Geral]`
+
+---
+
+## 2. Arquitetura e Fluxo de Funcionamento
+
+1. O usuário aciona a funcionalidade de IA na interface do sistema (ex.: botão de análise ou envio de mensagem no chat).
+2. A aplicação coleta os dados de contexto necessários (ex.: resumo de receitas, despesas e contas armazenadas no `localStorage` ou banco de dados).
+3. O sistema monta o *prompt* estruturado e envia uma requisição `POST` para o endpoint da API de IA.
+4. A API processa o contexto e retorna a resposta gerada em formato JSON.
+5. A interface trata o retorno, exibe o resultado formatado ao usuário e lida com eventuais falhas de rede ou limite de requisições.
+
+---
+
+## 3. Configuração e Autenticação
+
+Para executar a integração localmente ou em produção, é necessário possuir uma chave de API válida fornecida pelo provedor.
+
+### Variáveis de Ambiente (`.env`)
+
+| Variável | Obrigatória | Descrição | Exemplo |
+| :--- | :---: | :--- | :--- |
+| `AI_API_URL` | Sim | URL base do endpoint da API de IA | `https://api.provedor.com/v1/generate` |
+| `AI_API_KEY` | Sim | Chave secreta de autenticação | `sua_chave_secreta_aqui` |
+| `AI_MODEL` | Sim | Identificador do modelo utilizado | `[nome-do-modelo]` |
+
+> **Segurança:** Nunca versione a chave de API (`AI_API_KEY`) em repositórios públicos (GitHub/GitLab). Adicione o arquivo `.env` ao `.gitignore`. Em ambiente de produção, recomenda-se realizar a chamada através de um back-end intermediário (proxy) para não expor a credencial no navegador.
+
+---
+
+## 4. Especificação da Requisição
+
+### Endpoint
+
+```http
+POST [URL_DO_ENDPOINT_DA_API]
+
 ## Tecnologias utilizadas
 
 - HTML5

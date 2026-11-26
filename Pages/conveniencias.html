@@ -9,19 +9,6 @@
 <link rel="stylesheet" href="../Assets/Css/index.css">
 <link rel="stylesheet" href="../Assets/Css/sidebar.css">
 <link rel="icon" href="../Assets/imagens/Attento Logo Simples.png">
-</head>
-<body>
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Attento · Conveniências</title>
-<script src="../Assets/Javascrypt/auth.js" data-acesso="logado"></script>
-<link rel="stylesheet" href="../Assets/Css/conveniencias.css">
-<link rel="stylesheet" href="../Assets/Css/sidebar.css">
-<link rel="icon" href="../Assets/imagens/Attento Logo Simples.png">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
@@ -105,7 +92,6 @@
         </div>
       </div>
 
-
       <div class="filters-row">
         <div class="select-wrap">
           <select id="fMonth"></select>
@@ -117,21 +103,19 @@
         </div>
         <div class="select-wrap">
           <select id="fProfissional">
-            <option value="todos">Todos compradores</option>
+            <option value="todos">Todos profissionais</option>
           </select>
         </div>
         <button class="add-btn" id="addProduct" type="button">Adicionar Produto</button>
         <button class="btn-clear-paid" id="clearPaid" type="button">Limpar pagos</button>
       </div>
 
-   
       <div class="board" id="board"></div>
 
     </div>
   </div>
 
 </div>
-
 
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
@@ -142,8 +126,11 @@
     <form id="addForm">
 
       <div class="field">
-        <label for="f-prof">Nome do comprador</label>
-        <input type="text" id="f-prof" placeholder="Digite o nome do comprador" required autocomplete="off">
+        <label for="f-prof">Profissional</label>
+        <select id="f-prof" required>
+          <option value="">Selecione o profissional...</option>
+        </select>
+        <div class="field-hint" id="f-prof-hint"></div>
       </div>
 
       <div class="field-row">
@@ -170,8 +157,6 @@
     </form>
   </div>
 </div>
-
-
 
 <div class="modal-overlay" id="productModal">
   <div class="modal">
@@ -202,7 +187,6 @@
         </div>
       </div>
 
-   
       <div id="emojiPresets" class="emoji-presets"></div>
 
       <div class="modal-footer">
@@ -212,8 +196,6 @@
     </form>
   </div>
 </div>
-
-
 
 <div class="modal-overlay" id="confirmModal">
   <div class="modal confirm-modal">

@@ -1,14 +1,10 @@
-
-
 const nomesMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-
 
 const emojisSugeridos = [
   '☕', '🧃', '🥤', '🧋', '🥛', '💧', '🍺', '🍔', '🍕', '🌭',
   '🍟', '🥪', '🌮', '🍿', '🍪', '🍩', '🍰', '🍫', '🍦', '🧁',
   '🥐', '🍱', '🥗', '🍲', '🍣', '🍎', '🍌', '🍓', '🖨️', '🛒'
 ];
-
 
 const produtosIniciais = [
   { id: 'cafe', nome: 'Café', preco: 3, emoji: '☕', cor: '#0f9aad', recolhido: false },
@@ -18,8 +14,6 @@ const produtosIniciais = [
   { id: 'impressao', nome: 'Impressão', preco: 0.5, emoji: '🖨️', cor: '#9955d6', recolhido: false }
 ];
 
-
-
 function carregarLista(chave, padrao) {
   const salvo = localStorage.getItem(chave);
   if (!salvo) return padrao;
@@ -27,7 +21,7 @@ function carregarLista(chave, padrao) {
   try {
     return JSON.parse(salvo);
   } catch (erro) {
-    return padrao; 
+    return padrao;
   }
 }
 
@@ -36,18 +30,112 @@ function salvarDados() {
   localStorage.setItem('attento_consumos', JSON.stringify(consumos));
 }
 
+// ===== Integração com Salas =====
+function obterProfissionaisSalas() {
+  const dadosSalas = carregarLista('attento_dados_unidades', null);
+  if (!dadosSalas || typeof dadosSalas !== 'object') return [];
+
+  const mapa = {};
+
+  function registrarSlot(slot, nomeSala) {
+    if (!slot || slot.status === 'livre' || !slot.profissional) return;
+
+    const nomeBruto = typeof slot.profissional === 'object'
+      ? slot.profissional.nome
+      : slot.profissional;
+
+    if (!nomeBruto || typeof nomeBruto !== 'string') return;
+
+    const nome = nomeBruto.trim();
+    if (!nome) return;
+
+    const chave = nome.toLowerCase();
+    if (!mapa[chave]) {
+      mapa[chave] = { nome: nome, salas: [] };
+    }
+
+    if (nomeSala && mapa[chave].salas.indexOf(nomeSala) === -1) {
+      mapa[chave].salas.push(nomeSala);
+    }
+  }
+
+  Object.keys(dadosSalas).forEach(function (chaveUnidade) {
+    const unidade = dadosSalas[chaveUnidade];
+    if (!unidade || !Array.isArray(unidade.salas)) return;
+
+    unidade.salas.forEach(function (sala) {
+      if (sala.slots) {
+        Object.keys(sala.slots).forEach(function (dia) {
+          const turnosDia = sala.slots[dia];
+          if (!turnosDia) return;
+          Object.keys(turnosDia).forEach(function (turno) {
+            registrarSlot(turnosDia[turno], sala.nome);
+          });
+        });
+      }
+
+      if (sala.slotsPorHora) {
+        Object.keys(sala.slotsPorHora).forEach(function (dia) {
+          const horasDia = sala.slotsPorHora[dia];
+          if (!horasDia) return;
+          Object.keys(horasDia).forEach(function (hora) {
+            registrarSlot(horasDia[hora], sala.nome);
+          });
+        });
+      }
+    });
+  });
+
+  return Object.keys(mapa)
+    .map(function (chave) { return mapa[chave]; })
+    .sort(function (a, b) { return a.nome.localeCompare(b.nome, 'pt-BR'); });
+}
+
+function preencherSelectProfissionais() {
+  const select = document.getElementById('f-prof');
+  const hint = document.getElementById('f-prof-hint');
+  const btnSalvar = document.querySelector('#addForm button[type="submit"]');
+  if (!select) return;
+
+  const profissionais = obterProfissionaisSalas();
+
+  if (profissionais.length === 0) {
+    select.innerHTML = '<option value="">Nenhum profissional cadastrado em Salas</option>';
+    select.disabled = true;
+    if (btnSalvar) btnSalvar.disabled = true;
+    if (hint) {
+      hint.innerHTML = 'Nenhum profissional com sala locada. <a href="salas.html">Cadastre em Salas</a> primeiro.';
+    }
+    return;
+  }
+
+  let html = '<option value="" disabled selected>Selecione o profissional...</option>';
+  for (let i = 0; i < profissionais.length; i++) {
+    const p = profissionais[i];
+    const rotuloSalas = p.salas.length > 0 ? ' · ' + p.salas.join(', ') : '';
+    html += '<option value="' + escapar(p.nome) + '">' + escapar(p.nome + rotuloSalas) + '</option>';
+  }
+
+  select.innerHTML = html;
+  select.disabled = false;
+  if (btnSalvar) btnSalvar.disabled = false;
+  if (hint) {
+    hint.textContent = profissionais.length === 1
+      ? '1 profissional ativo vinculado em Salas.'
+      : profissionais.length + ' profissionais ativos vinculados em Salas.';
+  }
+}
 
 let produtos = carregarLista('attento_produtos', produtosIniciais);
 let consumos = carregarLista('attento_consumos', []);
 
-let filtroMes = hojeISO().slice(0, 7);   
+let filtroMes = hojeISO().slice(0, 7);
 let filtroCategoria = 'todas';
 let filtroComprador = 'todos';
 
-let produtoDoConsumoId = null;   
-let editandoProdutoId = null;    
-let acaoConfirmada = null;     
-
+let produtoDoConsumoId = null;
+let editandoProdutoId = null;
+let acaoConfirmada = null;
 
 // ===== Funções utilitárias =====
 function gerarId() {
@@ -75,13 +163,11 @@ function rotuloMes(chave) {
   return nomesMeses[parseInt(partes[1], 10) - 1] + ' ' + partes[0];
 }
 
-
 function escapar(texto) {
   const div = document.createElement('div');
   div.textContent = texto;
   return div.innerHTML;
 }
-
 
 function gerarTint(hex) {
   const r = parseInt(hex.slice(1, 3), 16);
@@ -109,8 +195,6 @@ function acharConsumo(id) {
   return null;
 }
 
-
-
 function consumosVisiveis() {
   const lista = [];
 
@@ -128,7 +212,6 @@ function consumosVisiveis() {
 }
 
 function preencherFiltros() {
-
   const meses = [hojeISO().slice(0, 7)];
   for (let i = 0; i < consumos.length; i++) {
     const mes = consumos[i].data.slice(0, 7);
@@ -144,7 +227,6 @@ function preencherFiltros() {
   }
   document.getElementById('fMonth').innerHTML = htmlMeses;
 
-
   if (filtroCategoria !== 'todas' && !acharProduto(filtroCategoria)) {
     filtroCategoria = 'todas';
   }
@@ -157,20 +239,31 @@ function preencherFiltros() {
   }
   document.getElementById('fCategoria').innerHTML = htmlCategorias;
 
+  // Combina profissionais cadastrados em Salas + compradores com histórico de consumo
+  const mapaCompradores = {};
+  const profissionaisSalas = obterProfissionaisSalas();
 
-  const compradores = [];
+  for (let i = 0; i < profissionaisSalas.length; i++) {
+    const nome = profissionaisSalas[i].nome;
+    mapaCompradores[nome.toLowerCase()] = nome;
+  }
+
   for (let i = 0; i < consumos.length; i++) {
-    if (compradores.indexOf(consumos[i].comprador) === -1) {
-      compradores.push(consumos[i].comprador);
+    const nome = consumos[i].comprador;
+    if (nome && !mapaCompradores[nome.toLowerCase()]) {
+      mapaCompradores[nome.toLowerCase()] = nome;
     }
   }
-  compradores.sort(function (a, b) { return a.localeCompare(b); });
+
+  const compradores = Object.keys(mapaCompradores)
+    .map(function (chave) { return mapaCompradores[chave]; })
+    .sort(function (a, b) { return a.localeCompare(b, 'pt-BR'); });
 
   if (filtroComprador !== 'todos' && compradores.indexOf(filtroComprador) === -1) {
     filtroComprador = 'todos';
   }
 
-  let htmlCompradores = '<option value="todos">Todos compradores</option>';
+  let htmlCompradores = '<option value="todos">Todos profissionais</option>';
   for (let i = 0; i < compradores.length; i++) {
     const selecionado = compradores[i] === filtroComprador ? ' selected' : '';
     htmlCompradores += '<option value="' + escapar(compradores[i]) + '"' + selecionado + '>' + escapar(compradores[i]) + '</option>';
@@ -178,8 +271,7 @@ function preencherFiltros() {
   document.getElementById('fProfissional').innerHTML = htmlCompradores;
 }
 
-
-//  Desenho da tela
+// ===== Desenho da tela =====
 function atualizarResumo() {
   const lista = consumosVisiveis();
   let total = 0;
@@ -199,12 +291,11 @@ function atualizarResumo() {
 }
 
 function criarCardProduto(produto, visiveis) {
-  // Consumos só deste produto
   const lista = [];
   for (let i = 0; i < visiveis.length; i++) {
     if (visiveis[i].produtoId === produto.id) lista.push(visiveis[i]);
   }
-  lista.sort(function (a, b) { return b.data.localeCompare(a.data); }); // mais recentes primeiro
+  lista.sort(function (a, b) { return b.data.localeCompare(a.data); });
 
   let totalQtd = 0;
   let totalValor = 0;
@@ -219,7 +310,6 @@ function criarCardProduto(produto, visiveis) {
     ? '<span class="pending-pill">' + formatarMoeda(totalPendente) + '</span>'
     : '';
 
-  // Corpo do card
   let corpo = '';
   if (!produto.recolhido) {
     if (lista.length === 0) {
@@ -247,7 +337,7 @@ function criarCardProduto(produto, visiveis) {
           <table>
             <thead>
               <tr>
-                <th>COMPRADOR</th><th>QTD</th><th>DATA</th><th>VALOR</th><th>STATUS</th><th></th>
+                <th>PROFISSIONAL</th><th>QTD</th><th>DATA</th><th>VALOR</th><th>STATUS</th><th></th>
               </tr>
             </thead>
             <tbody>
@@ -313,8 +403,7 @@ function renderizar() {
   atualizarResumo();
 }
 
-
-// Abrir / fechar
+// ===== Abrir / fechar modais =====
 function abrirModal(idOverlay) {
   document.getElementById(idOverlay).classList.add('open');
 }
@@ -330,7 +419,6 @@ function fecharTodosModais() {
   acaoConfirmada = null;
 }
 
-// Fecha ao clicar no fundo escuro
 ['modalOverlay', 'productModal', 'confirmModal'].forEach(function (id) {
   const overlay = document.getElementById(id);
   overlay.addEventListener('click', function (e) {
@@ -342,8 +430,7 @@ document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') fecharTodosModais();
 });
 
-
-// Confirmação (excluir produto, remover consumo, limpar pagos
+// ===== Confirmação =====
 function pedirConfirmacao(titulo, mensagem, textoBotao, acao) {
   document.getElementById('confirmTitle').textContent = titulo;
   document.getElementById('confirmMessage').textContent = mensagem;
@@ -360,7 +447,6 @@ document.getElementById('confirmOk').addEventListener('click', function () {
 document.getElementById('confirmCancel').addEventListener('click', fecharTodosModais);
 document.getElementById('confirmClose').addEventListener('click', fecharTodosModais);
 
-
 // ===== Modal de PRODUTO =====
 function criarBotoesEmoji() {
   const area = document.getElementById('emojiPresets');
@@ -372,7 +458,6 @@ function criarBotoesEmoji() {
 
   area.innerHTML = html;
 
-  // Clicou num emoji 
   area.addEventListener('click', function (e) {
     const botao = e.target.closest('.emoji-chip');
     if (!botao) return;
@@ -417,7 +502,6 @@ document.getElementById('productForm').addEventListener('submit', function (e) {
 
   if (!nome || isNaN(preco) || preco <= 0) return;
 
-  // Não deixa criar dois produtos com o mesmo nome
   for (let i = 0; i < produtos.length; i++) {
     const mesmoNome = produtos[i].nome.toLowerCase() === nome.toLowerCase();
     const outroProduto = produtos[i].id !== editandoProdutoId;
@@ -442,13 +526,14 @@ document.getElementById('productForm').addEventListener('submit', function (e) {
   renderizar();
 });
 
-
 // ===== Modal de CONSUMO =====
 function abrirModalConsumo(idProduto) {
   const produto = acharProduto(idProduto);
   produtoDoConsumoId = idProduto;
 
   document.getElementById('addForm').reset();
+  preencherSelectProfissionais();
+
   document.getElementById('modalTitle').textContent = 'Adicionar consumo · ' + produto.emoji + ' ' + produto.nome;
   document.getElementById('f-data').value = hojeISO();
   document.getElementById('f-qtd').value = 1;
@@ -456,10 +541,13 @@ function abrirModalConsumo(idProduto) {
   document.getElementById('f-valor-hint').textContent = 'Preço unitário: ' + formatarMoeda(produto.preco);
 
   abrirModal('modalOverlay');
-  document.getElementById('f-prof').focus();
+
+  const selectProf = document.getElementById('f-prof');
+  if (selectProf && !selectProf.disabled) {
+    selectProf.focus();
+  }
 }
 
-// Mudou a quantidade -> recalcula o valor automaticamente
 document.getElementById('f-qtd').addEventListener('input', function () {
   const produto = acharProduto(produtoDoConsumoId);
   const qtd = parseInt(this.value, 10);
@@ -491,7 +579,6 @@ document.getElementById('addForm').addEventListener('submit', function (e) {
     status: 'pendente'
   });
 
-  // Vai para o mês da data escolhida, senão o consumo "some" da tela
   filtroMes = data.slice(0, 7);
 
   salvarDados();
@@ -499,8 +586,7 @@ document.getElementById('addForm').addEventListener('submit', function (e) {
   renderizar();
 });
 
-
-//  Cliques dentro dos cards 
+// ===== Cliques dentro dos cards =====
 document.getElementById('board').addEventListener('click', function (e) {
   const botao = e.target.closest('[data-acao]');
   if (!botao) return;
@@ -554,8 +640,7 @@ document.getElementById('board').addEventListener('click', function (e) {
   }
 });
 
-
-//  Filtros e botão "Limpar pagos
+// ===== Filtros e botão "Limpar pagos" =====
 document.getElementById('fMonth').addEventListener('change', function () {
   filtroMes = this.value;
   renderizar();
@@ -572,7 +657,6 @@ document.getElementById('fProfissional').addEventListener('change', function () 
 });
 
 document.getElementById('clearPaid').addEventListener('click', function () {
-  // Só limpa os pagos que estão aparecendo com os filtros atuais
   const idsPagos = [];
   const visiveis = consumosVisiveis();
   for (let i = 0; i < visiveis.length; i++) {
@@ -596,18 +680,25 @@ document.getElementById('clearPaid').addEventListener('click', function () {
   );
 });
 
+// Atualiza se Salas for alterado em outra aba
+window.addEventListener('storage', function (e) {
+  if (e.key === 'attento_dados_unidades') {
+    preencherFiltros();
+    if (document.getElementById('modalOverlay').classList.contains('open')) {
+      preencherSelectProfissionais();
+    }
+  }
+});
 
 criarBotoesEmoji();
 renderizar();
 
 document.addEventListener("DOMContentLoaded", () => {
-
   if (!document.querySelector('script[src*="phosphor-icons"]')) {
     const phScript = document.createElement("script");
     phScript.src = "https://unpkg.com/@phosphor-icons/web";
     document.head.appendChild(phScript);
   }
-
 
   const paginaAtual = window.location.pathname.split("/").pop() || "index.html";
 

@@ -603,3 +603,120 @@ body.dark-preview .painel-topo a:hover { color: #0c1420; }
 @media (prefers-reduced-motion: reduce) {
     .col .pilha-v i, .pilha i, .kpi { transition: none; }
 }
+
+/* Botão flutuante */
+.attento-chat-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #1e3a8a; /* Ajuste para o azul da sua marca */
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 9999;
+  transition: transform 0.2s;
+}
+
+.attento-chat-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Janela do Chat */
+.attento-chat-window {
+  position: fixed;
+  bottom: 92px;
+  right: 24px;
+  width: 350px;
+  height: 460px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9999;
+  font-family: sans-serif;
+  border: 1px solid #e2e8f0;
+}
+
+.attento-chat-window.ativo {
+  display: flex;
+}
+
+.attento-chat-header {
+  background-color: #1e3a8a;
+  color: #ffffff;
+  padding: 14px 16px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.attento-chat-header button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.attento-chat-messages {
+  flex: 1;
+  padding: 14px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #f8fafc;
+}
+
+.msg-bot, .msg-user {
+  max-width: 82%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.msg-bot {
+  background-color: #e2e8f0;
+  color: #1e293b;
+  align-self: flex-start;
+}
+
+.msg-user {
+  background-color: #1e3a8a;
+  color: #ffffff;
+  align-self: flex-end;
+}
+
+.attento-chat-input-area {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #e2e8f0;
+  background-color: #ffffff;
+}
+
+.attento-chat-input-area input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  outline: none;
+}
+
+.attento-chat-input-area button {
+  margin-left: 8px;
+  padding: 8px 14px;
+  background-color: #1e3a8a;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

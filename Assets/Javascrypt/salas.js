@@ -4,13 +4,15 @@ const turnos = ['M', 'T', 'N'];
 const rotulosTurno = { M: 'Manhã', T: 'Tarde', N: 'Noite' };
 const horariosTurno = { M: '08-13h', T: '14-17h', N: '18-21h' };
 const horasExtra = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
-
+const horasPorTurno = {
+  M: ['08:00', '09:00', '10:00', '11:00', '12:00'],
+  T: ['14:00', '15:00', '16:00'],
+  N: ['18:00', '19:00', '20:00']
+};
 
 function criarSlotLivre() {
   return { status: 'livre', profissional: null };
 }
-
-
 
 function criarSlotsParaSala() {
   const slotsTurno = {};
@@ -35,8 +37,6 @@ function criarSlotsParaSala() {
   return { slotsTurno: slotsTurno, slotsHora: slotsHora };
 }
 
-
-
 function criarSala(id, nome, codigo, tamanho, precios) {
   const estrutura = criarSlotsParaSala();
   return {
@@ -50,8 +50,6 @@ function criarSala(id, nome, codigo, tamanho, precios) {
   };
 }
 
-
-// Estrutura 
 const dadosIniciaisUnidades = {
   europa: {
     rotulo: 'Attento Europa',
@@ -73,7 +71,6 @@ const dadosIniciaisUnidades = {
   }
 };
 
-
 function salvarDados() {
   localStorage.setItem('attento_dados_unidades', JSON.stringify(dadosUnidades));
 }
@@ -86,15 +83,13 @@ function carregarDados() {
   return dadosIniciaisUnidades;
 }
 
-
 let dadosUnidades = carregarDados();
 let unidadeAtual = 'europa';
 let modoAtual = 'turno';
 let slotSelecionado = null;
 
-
 function formatarMoeda(valor) {
-  return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  return Number(valor || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
 function obterNomeProfissional(profissional) {
@@ -105,6 +100,42 @@ function obterNomeProfissional(profissional) {
   return profissional;
 }
 
+function obterTurnoDaHora(hora) {
+  for (let i = 0; i < turnos.length; i++) {
+    const turno = turnos[i];
+    if (horasPorTurno[turno].includes(hora)) {
+      return turno;
+    }
+  }
+  return null;
+}
+
+function obterHorasOcupadasNoTurno(sala, dia, turno) {
+  const listaHoras = horasPorTurno[turno] || [];
+  const ocupadas = [];
+
+  for (let i = 0; i < listaHoras.length; i++) {
+    const hora = listaHoras[i];
+    const slotHora = sala.slotsPorHora && sala.slotsPorHora[dia] ? sala.slotsPorHora[dia][hora] : null;
+    if (slotHora && slotHora.status !== 'livre') {
+      ocupadas.push({ hora: hora, slot: slotHora });
+    }
+  }
+
+  return ocupadas;
+}
+
+function obterTurnoOcupadoNaHora(sala, dia, hora) {
+  const turno = obterTurnoDaHora(hora);
+  if (!turno) return null;
+
+  const slotTurno = sala.slots && sala.slots[dia] ? sala.slots[dia][turno] : null;
+  if (slotTurno && slotTurno.status !== 'livre') {
+    return { turno: turno, slot: slotTurno };
+  }
+
+  return null;
+}
 
 function renderizarPrecos(sala) {
   if (modoAtual === 'turno') {
@@ -140,22 +171,20 @@ function renderizarGrade() {
     const sala = unidade.salas[i];
 
     if (modoAtual === 'turno') {
-  
-     htmlLinhas += `
-  <tr class="linha-cabecalho-sala" data-sala="${sala.id}">
-    <td colspan="7">
-      <div class="cabecalho-sala-flex">
-        <div>
-          <span class="nome-sala">${sala.nome}</span>
-          <span class="meta-sala">${sala.codigo} · ${sala.tamanho}</span>
-        </div>
-        <button type="button" class="btn-remover-sala" data-remover="${sala.id}">🗑 Remover</button>
-      </div>
-    </td>
-  </tr>
-`;
+      htmlLinhas += `
+        <tr class="linha-cabecalho-sala" data-sala="${sala.id}">
+          <td colspan="7">
+            <div class="cabecalho-sala-flex">
+              <div>
+                <span class="nome-sala">${sala.nome}</span>
+                <span class="meta-sala">${sala.codigo} · ${sala.tamanho}</span>
+              </div>
+              <button type="button" class="btn-remover-sala" data-remover="${sala.id}">🗑 Remover</button>
+            </div>
+          </td>
+        </tr>
+      `;
 
-      // Uma linha por turno
       for (let t = 0; t < turnos.length; t++) {
         const turno = turnos[t];
 
@@ -172,12 +201,25 @@ function renderizarGrade() {
         for (let d = 0; d < diasSemana.length; d++) {
           const dia = diasSemana[d];
           const slot = sala.slots[dia][turno];
-          const nomeProf = slot.status === 'livre' ? 'Livre' : obterNomeProfissional(slot.profissional);
-          const textoPendente = slot.status === 'pendente' ? '<span class="subtexto-horario">Pendente</span>' : '';
+          let statusExibido = slot.status;
+          let nomeProf = slot.status === 'livre' ? 'Livre' : obterNomeProfissional(slot.profissional);
+          let textoPendente = slot.status === 'pendente' ? '<span class="subtexto-horario">Pendente</span>' : '';
+
+          if (slot.status === 'livre') {
+            const conflitosHora = obterHorasOcupadasNoTurno(sala, dia, turno);
+            if (conflitosHora.length > 0) {
+              const temOcupado = conflitosHora.some(function (item) { return item.slot.status === 'ocupado'; });
+              statusExibido = temOcupado ? 'ocupado' : 'pendente';
+              nomeProf = conflitosHora.length === 1
+                ? 'Hora Extra (' + conflitosHora[0].hora + ')'
+                : 'Hora Extra (' + conflitosHora.length + 'h)';
+              textoPendente = '<span class="subtexto-horario">Bloqueado</span>';
+            }
+          }
 
           htmlLinhas += `
             <td>
-              <div class="bloco-horario ${slot.status}" data-sala="${sala.id}" data-dia="${dia}" data-turno="${turno}">
+              <div class="bloco-horario ${statusExibido}" data-sala="${sala.id}" data-dia="${dia}" data-turno="${turno}">
                 <span class="rotulo-turno">${horariosTurno[turno]}</span>
                 <span class="nome-horario">${nomeProf}</span>
                 ${textoPendente}
@@ -189,7 +231,6 @@ function renderizarGrade() {
         htmlLinhas += '</tr>';
       }
     } else {
-
       htmlLinhas += '<tr>';
       htmlLinhas += `
         <td>
@@ -209,11 +250,21 @@ function renderizarGrade() {
         for (let h = 0; h < horasExtra.length; h++) {
           const hora = horasExtra[h];
           const slot = sala.slotsPorHora[dia][hora];
-          const nomeProf = slot.status === 'livre' ? 'Livre' : obterNomeProfissional(slot.profissional);
-          const textoPendente = slot.status === 'pendente' ? '<span class="subtexto-horario">Pendente</span>' : '';
+          let statusExibido = slot.status;
+          let nomeProf = slot.status === 'livre' ? 'Livre' : obterNomeProfissional(slot.profissional);
+          let textoPendente = slot.status === 'pendente' ? '<span class="subtexto-horario">Pendente</span>' : '';
+
+          if (slot.status === 'livre') {
+            const conflitoTurno = obterTurnoOcupadoNaHora(sala, dia, hora);
+            if (conflitoTurno) {
+              statusExibido = conflitoTurno.slot.status;
+              nomeProf = obterNomeProfissional(conflitoTurno.slot.profissional);
+              textoPendente = '<span class="subtexto-horario">Turno ' + rotulosTurno[conflitoTurno.turno] + '</span>';
+            }
+          }
 
           htmlLinhas += `
-            <div class="bloco-horario ${slot.status} horario-por-hora" data-sala="${sala.id}" data-dia="${dia}" data-hora="${hora}">
+            <div class="bloco-horario ${statusExibido} horario-por-hora" data-sala="${sala.id}" data-dia="${dia}" data-hora="${hora}">
               <span class="rotulo-turno">${hora}</span>
               <span class="nome-horario">${nomeProf}</span>
               ${textoPendente}
@@ -227,9 +278,11 @@ function renderizarGrade() {
       htmlLinhas += '</tr>';
     }
   }
+
   if (unidade.salas.length === 0) {
-  htmlLinhas = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-400);">Nenhuma sala cadastrada nesta unidade.</td></tr>';
-}
+    htmlLinhas = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-400);">Nenhuma sala cadastrada nesta unidade.</td></tr>';
+  }
+
   corpoTabela.innerHTML = htmlLinhas;
   atualizarContadores();
 }
@@ -249,14 +302,26 @@ function atualizarContadores() {
 
       if (modoAtual === 'turno') {
         for (let t = 0; t < turnos.length; t++) {
-          const status = sala.slots[dia][turnos[t]].status;
+          let status = sala.slots[dia][turnos[t]].status;
+          if (status === 'livre') {
+            const conflitosHora = obterHorasOcupadasNoTurno(sala, dia, turnos[t]);
+            if (conflitosHora.length > 0) {
+              status = conflitosHora.some(function (item) { return item.slot.status === 'ocupado'; }) ? 'ocupado' : 'pendente';
+            }
+          }
           if (status === 'ocupado') ocupados++;
           else if (status === 'pendente') pendentes++;
           else livres++;
         }
       } else {
         for (let h = 0; h < horasExtra.length; h++) {
-          const status = sala.slotsPorHora[dia][horasExtra[h]].status;
+          let status = sala.slotsPorHora[dia][horasExtra[h]].status;
+          if (status === 'livre') {
+            const conflitoTurno = obterTurnoOcupadoNaHora(sala, dia, horasExtra[h]);
+            if (conflitoTurno) {
+              status = conflitoTurno.slot.status;
+            }
+          }
           if (status === 'ocupado') ocupados++;
           else if (status === 'pendente') pendentes++;
           else livres++;
@@ -273,7 +338,6 @@ function atualizarContadores() {
   if (elDisponiveis) elDisponiveis.textContent = livres;
   if (elPendentes) elPendentes.textContent = pendentes;
 }
-
 
 function abrirModal() {
   const fundoModal = document.getElementById('modalOverlay');
@@ -294,7 +358,6 @@ function fecharModal() {
   slotSelecionado = null;
 }
 
-// Fechamento do Modal
 const btnFecharModal = document.getElementById('modalClose');
 if (btnFecharModal) btnFecharModal.addEventListener('click', fecharModal);
 
@@ -312,13 +375,11 @@ document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') fecharModal();
 });
 
-// Troca de Abas (Unidade / Modo)
 document.addEventListener('click', function (e) {
   const abaUnidade = e.target.closest('.aba-unidade');
   if (abaUnidade) {
     if (abaUnidade.dataset.unit === unidadeAtual) return;
 
-   
     const ordem = Object.keys(dadosUnidades);
     const direcao = ordem.indexOf(abaUnidade.dataset.unit) > ordem.indexOf(unidadeAtual)
       ? 'direita'
@@ -344,7 +405,6 @@ document.addEventListener('click', function (e) {
   }
 });
 
-// Clique nos Slots da Tabela
 const gridBody = document.getElementById('gridBody');
 if (gridBody) {
   gridBody.addEventListener('click', function (e) {
@@ -386,6 +446,51 @@ if (gridBody) {
     }
 
     if (slot.status === 'livre') {
+      if (modoAtual === 'turno') {
+        const conflitosHora = obterHorasOcupadasNoTurno(sala, dia, chave);
+        if (conflitosHora.length > 0) {
+          const listaConflitos = conflitosHora.map(function (item) {
+            const nome = obterNomeProfissional(item.slot.profissional);
+            const st = item.slot.status === 'pendente' ? 'Pendente' : 'Ocupado';
+            return '• ' + item.hora + ' — <strong>' + nome + '</strong> (' + st + ')';
+          }).join('<br>');
+
+          tituloModal.textContent = 'Conflito de horário';
+          infoModal.innerHTML =
+            cabecalho +
+            '<br><br>Não é possível alocar este turno pois já existe reserva por hora:<br>' +
+            listaConflitos +
+            '<br><br>Libere os horários no modo <strong>Por Hora</strong> para reservar o turno completo.';
+          formularioAlocacao.classList.add('escondido');
+          acoesModal.innerHTML = '<button type="button" class="botao botao-contorno" id="btnFecharConflito">Entendi</button>';
+          document.getElementById('btnFecharConflito').addEventListener('click', fecharModal);
+          abrirModal();
+          return;
+        }
+      } else {
+        const conflitoTurno = obterTurnoOcupadoNaHora(sala, dia, chave);
+        if (conflitoTurno) {
+          let dadosProfTurno = '';
+          if (conflitoTurno.slot.profissional && typeof conflitoTurno.slot.profissional === 'object') {
+            dadosProfTurno = '<br>Profissional: <strong>' + conflitoTurno.slot.profissional.nome + '</strong><br>Telefone: ' + conflitoTurno.slot.profissional.telefone + '<br>E-mail: ' + conflitoTurno.slot.profissional.email;
+          } else {
+            dadosProfTurno = '<br>Profissional: <strong>' + conflitoTurno.slot.profissional + '</strong>';
+          }
+
+          tituloModal.textContent = 'Horário ocupado pelo turno';
+          infoModal.innerHTML =
+            cabecalho +
+            '<br><br>Este horário está bloqueado pelo <strong>Turno ' + rotulosTurno[conflitoTurno.turno] + ' (' + horariosTurno[conflitoTurno.turno] + ')</strong>.' +
+            dadosProfTurno +
+            '<br><br>Para alterar ou liberar, acesse o modo <strong>Por Turno</strong>.';
+          formularioAlocacao.classList.add('escondido');
+          acoesModal.innerHTML = '<button type="button" class="botao botao-contorno" id="btnFecharConflito">Entendi</button>';
+          document.getElementById('btnFecharConflito').addEventListener('click', fecharModal);
+          abrirModal();
+          return;
+        }
+      }
+
       tituloModal.textContent = modoAtual === 'turno' ? 'Alocar horário' : 'Alocar Hora Extra';
       infoModal.innerHTML = cabecalho + '<br>Este horário está disponível.';
       formularioAlocacao.classList.remove('escondido');
@@ -449,9 +554,6 @@ if (gridBody) {
   });
 }
 
-
-
-// Envio do Formulário de Alocação
 const formularioAlocacao = document.getElementById('allocateForm');
 if (formularioAlocacao) {
   formularioAlocacao.addEventListener('submit', function (e) {
@@ -459,6 +561,22 @@ if (formularioAlocacao) {
     if (!slotSelecionado) return;
 
     const sala = dadosUnidades[unidadeAtual].salas.find(function (s) { return s.id === slotSelecionado.idSala; });
+
+    if (slotSelecionado.modo === 'turno') {
+      if (obterHorasOcupadasNoTurno(sala, slotSelecionado.dia, slotSelecionado.chave).length > 0) {
+        alert('Conflito de horário: já existe uma reserva por hora neste turno.');
+        fecharModal();
+        renderizarGrade();
+        return;
+      }
+    } else {
+      if (obterTurnoOcupadoNaHora(sala, slotSelecionado.dia, slotSelecionado.chave)) {
+        alert('Conflito de horário: este horário já está ocupado por um turno.');
+        fecharModal();
+        renderizarGrade();
+        return;
+      }
+    }
 
     const objetoProfissional = {
       nome: document.getElementById('f-nome').value.trim(),
@@ -481,12 +599,8 @@ if (formularioAlocacao) {
   });
 }
 
-
-
-
 renderizarGrade();
 
-// ===== Destaque interativo (hover) =====
 let celulasSaltando = [];
 
 function pararSalto() {
@@ -504,7 +618,7 @@ function iniciarSalto(celulas, classeExtra) {
   pararSalto();
   celulasSaltando = Array.from(celulas);
   celulasSaltando.forEach(function (el, i) {
-    el.style.transitionDelay = (i * 25) + 'ms'; // efeito de "onda"
+    el.style.transitionDelay = (i * 25) + 'ms';
     el.classList.add('salta');
     if (classeExtra) el.classList.add(classeExtra);
   });
@@ -513,14 +627,12 @@ function iniciarSalto(celulas, classeExtra) {
 function tratarHover(e) {
   const alvo = e.target;
 
-
   const th = alvo.closest('thead th[data-dia]');
   if (th) {
     iniciarSalto(document.querySelectorAll('.bloco-horario[data-dia="' + th.dataset.dia + '"]'), 'realce-dia');
     th.classList.add('th-destaque');
     return;
   }
-
 
   const sala = alvo.closest('.linha-cabecalho-sala, .info-sala');
   if (sala && sala.dataset.sala) {
@@ -537,7 +649,6 @@ function tratarHover(e) {
   pararSalto();
 }
 
-
 document.querySelectorAll('thead th').forEach(function (th, i) {
   if (i > 0) th.dataset.dia = diasSemana[i - 1];
 });
@@ -553,23 +664,22 @@ function animarTroca(direcao) {
   if (!corpo) return;
 
   corpo.querySelectorAll('tr').forEach(function (tr, i) {
-    tr.style.animationDelay = (i * 35) + 'ms'; 
+    tr.style.animationDelay = (i * 35) + 'ms';
     tr.classList.add('entra-' + direcao);
   });
 }
-// ===== Adicionar / Remover salas =====
-// Converte "R$ 1.234,56" em número (1234.56)
+
 function lerMoeda(texto) {
   const centavos = parseInt(String(texto).replace(/\D/g, ''), 10) || 0;
   return centavos / 100;
 }
 
-// Máscara: formata enquanto a pessoa digita
 document.querySelectorAll('.input-moeda').forEach(function (campo) {
   campo.addEventListener('input', function () {
     campo.value = formatarMoeda(lerMoeda(campo.value));
   });
 });
+
 function gerarIdSala(nome) {
   const base = nome
     .toLowerCase()
@@ -620,12 +730,12 @@ formSala.addEventListener('submit', function (e) {
     || 'Sala ' + String(unidade.salas.length + 1).padStart(2, '0');
   const tamanho = document.getElementById('s-tamanho').value + 'm²';
 
- const precos = {
-  M: lerMoeda(document.getElementById('s-preco-m').value),
-  T: lerMoeda(document.getElementById('s-preco-t').value),
-  N: lerMoeda(document.getElementById('s-preco-n').value),
-  hora: lerMoeda(document.getElementById('s-preco-h').value)
-};
+  const precos = {
+    M: lerMoeda(document.getElementById('s-preco-m').value),
+    T: lerMoeda(document.getElementById('s-preco-t').value),
+    N: lerMoeda(document.getElementById('s-preco-n').value),
+    hora: lerMoeda(document.getElementById('s-preco-h').value)
+  };
 
   unidade.salas.push(criarSala(gerarIdSala(nome), nome, codigo, tamanho, precos));
 
@@ -667,13 +777,11 @@ document.getElementById('gridBody').addEventListener('click', function (e) {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-
   if (!document.querySelector('script[src*="phosphor-icons"]')) {
     const phScript = document.createElement("script");
     phScript.src = "https://unpkg.com/@phosphor-icons/web";
     document.head.appendChild(phScript);
   }
-
 
   const paginaAtual = window.location.pathname.split("/").pop() || "index.html";
 
